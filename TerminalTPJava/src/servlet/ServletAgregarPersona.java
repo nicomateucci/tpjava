@@ -1,23 +1,31 @@
 package servlet;
 
 import java.io.IOException;
+import java.sql.ResultSet;
+import java.sql.SQLException;
+
+import dataEntities.FactoryConexion;
+
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
-/**
- * Servlet implementation class ServletVenderPasajeInicio
- */
-@WebServlet(description = "Servlet para capturar detalles de la venta del pasaje.", urlPatterns = { "/ServletVenderPasajeInicio" })
-public class ServletVenderPasajeInicio extends HttpServlet {
-	private static final long serialVersionUID = 1L;
+import dataEntities.FactoryConexion;
 
+/**
+ * Servlet implementation class ServletAgregarPersona
+ */
+@WebServlet("/ServletAgregarPersona")
+public class ServletAgregarPersona extends HttpServlet {
+	private static final long serialVersionUID = 1L;
+       
     /**
-     * Default constructor. 
+     * @see HttpServlet#HttpServlet()
      */
-    public ServletVenderPasajeInicio() {
+    public ServletAgregarPersona() {
+        super();
         // TODO Auto-generated constructor stub
     }
 
@@ -26,7 +34,19 @@ public class ServletVenderPasajeInicio extends HttpServlet {
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		// TODO Auto-generated method stub
-		response.getWriter().append("Served at: ").append(request.getContextPath());
+		FactoryConexion fc = FactoryConexion.getInstancia();
+		java.sql.Connection cn = fc.getConn();
+
+		java.sql.Statement stmt = null;
+		ResultSet rs = null;
+
+		try {
+			stmt = cn.createStatement();
+			rs = stmt.executeQuery("insert into Personas() values()");
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
 	}
 
 	/**
