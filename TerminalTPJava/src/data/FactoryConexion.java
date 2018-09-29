@@ -1,4 +1,4 @@
-package dataEntities;
+package data;
 import java.sql.*;
 
 
@@ -9,7 +9,7 @@ public class FactoryConexion {
 	private String port="3306";
 	private String user="usertpjava";
 	private String password="usertpjava";
-	private String db="PruebaJavaConnector";
+	private String db="terminalTPJava";
 	
 	private static FactoryConexion instancia;
 		

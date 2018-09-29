@@ -2,9 +2,32 @@
 <html>
 <head>
 <meta charset="UTF-8">
-<title>Insert title here</title>
+<title>Agregar persona</title>
 </head>
 <body>
-
+	<form method=get action="../ServletAgregarPersona">
+			<table>
+				<tr>
+					<th>Nombre</th>
+					<th>Datos</th>
+				</tr>
+			    <tr>
+			        <td><label for="idProd">Agregar nombre de usuario</label></td>
+			        <td><input type="text" name="texIdProd" /></td>
+			    </tr>
+			    <tr>
+			        <td><label for="descProd">Contraseña</label></td>
+					<td><textarea name="texAreaDescProd"></textarea></td>
+			    </tr>
+			    <tr>
+			        <td><label for="importe">Exito</label></td>
+			        <td><input type="text" name="texImporte" /></td>
+			    </tr>
+			    <tr>
+			    	<td><button  type="submit" value="Ingresar">Agregar persona</button> </td>
+					<td><label onclick="post" for="botTermine">Gracias por usar nuestro sistema</label></td>
+			    </tr>
+			 </table>
+		</form>
 </body>
 </html>

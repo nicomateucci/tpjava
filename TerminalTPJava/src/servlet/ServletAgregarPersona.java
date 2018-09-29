@@ -1,10 +1,7 @@
 package servlet;
 
 import java.io.IOException;
-import java.sql.ResultSet;
 import java.sql.SQLException;
-
-import dataEntities.FactoryConexion;
 
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
@@ -12,7 +9,8 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
-import dataEntities.FactoryConexion;
+import data.FactoryConexion;
+
 
 /**
  * Servlet implementation class ServletAgregarPersona
@@ -34,15 +32,17 @@ public class ServletAgregarPersona extends HttpServlet {
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		// TODO Auto-generated method stub
+		
+		
 		FactoryConexion fc = FactoryConexion.getInstancia();
+		
 		java.sql.Connection cn = fc.getConn();
 
 		java.sql.Statement stmt = null;
-		ResultSet rs = null;
 
 		try {
 			stmt = cn.createStatement();
-			rs = stmt.executeQuery("insert into Personas() values()");
+			stmt.executeUpdate("insert into Persona(dni, nombre, apellido, tipoDni, fechaNac, fechaInicio, contacto) values('39159489', 'Juan', 'Pullaro','DNI','1997-06-24','2016-24-06','')");
 		} catch (SQLException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
