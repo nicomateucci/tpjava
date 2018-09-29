@@ -1,8 +1,12 @@
 package data;
 
+import java.sql.PreparedStatement;
+import java.sql.ResultSet;
 import java.util.Date;
 
+import entities.Conductor;
 import entities.Persona;
+import entities.Usuario;
 
 public class DataPersona {
 
@@ -16,7 +20,7 @@ public class DataPersona {
 	public String nombreUsuario;
 	public String contraseña;
 	public String email;
-	
+
 	public String getDni() {
 		return dni;
 	}
@@ -77,29 +81,63 @@ public class DataPersona {
 	public void setEmail(String email) {
 		this.email = email;
 	}
-	
 
-	
+
+
 	/*
 	public ArrayList<Persona> getAll(){
 		return new ArrayList<Persona>();
 	}*/
-	
-	public Persona getByDni(String dni){
-		return new Persona();
+
+	public Persona getByDni(String dni) throws Exception{
+
+		Persona p=null;
+		PreparedStatement stmt=null;
+		ResultSet rs=null;
+		try {
+			stmt=FactoryConexion.getInstancia().getConn().prepareStatement(
+					"select dni, nombre, apellido, tipoDni, fechaInicio, contacto, nombreUsuario, contraseña, email from persona where dni=?");
+			stmt.setString(1, dni);
+			rs=stmt.executeQuery();
+			if(rs!=null && rs.next()){
+				
+				if (rs.getString("fechaInicio") == null){
+					p = new Usuario();
+				} else {
+					p = new Conductor();
+				}
+				
+				p.setDni(rs.getString("dni"));
+				p.setNombre(rs.getString("nombre"));
+				p.setApellido(rs.getString("apellido"));
+				p.setTipoDni(rs.getString("tipoFni"));
+				p.setFechaNacimiento(rs.getDate("fechaNac"));
+			}
+
+		} catch (Exception e) {
+			throw e;
+		} /*finally{
+			try {
+				if(rs!=null)rs.close();
+				if(stmt!=null)stmt.close();
+				FactoryConexion.getInstancia().releaseConn();
+			} catch (SQLException e) {
+				throw e;
+			}*/
+		return p;
 	}
 	public void add(Persona laPersona){
-		
+
 	}
-	
+
 	public void insert(Persona laPersona){
 
 	}
 	public void update(Persona laPersona){
-		
+
 	}
 	public void delete(Persona elMilaPersonacro){
-		
+
 	}
-	
+
 }
