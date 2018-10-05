@@ -42,7 +42,7 @@ public class ServletAgregarPersona extends HttpServlet {
 
 		try {
 			stmt = cn.createStatement();
-			stmt.executeUpdate("insert into Persona(dni, nombre, apellido, tipoDni, fechaNac, fechaInicio, contacto) values('39159489', 'Juan', 'Pullaro','DNI','1997-06-24','2016-24-06','')");
+			stmt.executeUpdate("insert into Persona(dni, nombre, apellido, tipoDni, fechaNac, fechaInicio, contacto) values('39159489', 'Juan', 'Pullaro','DNI','1997-06-24','2016-06-24','asdf')");
 		} catch (SQLException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();

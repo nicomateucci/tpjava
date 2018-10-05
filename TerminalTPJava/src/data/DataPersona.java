@@ -2,6 +2,7 @@ package data;
 
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
+import java.util.ArrayList;
 import java.util.Date;
 
 import entities.Conductor;
@@ -82,12 +83,10 @@ public class DataPersona {
 		this.email = email;
 	}
 
-
-
-	/*
+	
 	public ArrayList<Persona> getAll(){
 		return new ArrayList<Persona>();
-	}*/
+	}
 
 	public Persona getByDni(String dni) throws Exception{
 
@@ -95,28 +94,33 @@ public class DataPersona {
 		PreparedStatement stmt=null;
 		ResultSet rs=null;
 		try {
-			stmt=FactoryConexion.getInstancia().getConn().prepareStatement(
-					"select dni, nombre, apellido, tipoDni, fechaInicio, contacto, nombreUsuario, contraseña, email from persona where dni=?");
+			stmt=FactoryConexion.getInstancia().getConn().prepareStatement("select * from Persona where dni=?");
 			stmt.setString(1, dni);
 			rs=stmt.executeQuery();
 			if(rs!=null && rs.next()){
 				
 				if (rs.getString("fechaInicio") == null){
 					p = new Usuario();
+					((Usuario) p).setNombreUsuario(rs.getString("nombreUsuario"));
+					((Usuario) p).setContraseña(rs.getString("contraseña"));;
+					((Usuario) p).setEmail(rs.getString("email"));
+					
 				} else {
-					p = new Conductor();
+					 p = new Conductor();
+					 ((Conductor) p).setFechaInicio(rs.getDate("fechaInicio"));
+					 ((Conductor) p).setContacto(rs.getString("contacto"));
 				}
 				
 				p.setDni(rs.getString("dni"));
 				p.setNombre(rs.getString("nombre"));
 				p.setApellido(rs.getString("apellido"));
-				p.setTipoDni(rs.getString("tipoFni"));
+				p.setTipoDni(rs.getString("tipoDni"));
 				p.setFechaNacimiento(rs.getDate("fechaNac"));
 			}
 
 		} catch (Exception e) {
 			throw e;
-		} /*finally{
+		} /*finally{ *****Falta hacer el metodo releaseCon()
 			try {
 				if(rs!=null)rs.close();
 				if(stmt!=null)stmt.close();
@@ -136,7 +140,7 @@ public class DataPersona {
 	public void update(Persona laPersona){
 
 	}
-	public void delete(Persona elMilaPersonacro){
+	public void delete(Persona laPersona){
 
 	}
 

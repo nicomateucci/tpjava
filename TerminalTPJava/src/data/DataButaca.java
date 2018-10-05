@@ -5,6 +5,18 @@ import entities.Butaca;
 public class DataButaca {
 
 	public int numButaca;
+	public int getNumButaca() {
+		return numButaca;
+	}
+	public void setNumButaca(int numButaca) {
+		this.numButaca = numButaca;
+	}
+	public String getDniPersona() {
+		return dniPersona;
+	}
+	public void setDniPersona(String dniPersona) {
+		this.dniPersona = dniPersona;
+	}
 	public String dniPersona;
 
 	

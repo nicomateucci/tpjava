@@ -3,6 +3,9 @@ package entities;
 public class Usuario extends Persona {
 
 	public String nombreUsuario;
+	public String contraseña;
+	public String email;
+	
 	public String getNombreUsuario() {
 		return nombreUsuario;
 	}
@@ -21,8 +24,7 @@ public class Usuario extends Persona {
 	public void setEmail(String email) {
 		this.email = email;
 	}
-	public String contraseña;
-	public String email;
+	
 	
 	
 }
