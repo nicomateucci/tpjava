@@ -30,14 +30,14 @@ public class Persona {
 	public void setTipoDni(String tipoDni) {
 		this.tipoDni = tipoDni;
 	}
-	public Date getFechaNacimiento() {
+	public java.sql.Date getFechaNacimiento() {
 		return fechaNacimiento;
 	}
-	public void setFechaNacimiento(Date fechaNacimiento) {
+	public void setFechaNacimiento(java.sql.Date fechaNacimiento) {
 		this.fechaNacimiento = fechaNacimiento;
 	}
 	public String apellido;
 	public String tipoDni;
-	public Date fechaNacimiento;
+	public java.sql.Date fechaNacimiento;
 
 }

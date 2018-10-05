@@ -1,7 +1,9 @@
 package data;
 
 import java.sql.PreparedStatement;
+
 import java.sql.ResultSet;
+import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.Date;
 
@@ -11,79 +13,6 @@ import entities.Usuario;
 
 public class DataPersona {
 
-	public String dni;
-	public String nombre;
-	public String apellido;
-	public String tipoDni;
-	public Date fechaNacimiento;
-	public Date fechaInicio;
-	public String contacto;
-	public String nombreUsuario;
-	public String contraseña;
-	public String email;
-
-	public String getDni() {
-		return dni;
-	}
-	public void setDni(String dni) {
-		this.dni = dni;
-	}
-	public String getNombre() {
-		return nombre;
-	}
-	public void setNombre(String nombre) {
-		this.nombre = nombre;
-	}
-	public String getApellido() {
-		return apellido;
-	}
-	public void setApellido(String apellido) {
-		this.apellido = apellido;
-	}
-	public String getTipoDni() {
-		return tipoDni;
-	}
-	public void setTipoDni(String tipoDni) {
-		this.tipoDni = tipoDni;
-	}
-	public Date getFechaNacimiento() {
-		return fechaNacimiento;
-	}
-	public void setFechaNacimiento(Date fechaNacimiento) {
-		this.fechaNacimiento = fechaNacimiento;
-	}
-	public Date getFechaInicio() {
-		return fechaInicio;
-	}
-	public void setFechaInicio(Date fechaInicio) {
-		this.fechaInicio = fechaInicio;
-	}
-	public String getContacto() {
-		return contacto;
-	}
-	public void setContacto(String contacto) {
-		this.contacto = contacto;
-	}
-	public String getNombreUsuario() {
-		return nombreUsuario;
-	}
-	public void setNombreUsuario(String nombreUsuario) {
-		this.nombreUsuario = nombreUsuario;
-	}
-	public String getContraseña() {
-		return contraseña;
-	}
-	public void setContraseña(String contraseña) {
-		this.contraseña = contraseña;
-	}
-	public String getEmail() {
-		return email;
-	}
-	public void setEmail(String email) {
-		this.email = email;
-	}
-
-	
 	public ArrayList<Persona> getAll(){
 		return new ArrayList<Persona>();
 	}
@@ -130,8 +59,33 @@ public class DataPersona {
 			}*/
 		return p;
 	}
-	public void add(Persona laPersona){
+	public void add(Usuario per) throws SQLException{
+			
+		PreparedStatement stmt=null;
+		ResultSet keyResultSet=null;
+		try {
+			stmt=FactoryConexion.getInstancia().getConn()
+					.prepareStatement(
+					"insert into persona(dni, nombre, apellido, tipoDni, fechaNac, nombreUsuario, contraseña, email) values (?,?,?,?,?,?,?,?)"
+					);
+			stmt.setString(1, per.getDni());
+			stmt.setString(2, per.getNombre());
+			stmt.setString(3, per.getApellido());
+			stmt.setString(4, per.getTipoDni());
+			//stmt.setDate(5, per.getFechaNacimiento());
+			stmt.setDate(5, per.getFechaNacimiento());
+			stmt.setString(6, per.getNombreUsuario());
+			stmt.setString(7, per.getContraseña());
+			stmt.setString(8, per.getEmail());
+			
+			stmt.executeUpdate();
+		} catch (SQLException e) {
+			throw e;
+		}
+		
+		
 
+		
 	}
 
 	public void insert(Persona laPersona){

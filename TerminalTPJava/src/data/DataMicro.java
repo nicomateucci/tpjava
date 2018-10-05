@@ -4,21 +4,7 @@ import entities.*;
 
 public class DataMicro {
 
-	public String patente;
-	public String dniConductor;
-
-	public String getPatente() {
-		return patente;
-	}
-	public void setPatente(String patente) {
-		this.patente = patente;
-	}
-	public String getDniConductor() {
-		return dniConductor;
-	}
-	public void setDniConductor(String dniConductor) {
-		this.dniConductor = dniConductor;
-	}
+	
 	/*
 	public ArrayList<Micro> getAll(){
 		return new ArrayList<Micro>();

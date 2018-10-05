@@ -6,22 +6,6 @@ import entities.Servicio;
 
 public class DataServicio {
 
-	public int idServicio;
-	public Date fechaHoraServ;
-
-	public int getIdServicio() {
-		return idServicio;
-	}
-	public void setIdServicio(int idServicio) {
-		this.idServicio = idServicio;
-	}
-	public Date getFechaHoraServ() {
-		return fechaHoraServ;
-	}
-	public void setFechaHoraServ(Date fechaHoraServ) {
-		this.fechaHoraServ = fechaHoraServ;
-	}
-	
 	/*
 	public ArrayList<Servicio> getAll(){
 		return new ArrayList<Servicio>();

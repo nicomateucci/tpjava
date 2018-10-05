@@ -16,4 +16,10 @@ public class LogicPersona {
 	public Persona getByDni(String dni) throws Exception{
 		return dataPer.getByDni(dni);
 	}
+	
+	public void add(Persona per){
+		
+		dataPer.add(per);
+		
+	}
 }
