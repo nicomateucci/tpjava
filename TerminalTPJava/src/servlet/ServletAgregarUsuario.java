@@ -15,7 +15,6 @@ import javax.servlet.http.HttpServletResponse;
 import org.apache.taglibs.standard.lang.jpath.example.Person;
 
 import business.LogicPersona;
-import business.LogicUsuario;
 import data.FactoryConexion;
 import entities.Usuario;
 
@@ -45,21 +44,44 @@ public class ServletAgregarUsuario extends HttpServlet {
 
 		
 		Usuario usu = new Usuario();
+		
 		usu.setNombre(request.getParameter("nombre"));
 		usu.setApellido(request.getParameter("apellido"));
 		usu.setDni(request.getParameter("dni"));
 		usu.setTipoDni(request.getParameter("tipoDni"));
-		//Error al parsear el string. Viernes 5 19hs.
-		SimpleDateFormat format = new SimpleDateFormat("dd/MM/yyyy");
-		java.sql.Date date = (Date) format.parse(request.getParameter("fecha"));
 		
-		usu.setFechaNacimiento(date);
+		//----------Parseo de fecha
+		SimpleDateFormat format = new SimpleDateFormat("yyyy-MM-dd");
+		java.util.Date date = null;
+		java.sql.Date sqlDate = null;
+		try {
+			date = format.parse(request.getParameter("fecha"));
+			sqlDate = new java.sql.Date(date.getTime());
+		} catch (ParseException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}  
+		usu.setFechaNacimiento(sqlDate);
+		//----------------------------------------
 		
 		usu.setNombreUsuario(request.getParameter("nombreU"));
 		usu.setContraseña(request.getParameter("password"));
 		usu.setEmail(request.getParameter("mail"));
 		
-		logPer.add(usu);
+		// Ejemplo de fecha dormateada a JAVA.SQL.DATE
+		/*
+		String startDate="23-05-2018";
+		SimpleDateFormat sdf1 = new SimpleDateFormat("dd-mm-yyyy");
+		java.util.Date date = sdf1.parse(startDate);
+		java.sql.Date sqlStartDate = new java.sql.Date(date.getTime());  
+		*/
+		try {
+			logPer.add(usu);
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+
 		
 	}
 

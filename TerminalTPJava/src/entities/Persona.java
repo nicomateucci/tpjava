@@ -6,6 +6,11 @@ public class Persona {
 	
 	public String dni;
 	public String nombre;
+	public String apellido;
+	public String tipoDni;
+	public java.sql.Date fechaNacimiento;
+	
+	
 	public String getDni() {
 		return dni;
 	}
@@ -36,8 +41,5 @@ public class Persona {
 	public void setFechaNacimiento(java.sql.Date fechaNacimiento) {
 		this.fechaNacimiento = fechaNacimiento;
 	}
-	public String apellido;
-	public String tipoDni;
-	public java.sql.Date fechaNacimiento;
 
 }
