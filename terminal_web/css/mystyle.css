@@ -1,0 +1,32 @@
+.search-bar{
+  font-family: 'Montserrat';
+  width: 60%;
+  box-sizing: border-box;
+  border: 2px solid #ccc;
+  border-radius: 4px;
+  font-size: 16px;
+  background-color: white;
+  opacity: 0.8;
+  background-image: url('searchicon.png');
+  background-position: 10px 10px; 
+  background-repeat: no-repeat;
+  padding: 10px 10px 5px 10px;
+  margin-bottom: 25px;
+  opacity: 90%;
+}
+
+.into-heading2{
+  color: white;
+}
+
+.btn-secondary {
+  font-color: white;
+  background-color: #fed136;
+  border-color: #fed136;
+}
+
+.user{
+  color:white;
+  font-size: 24px;
+  padding: 10px 10px 5px 10px;
+}
