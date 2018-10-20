@@ -4,7 +4,9 @@ import java.sql.*;
 
 public class FactoryConexion {
 	
-	private String driver="com.mysql.jdbc.Driver";
+	//Me tiro el error que el driver com.mysql.jdbc.Driver esta obsoleto, de todas froams, funciono la conexion.
+	//private String driver="com.mysql.jdbc.Driver";
+	private String driver="com.mysql.cj.jdbc.Driver";
 	private String host="localhost";
 	private String port="3306";
 	private String user="usertpjava";

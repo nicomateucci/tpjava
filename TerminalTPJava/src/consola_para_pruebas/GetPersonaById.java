@@ -7,7 +7,7 @@ public class GetPersonaById {
 
 	public static void main(String[] args) throws Exception {
 		// TODO Auto-generated method stub
-		String dni = "37829123";
+		String dni = "39052011";
 		DataPersona dataPer = new DataPersona();
 		Usuario per = null;
 		

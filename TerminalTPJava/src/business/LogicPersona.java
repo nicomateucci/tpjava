@@ -22,7 +22,7 @@ public class LogicPersona {
 	//Sobrecargue el metodo add porque sino me salia el error de que en DataPersona no existe el 
 	//metodo add que acepte una persona como argumento.
 	public void add(Usuario per) throws SQLException {
-		
+		dataPer = new DataPersona();
 		dataPer.add(per);
 		
 	}

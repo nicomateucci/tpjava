@@ -50,6 +50,7 @@ public class ServletAgregarUsuario extends HttpServlet {
 		usu.setDni(request.getParameter("dni"));
 		usu.setTipoDni(request.getParameter("tipoDni"));
 		
+		
 		//----------Parseo de fecha
 		SimpleDateFormat format = new SimpleDateFormat("yyyy-MM-dd");
 		java.util.Date date = null;
