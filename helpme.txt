@@ -1,0 +1,66 @@
+Comandos git:
+
+	1 Clonar repositorio
+		$ git clone https://www.github.com/"ubicacion del repositorio" (Ejemplo https://www.github.com/nicomateucci/tpjava)
+
+	2 Subir cambios a un repositorio
+		$ git add -A (Agrega cambios)
+
+		$ git commit -m "Descripcion del commit entre comillas"
+
+		$ git push
+
+Comandos mysql:
+
+	* Solucion a error al intentar entrar a la base de datos desde Workbench ("Acces denied to root@localhost"):
+
+	Hay que setear usuario root con mysql_native_password 
+		$ sudo mysql -u root -p
+ 			USE mysql; 
+			SELECT User, Host, plugin FROM mysql.user; 
+			UPDATE user SET plugin='mysql_native_password' WHERE User='root';
+			FLUSH PRIVILEGES;
+			exit; 
+		$ systemctl restart mysql.service (Reiniciar servicio de mysql)
+
+	1 Entrar a base de datos desde consola
+		$ mysql -u nombreDeUsuario -pcontraseña 
+						*IMPORTANTE(Sin espacio despues de "-p")
+		
+
+	2 Agregar un usuario y otorgarle permisos completos
+		mysql> CREATE USER 'nombre_usuario'@'localhost' IDENTIFIED BY 'tu_contrasena';
+		mysql> GRANT ALL PRIVILEGES ON * . * TO 'nombre_usuario'@'localhost';
+		mysql> FLUSH PRIVILEGES;
+
+		Tipos de privilegios:
+	  
+		    ALL PRIVILEGES: 	acceso a todas las bases de datos.
+		    CREATE: 		permite crear nuevas tablas o bases de datos.
+		    DROP: 		permite eliminar tablas o bases de datos.
+		    DELETE: 		permite eliminar registros de tablas.
+		    INSERT: 		permite insertar registros en tablas.
+		    SELECT: 		permite leer registros en las tablas.
+		    UPDATE: 		permite actualizar registros seleccionados en tablas.
+		    GRANT OPTION: 	permite remover privilegios de usuarios.
+
+		mysql> GRANT [permiso] ON [nombre de bases de datos].[nombre de tabla] TO ‘[nombre de usuario]’@'localhost’;
+		mysql> FLUSH PRIVILEGES;
+
+		*Para remover un permiso en lugar de GRANT se usa REVOKE.	
+
+	3 Borrar un usuario
+		mysql> DROP USER ‘usuario_prueba’@‘localhost’;
+
+	4 Exportar e importar script sql
+		$ mysqldump –u usuario_mysql -p nombre_bbdd > fichero_exportación.sql
+
+			ERROR: Exportando asi no se crea la BD, solo las tablas, 
+			y ademas no ordena los CREATE TABLE segun necesita para las claves foraneas.
+
+		$ mysql -u root -p -t < employees.sql
+		
+	5 select, insert, update y delete
+
+	
+

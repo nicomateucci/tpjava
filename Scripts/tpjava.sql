@@ -16,8 +16,79 @@
 /*!40111 SET @OLD_SQL_NOTES=@@SQL_NOTES, SQL_NOTES=0 */;
 
 --
+-- Estructura de base de datos y permisos de usuario
+--
+
+DROP USER IF EXISTS 'usertpjava'@'localhost';
+CREATE USER 'usertpjava'@'localhost' IDENTIFIED BY 'usertpjava';
+GRANT ALL PRIVILEGES ON * . * TO 'usertpjava'@'localhost';
+FLUSH PRIVILEGES;
+DROP SCHEMA IF EXISTS terminalTPJava;
+CREATE SCHEMA terminalTPJava;
+USE terminalTPJava; 
+
+
+--
+-- Table structure for table `Persona`
+--
+
+DROP TABLE IF EXISTS `Persona`;
+/*!40101 SET @saved_cs_client     = @@character_set_client */;
+ SET character_set_client = utf8mb4 ;
+CREATE TABLE `Persona` (
+  `dni` varchar(45) NOT NULL,
+  `nombre` varchar(45) DEFAULT NULL,
+  `apellido` varchar(45) DEFAULT NULL,
+  `tipoDni` varchar(5) DEFAULT NULL,
+  `fechaNac` date DEFAULT NULL,
+  `fechaInicio` date DEFAULT NULL,
+  `contacto` varchar(45) DEFAULT NULL,
+  `nombreUsuario` varchar(45) DEFAULT NULL,
+  `contraseña` varchar(45) DEFAULT NULL,
+  `email` varchar(45) DEFAULT NULL,
+  PRIMARY KEY (`dni`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+/*!40101 SET character_set_client = @saved_cs_client */;
+
+--
+-- Dumping data for table `Persona`
+--
+
+LOCK TABLES `Persona` WRITE;
+/*!40000 ALTER TABLE `Persona` DISABLE KEYS */;
+/*!40000 ALTER TABLE `Persona` ENABLE KEYS */;
+UNLOCK TABLES;
+
+--
+-- Table structure for table `Servicio`
+--
+
+DROP TABLE IF EXISTS `Servicio`;
+/*!40101 SET @saved_cs_client     = @@character_set_client */;
+ SET character_set_client = utf8mb4 ;
+CREATE TABLE `Servicio` (
+  `idServicio` int(11) NOT NULL,
+  `fechaHoraServ` datetime DEFAULT NULL,
+  PRIMARY KEY (`idServicio`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+/*!40101 SET character_set_client = @saved_cs_client */;
+
+--
+-- Dumping data for table `Servicio`
+--
+
+LOCK TABLES `Servicio` WRITE;
+/*!40000 ALTER TABLE `Servicio` DISABLE KEYS */;
+/*!40000 ALTER TABLE `Servicio` ENABLE KEYS */;
+UNLOCK TABLES;
+
+
+
+--
 -- Table structure for table `Butaca`
 --
+
+
 
 DROP TABLE IF EXISTS `Butaca`;
 /*!40101 SET @saved_cs_client     = @@character_set_client */;
@@ -147,37 +218,6 @@ LOCK TABLES `MicroServicio` WRITE;
 UNLOCK TABLES;
 
 --
--- Table structure for table `Persona`
---
-
-DROP TABLE IF EXISTS `Persona`;
-/*!40101 SET @saved_cs_client     = @@character_set_client */;
- SET character_set_client = utf8mb4 ;
-CREATE TABLE `Persona` (
-  `dni` varchar(45) NOT NULL,
-  `nombre` varchar(45) DEFAULT NULL,
-  `apellido` varchar(45) DEFAULT NULL,
-  `tipoDni` varchar(5) DEFAULT NULL,
-  `fechaNac` date DEFAULT NULL,
-  `fechaInicio` date DEFAULT NULL,
-  `contacto` varchar(45) DEFAULT NULL,
-  `nombreUsuario` varchar(45) DEFAULT NULL,
-  `contraseña` varchar(45) DEFAULT NULL,
-  `email` varchar(45) DEFAULT NULL,
-  PRIMARY KEY (`dni`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8;
-/*!40101 SET character_set_client = @saved_cs_client */;
-
---
--- Dumping data for table `Persona`
---
-
-LOCK TABLES `Persona` WRITE;
-/*!40000 ALTER TABLE `Persona` DISABLE KEYS */;
-/*!40000 ALTER TABLE `Persona` ENABLE KEYS */;
-UNLOCK TABLES;
-
---
 -- Table structure for table `PersonaServicio`
 --
 
@@ -201,29 +241,6 @@ CREATE TABLE `PersonaServicio` (
 LOCK TABLES `PersonaServicio` WRITE;
 /*!40000 ALTER TABLE `PersonaServicio` DISABLE KEYS */;
 /*!40000 ALTER TABLE `PersonaServicio` ENABLE KEYS */;
-UNLOCK TABLES;
-
---
--- Table structure for table `Servicio`
---
-
-DROP TABLE IF EXISTS `Servicio`;
-/*!40101 SET @saved_cs_client     = @@character_set_client */;
- SET character_set_client = utf8mb4 ;
-CREATE TABLE `Servicio` (
-  `idServicio` int(11) NOT NULL,
-  `fechaHoraServ` datetime DEFAULT NULL,
-  PRIMARY KEY (`idServicio`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8;
-/*!40101 SET character_set_client = @saved_cs_client */;
-
---
--- Dumping data for table `Servicio`
---
-
-LOCK TABLES `Servicio` WRITE;
-/*!40000 ALTER TABLE `Servicio` DISABLE KEYS */;
-/*!40000 ALTER TABLE `Servicio` ENABLE KEYS */;
 UNLOCK TABLES;
 
 --
