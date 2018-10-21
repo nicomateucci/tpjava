@@ -1,4 +1,4 @@
-package uiconsolePARA_PRUEBAS_A_BD;
+package consola_para_pruebas;
 
 import java.sql.SQLException;
 import java.text.ParseException;

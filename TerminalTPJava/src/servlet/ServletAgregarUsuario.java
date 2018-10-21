@@ -50,9 +50,9 @@ public class ServletAgregarUsuario extends HttpServlet {
 		usu.setDni(request.getParameter("dni"));
 		usu.setTipoDni(request.getParameter("tipoDni"));
 		
-		
+		/*
 		//----------Parseo de fecha
-		SimpleDateFormat format = new SimpleDateFormat("yyyy-MM-dd");
+		SimpleDateFormat format = new SimpleDateFormat("dd-MM-yyyy");
 		java.util.Date date = null;
 		java.sql.Date sqlDate = null;
 		try {
@@ -62,7 +62,7 @@ public class ServletAgregarUsuario extends HttpServlet {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}  
-		usu.setFechaNacimiento(sqlDate);
+		usu.setFechaNacimiento(sqlDate);*/
 		//----------------------------------------
 		
 		usu.setNombreUsuario(request.getParameter("nombreU"));
@@ -79,8 +79,10 @@ public class ServletAgregarUsuario extends HttpServlet {
 		try {
 			logPer.add(usu);
 		} catch (SQLException e) {
-			// TODO Auto-generated catch block
 			e.printStackTrace();
+		}
+		finally {
+			response.sendRedirect("./AgregarPersona.html");
 		}
 
 		

@@ -1,4 +1,4 @@
-package uiconsolePARA_PRUEBAS_A_BD;
+package consola_para_pruebas;
 
 import data.DataPersona;
 import entities.Usuario;
