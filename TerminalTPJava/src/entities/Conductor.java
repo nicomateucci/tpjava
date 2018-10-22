@@ -1,17 +1,15 @@
 package entities;
 
-import java.util.Date;
-
 public class Conductor extends Persona{
 	
-	public Date fechaInicio;
+	public java.sql.Date fechaInicio;
 	public String contacto;
 	
 	
-	public Date getFechaInicio() {
+	public java.sql.Date getFechaInicio() {
 		return fechaInicio;
 	}
-	public void setFechaInicio(Date fechaInicio) {
+	public void setFechaInicio(java.sql.Date fechaInicio) {
 		this.fechaInicio = fechaInicio;
 	}
 	public String getContacto() {

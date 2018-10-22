@@ -27,8 +27,13 @@ public class LogicPersona {
 		
 	}
 	public void add(Conductor per) throws SQLException {
-		
+		dataPer = new DataPersona();
 		dataPer.add(per);
 		
+	}
+	public Usuario getLogedUser(Usuario u) throws Exception {
+		dataPer = new DataPersona();
+		return dataPer.getLogedUser(u);
+
 	}
 }

@@ -94,18 +94,48 @@ public class DataPersona {
 			stmt.setString(2, per.getNombre());
 			stmt.setString(3, per.getApellido());
 			stmt.setString(4, per.getTipoDni());
-			//stmt.setDate(5, per.getFechaNacimiento());
 			stmt.setDate(5, per.getFechaNacimiento());
-			//stmt.setString(6, per.getFechaInicio());
+			stmt.setDate(6, per.getFechaInicio());
 			stmt.setString(7, per.getContacto());
 			stmt.executeUpdate();
 		} catch (SQLException e) {
 			throw e;
 		}
+	}
 
+	public Usuario getLogedUser(Usuario per) throws Exception{
+		Usuario u = null;
+		PreparedStatement stmt = null;
+		ResultSet rs = null;
+		try {
+			stmt=FactoryConexion.getInstancia().getConn().prepareStatement(
+					"select dni, nombre, apellido, tipoDni, fechaNacimiento, email from Persona where nombreUsuario=? and contraseña=?");
+			stmt.setString(1, u.getNombreUsuario());
+			stmt.setString(2, u.getContraseña());
+			rs=stmt.executeQuery();
+			if(rs!=null && rs.next()){
+				u = new Usuario();
+				u.setDni(rs.getString("dni"));
+				u.setNombre(rs.getString("nombre"));
+				u.setApellido(rs.getString("apellido"));
+				u.setTipoDni(rs.getString("tipoDni"));
+				u.setFechaNacimiento(rs.getDate("fechaNacimiento"));
+				u.setEmail(rs.getString("email"));
+			}
 
+		} catch (Exception e) {
+			throw e;
+		} finally{
+			try {
+				if(rs != null)rs.close();
+				if(stmt != null)stmt.close();/*
+				FactoryConexion.getInstancia().releaseConn();*/
+			} catch (SQLException e) {
+				throw e;
+			}
+		}
 
-
+		return u;
 	}
 
 	public void insert(Persona laPersona){
