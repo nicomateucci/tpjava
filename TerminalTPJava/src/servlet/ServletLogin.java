@@ -6,6 +6,7 @@ import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.swing.JOptionPane;
 
 import business.LogicPersona;
 import entities.Usuario;
@@ -38,7 +39,15 @@ public class ServletLogin extends HttpServlet {
 		try {
 			Usuario userOk = logPer.getLogedUser(user);
 			if(userOk != null) {
+				JOptionPane.showMessageDialog(null, "Ingreso correcto");	
+				System.out.println("Se encontro el usuario");
+				response.sendRedirect("./index.html");
 				
+				
+			}else {
+				JOptionPane.showMessageDialog(null, "No se encontro es usuario ingresado");
+				System.out.println("No se encontro al usuario");
+				response.sendRedirect("./pages/LoginUsuario.html");
 			}
 			
 			

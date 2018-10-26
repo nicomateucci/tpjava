@@ -1,7 +1,5 @@
 package entities;
 
-import java.util.Date;
-
 public class Persona {
 	
 	public String dni;
