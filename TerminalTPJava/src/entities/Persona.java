@@ -9,8 +9,15 @@ public class Persona {
 	public String apellido;
 	public String tipoDni;
 	public java.sql.Date fechaNacimiento;
+	public boolean esAdmin;
 	
 	
+	public boolean getEsAdmin() {
+		return esAdmin;
+	}
+	public void setEsAdmin(boolean esAdmin) {
+		this.esAdmin = esAdmin;
+	}
 	public String getDni() {
 		return dni;
 	}

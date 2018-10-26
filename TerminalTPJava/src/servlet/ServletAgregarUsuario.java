@@ -81,11 +81,8 @@ public class ServletAgregarUsuario extends HttpServlet {
 		} catch (SQLException e) {
 			e.printStackTrace();
 		}
-		finally {
-			response.sendRedirect("./AgregarPersona.html");
-		}
-
-		
+		System.out.println("test");
+		response.sendRedirect("pages/AgregarPersona.html");
 	}
 
 	/**

@@ -65,7 +65,7 @@ public class DataPersona {
 		try {
 			stmt=FactoryConexion.getInstancia().getConn()
 					.prepareStatement(
-							"insert into Persona(dni, nombre, apellido, tipoDni, fechaNac, nombreUsuario, contraseña, email)  values (?,?,?,?,?,?,?,?)"
+							"insert into Persona(dni, nombre, apellido, tipoDni, fechaNac, nombreUsuario, contraseña, email, esAdmin)  values (?,?,?,?,?,?,?,?,?)"
 							);
 			stmt.setString(1, per.getDni());
 			stmt.setString(2, per.getNombre());
@@ -75,6 +75,7 @@ public class DataPersona {
 			stmt.setString(6, per.getNombreUsuario());
 			stmt.setString(7, per.getContraseña());
 			stmt.setString(8, per.getEmail());
+			stmt.setBoolean(9,((Persona) per).getEsAdmin());
 
 			stmt.executeUpdate();
 		} catch (SQLException e) {
