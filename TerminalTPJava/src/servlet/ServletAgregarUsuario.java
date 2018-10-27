@@ -17,6 +17,7 @@ import org.apache.taglibs.standard.lang.jpath.example.Person;
 import business.LogicPersona;
 import data.FactoryConexion;
 import entities.Usuario;
+import util.AppDataException;
 
 
 /**
@@ -26,23 +27,13 @@ import entities.Usuario;
 public class ServletAgregarUsuario extends HttpServlet {
 	private static final long serialVersionUID = 1L;
        
-    /**
-     * @see HttpServlet#HttpServlet()
-     */
     public ServletAgregarUsuario() {
         super();
-        // TODO Auto-generated constructor stub
     }
 
-	/**
-	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)
-	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		//stmt = cn.createStatement();
-		//stmt.executeUpdate("insert into Persona(dni, nombre, apellido, tipoDni, fechaNac, fechaInicio, contacto) values('39159489', 'Juan', 'Pullaro','DNI','1997-06-24','2016-06-24','asdf')");
-		LogicPersona logPer = new LogicPersona();
-
 		
+		LogicPersona logPer = new LogicPersona();
 		Usuario usu = new Usuario();
 		
 		usu.setNombre(request.getParameter("nombre"));
@@ -77,7 +68,12 @@ public class ServletAgregarUsuario extends HttpServlet {
 		java.sql.Date sqlStartDate = new java.sql.Date(date.getTime());  
 		*/
 		try {
-			logPer.add(usu);
+			try {
+				logPer.add(usu);
+			} catch (AppDataException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
 		} catch (SQLException e) {
 			e.printStackTrace();
 		}

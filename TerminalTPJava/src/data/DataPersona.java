@@ -10,6 +10,7 @@ import java.util.Date;
 import entities.Conductor;
 import entities.Persona;
 import entities.Usuario;
+import util.AppDataException;
 
 public class DataPersona {
 
@@ -17,7 +18,7 @@ public class DataPersona {
 		return new ArrayList<Persona>();
 	}
 
-	public Persona getByDni(String dni) throws SQLException{
+	public Persona getByDni(String dni) throws SQLException, AppDataException{
 
 		Persona p=null;
 		PreparedStatement stmt=null;
@@ -59,7 +60,7 @@ public class DataPersona {
 			}*/
 		return p;
 	}
-	public void add(Usuario per) throws SQLException{
+	public void add(Usuario per) throws SQLException, AppDataException{
 
 		PreparedStatement stmt=null;
 		try {
@@ -83,7 +84,7 @@ public class DataPersona {
 		}
 	}
 
-	public void add(Conductor per) throws SQLException{
+	public void add(Conductor per) throws SQLException, AppDataException{
 
 		PreparedStatement stmt=null;
 		try {
@@ -100,7 +101,7 @@ public class DataPersona {
 			stmt.setString(7, per.getContacto());
 			stmt.executeUpdate();
 		} catch (SQLException e) {
-			throw e;
+			throw new AppDataException(e, "Error en al conexion a la base de datos");
 		}
 	}
 

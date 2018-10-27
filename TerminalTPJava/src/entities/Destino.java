@@ -2,13 +2,13 @@ package entities;
 
 public class Destino {
 	
-	public int codigo;
+	public int idDestino;
 	public String localidad;
-	public int getCodigo() {
-		return codigo;
+	public int getIdDestino() {
+		return idDestino;
 	}
-	public void setCodigo(int codigo) {
-		this.codigo = codigo;
+	public void setIdDestino(int codigo) {
+		this.idDestino = codigo;
 	}
 	public String getLocalidad() {
 		return localidad;
