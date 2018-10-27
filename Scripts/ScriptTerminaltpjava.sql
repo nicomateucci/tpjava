@@ -59,6 +59,7 @@ ENGINE = InnoDB;
 
 SHOW WARNINGS;
 
+
 -- -----------------------------------------------------
 -- Table `terminalTPJava`.`ServicioDestino`
 -- -----------------------------------------------------
@@ -72,7 +73,14 @@ CREATE TABLE IF NOT EXISTS `terminalTPJava`.`ServicioDestino` (
   PRIMARY KEY (`idServicio`, `idDestino`))
 ENGINE = InnoDB;
 
+ALTER TABLE `terminalTPJava`.`ServicioDestino` 
+ADD COLUMN `idTabla` INT NOT NULL AUTO_INCREMENT AFTER `precio`,
+DROP PRIMARY KEY,
+ADD PRIMARY KEY (`idTabla`, `idDestino`);
+
 SHOW WARNINGS;
+
+
 
 -- -----------------------------------------------------
 -- Table `terminalTPJava`.`Persona`
