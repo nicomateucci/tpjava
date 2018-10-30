@@ -46,5 +46,12 @@ public class Persona {
 	public void setFechaNacimiento(java.sql.Date fechaNacimiento) {
 		this.fechaNacimiento = fechaNacimiento;
 	}
+	public boolean esAdmin() {
+		if(this.getEsAdmin()){
+			return true;
+		}else {
+			return false;
+		}
+	}
 
 }

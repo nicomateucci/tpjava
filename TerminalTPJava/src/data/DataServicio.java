@@ -30,8 +30,9 @@ public class DataServicio {
 			stmt.setInt(2, destino.getIdDestino());
 			rs=stmt.executeQuery();
 			ss = new ArrayList<Servicio>();
-			if(rs!=null && rs.next()){
-
+			int i = 0;
+			while(rs!=null && rs.next()){
+				i++;
 				s = new Servicio();
 				
 				s.setIdServicio(rs.getInt("idServicio"));
@@ -54,10 +55,6 @@ public class DataServicio {
 		return ss;
 	}
 	
-	public ArrayList<Servicio> getAllByDestinos(int idPartida, int idLlegada, java.sql.Date fecha) {
-		
-		return new ArrayList<Servicio>();
-	}
 	public Servicio getById(int idServicio) throws SQLException, AppDataException{
 		
 		Servicio s=null;

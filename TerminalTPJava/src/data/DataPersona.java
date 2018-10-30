@@ -111,7 +111,7 @@ public class DataPersona {
 		ResultSet rs = null;
 		try {
 			stmt=FactoryConexion.getInstancia().getConn().prepareStatement(
-					"select dni, nombre, apellido, tipoDni, fechaNac, email from Persona where nombreUsuario=? and contraseña=?");
+					"select dni, nombre, apellido, tipoDni, fechaNac, email, esAdmin from Persona where nombreUsuario=? and contraseña=?");
 			stmt.setString(1, per.getNombreUsuario());
 			stmt.setString(2, per.getContraseña());
 			rs=stmt.executeQuery();
@@ -123,6 +123,7 @@ public class DataPersona {
 				u.setTipoDni(rs.getString("tipoDni"));
 				u.setFechaNacimiento(rs.getDate("fechaNac"));
 				u.setEmail(rs.getString("email"));
+				u.setEsAdmin(rs.getBoolean("esAdmin"));
 			}
 
 		} catch (Exception e) {

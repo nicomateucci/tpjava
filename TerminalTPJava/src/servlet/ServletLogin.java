@@ -17,21 +17,21 @@ import entities.Usuario;
 @WebServlet(description = "Server para manejar el login al sistema.", urlPatterns = { "/ServletLogin" })
 public class ServletLogin extends HttpServlet {
 	private static final long serialVersionUID = 1L;
-       
-    /**
-     * @see HttpServlet#HttpServlet()
-     */
-    public ServletLogin() {
-        super();
-        // TODO Auto-generated constructor stub
-    }
+
+	/**
+	 * @see HttpServlet#HttpServlet()
+	 */
+	public ServletLogin() {
+		super();
+		// TODO Auto-generated constructor stub
+	}
 
 	/**
 	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		// TODO Auto-generated method stub
-		
+
 		Usuario user = new Usuario();
 		LogicPersona logPer = new LogicPersona();
 		user.setNombreUsuario(request.getParameter("textUsuario"));
@@ -39,23 +39,27 @@ public class ServletLogin extends HttpServlet {
 		try {
 			Usuario userOk = logPer.getLogedUser(user);
 			if(userOk != null) {
-				JOptionPane.showMessageDialog(null, "Ingreso correcto");	
-				System.out.println("Se encontro el usuario");
-				response.sendRedirect("./index.html");
-				
-				
+				if(userOk.esAdmin()) {
+					JOptionPane.showMessageDialog(null, "Usted ingreso como administrador");
+					response.sendRedirect("./pages/adminPage.html");
+				}else {
+					JOptionPane.showMessageDialog(null, "Ingreso correcto");	
+					response.sendRedirect("./index.html");
+				}
+
+
 			}else {
 				JOptionPane.showMessageDialog(null, "No se encontro es usuario ingresado");
 				System.out.println("No se encontro al usuario");
 				response.sendRedirect("./pages/LoginUsuario.html");
 			}
-			
-			
+
+
 		} catch (Exception e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
-	
+
 	}
 
 	/**
