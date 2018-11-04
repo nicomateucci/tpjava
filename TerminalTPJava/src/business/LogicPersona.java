@@ -18,6 +18,7 @@ public class LogicPersona {
 	}
 
 	public Persona getByDni(String dni) throws Exception{
+		dataPer = new DataPersona();
 		return dataPer.getByDni(dni);
 	}
 	//Sobrecargue el metodo add porque sino me salia el error de que en DataPersona no existe el 

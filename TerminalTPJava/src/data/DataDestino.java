@@ -4,8 +4,13 @@ package data;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.util.ArrayList;
 
+import entities.Conductor;
 import entities.Destino;
+import entities.DestinoDirecto;
+import entities.Persona;
+import entities.Usuario;
 import util.AppDataException;
 
 public class DataDestino {
@@ -44,12 +49,7 @@ public class DataDestino {
 		}
 		return d;
 	}
-	/*
-	public ArrayList<Destino> getAll(){
-		return new ArrayList<Destino>();
-	}*/
 		
-	
 	public void insert(Destino elDestino){
 
 	}
@@ -59,5 +59,42 @@ public class DataDestino {
 	public void delete(Destino elDestino){
 		
 	}
-	
+	public ArrayList<Destino> getAll() throws SQLException, AppDataException {
+		
+		ArrayList<Destino> dd= new ArrayList<Destino>();
+		PreparedStatement stmt=null;
+		ResultSet rs=null;
+		try {
+			stmt=FactoryConexion.getInstancia().getConn().prepareStatement("select * from Destino");
+			rs=stmt.executeQuery();
+			while(rs!=null && rs.next()){
+				double pAumento = rs.getDouble("porcentajeAumento");
+				if(pAumento != 0) {
+					DestinoDirecto d = new DestinoDirecto();
+					d.setPorcentajeAumento(pAumento);
+					d.setIdDestino(rs.getInt("idDestino"));
+					d.setLocalidad(rs.getString("localidad"));
+					dd.add(d);
+					
+				} else {
+					Destino d = new Destino();
+					d.setIdDestino(rs.getInt("idDestino"));
+					d.setLocalidad(rs.getString("localidad"));
+					dd.add(d);
+				}	
+			}
+			return dd;
+
+		} catch (SQLException e) {
+			throw e;
+		} finally{
+			try {
+				if(rs!=null)rs.close();
+				if(stmt!=null)stmt.close();
+				FactoryConexion.getInstancia().releaseConn();
+			} catch (SQLException e) {
+				throw e;
+			}
+		}
+	}
 }

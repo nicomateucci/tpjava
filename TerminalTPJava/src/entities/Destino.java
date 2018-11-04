@@ -1,7 +1,13 @@
 package entities;
 
-public class Destino {
+import java.io.Serializable;
+
+public class Destino implements Serializable{
 	
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 1L;
 	public int idDestino;
 	public String localidad;
 	public int getIdDestino() {
@@ -16,12 +22,6 @@ public class Destino {
 	public void setLocalidad(String localidad) {
 		this.localidad = localidad;
 	}
-	public float getPrecio() {
-		return precio;
-	}
-	public void setPrecio(float precio) {
-		this.precio = precio;
-	}
-	public float precio;
+	public Destino() {}
 
 }

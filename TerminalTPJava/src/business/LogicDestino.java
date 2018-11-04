@@ -1,6 +1,7 @@
 package business;
 
 import java.sql.SQLException;
+import java.util.ArrayList;
 
 import data.DataDestino;
 import entities.Destino;
@@ -15,4 +16,8 @@ public class LogicDestino {
 		return dataDes.getByNombre(nombre);
 	}
 
+	public ArrayList<Destino> getAll() throws SQLException, AppDataException{
+		dataDes = new DataDestino();
+		return dataDes.getAll();
+	}
 }

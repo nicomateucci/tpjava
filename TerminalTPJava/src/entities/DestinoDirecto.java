@@ -1,14 +1,18 @@
 package entities;
 
-public class DestinoDirecto {
+public class DestinoDirecto extends Destino{
 	
-	public float porcentajeAumento;
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 1L;
+	public double porcentajeAumento;
 
-	public float getPorcentajeAumento() {
+	public double getPorcentajeAumento() {
 		return porcentajeAumento;
 	}
 
-	public void setPorcentajeAumento(float porcentajeAumento) {
+	public void setPorcentajeAumento(double porcentajeAumento) {
 		this.porcentajeAumento = porcentajeAumento;
 	}
 

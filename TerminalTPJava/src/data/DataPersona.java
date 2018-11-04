@@ -50,14 +50,15 @@ public class DataPersona {
 
 		} catch (SQLException e) {
 			throw e;
-		} /*finally{ *****Falta hacer el metodo releaseCon()
+		} finally{
 			try {
 				if(rs!=null)rs.close();
 				if(stmt!=null)stmt.close();
 				FactoryConexion.getInstancia().releaseConn();
 			} catch (SQLException e) {
 				throw e;
-			}*/
+			}
+		}
 		return p;
 	}
 	public void add(Usuario per) throws SQLException, AppDataException{
