@@ -1,15 +1,14 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
 <%@page import="java.util.ArrayList"%>
-<%@page import="entities.Destino"%>
-<%@page import="entities.DestinoDirecto"%>
+<%@page import="java.sql.ResultSet"%>
 <!DOCTYPE html>
 <html>
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-    <title>Pagina de administracion de Destinos</title>
+    <title>Pagina de administracion de Servicios</title>
 
     <!-- Bootstrap core CSS -->
     <link href="assets/css/bootstrap.css" rel="stylesheet">
@@ -153,32 +152,35 @@
 	      			<div class="container main-chart">
 	      				<table class="table table-striped table-bordered">
 	      				<tr>
-	      					<th>  Id </th>
-	      					<th> Localidad </th>
-	      					<th> Aumento </th>
-	      					<th> Tipo </th>
+	      					<th> Id </th>
+	      					<th> Fecha </th>
+	      					<th> Hora partida </th>
+	      					<th> Destinos </th>
+	      					<th> Micro </th>
+	      					<th> Marca</th>th>
+	      					<th> Conductor </th> <!-- Concatenar nombre y apellido -->
+	      					<th> Refuerzo </th><!-- Si o no -->
+	      					<th> Asientos vendidos </th>
+	      					<th> Asientos disponibles </th>
 	      				</tr>
 	      				<%
-						ArrayList<Destino> listaDes= (ArrayList<Destino>)request.getSession().getAttribute("listaDestinos");
-						for(Destino d : listaDes){
-							if(d.getClass() == DestinoDirecto.class) {
+	      				ResultSet rs = (ResultSet) request.getSession().getAttribute("detallesServicios");
+	      				while(rs!=null && rs.next()){
 						%>
 						<tr>
-							<td><%= d.getIdDestino() %></td>
-							<td><%= d.getLocalidad() %></td>
-							<td><%= ((DestinoDirecto) d).getPorcentajeAumento()%></td>
-							<td><%= d.getClass().toString().substring(15) %></td>
-							
-						</tr>
-						<%  } else { %>
-						<tr>
-							<td><%= d.getIdDestino() %></td>
-							<td><%= d.getLocalidad() %></td>
-							<td><%= 0.0  %></td>
-							<td><%= d.getClass().toString().substring(15) %></td>
+							<td><%= rs.getInt("idServicio")%></td>
+							<td><%= rs.getDate("fechaServicio")%></td>
+							<td><%= rs.getString("horaServicio")%></td>
+							<td><%= rs.getString("destinos")%></td> 			<!-- Tengo que ver como lo hago -->
+							<td><%= rs.getString("patente")%></td>
+							<td><%= rs.getString("marca")%></td>
+							<td><%= rs.getString("nombre apellido")%></td> 		<!-- Tengo que ver como lo hago -->
+							<td><%= rs.getString("tieneRefuerzo")%></td>		<!-- Tengo que ver como lo hago -->
+							<td><%= rs.getString("asientosVendidos")%></td>		<!-- Tengo que ver como lo hago -->
+							<td><%= rs.getString("asientosDisponibles")%></td>	<!-- Tengo que ver como lo hago -->
 						</tr>
 							<%
-							}}
+							}
 						%>
 						</table>
 	      			</div>

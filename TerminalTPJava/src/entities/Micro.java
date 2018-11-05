@@ -8,7 +8,7 @@ public class Micro implements Serializable{
 	 * 
 	 */
 	private static final long serialVersionUID = 1L;
-	public double aumento;
+
 	public String patente;
 	public Conductor conductor;
 	public String marca;
@@ -21,12 +21,7 @@ public class Micro implements Serializable{
 	public void setFechaUltimoCtrl(java.sql.Date fechaUltimoCtrl) {
 		this.fechaUltimoCtrl = fechaUltimoCtrl;
 	}
-	public double getAumento() {
-		return aumento;
-	}
-	public void setAumento(double aumento) {
-		this.aumento = aumento;
-	}
+	
 	public String getMarca() {
 		return marca;
 	}

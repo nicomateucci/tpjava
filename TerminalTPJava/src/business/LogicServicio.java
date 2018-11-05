@@ -1,5 +1,6 @@
 package business;
 
+import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
 
@@ -17,5 +18,9 @@ public class LogicServicio{
 		
 		dataSer = new DataServicio();
 		return dataSer.getAllByDestinos(origen, destino);
+	}
+	public ResultSet getDetalles() throws AppDataException, SQLException {
+		dataSer = new DataServicio();
+		return dataSer.getDetalles();
 	}
 }

@@ -8,15 +8,82 @@ import java.util.ArrayList;
 import java.util.Date;
 
 import entities.Conductor;
+import entities.Destino;
+import entities.DestinoDirecto;
 import entities.Persona;
 import entities.Usuario;
 import util.AppDataException;
 
 public class DataPersona {
 
-	public ArrayList<Persona> getAll(){
-		return new ArrayList<Persona>();
+	public ArrayList<Usuario> getAllUsuarios() throws SQLException, AppDataException{
+		ArrayList<Usuario> uu= new ArrayList<Usuario>();
+		PreparedStatement stmt=null;
+		ResultSet rs=null;
+		try {
+			stmt=FactoryConexion.getInstancia().getConn().prepareStatement("select `dni`, `nombre`, `apellido`, `fechaNac`, `nombreUsuario`, `contraseña`, `email` from Persona where esAdmin = 0 and nombreUsuario is not null");
+			rs=stmt.executeQuery();
+			while(rs!=null && rs.next()){
+		
+				Usuario u = new Usuario();
+				u.setDni(rs.getString("dni"));
+				u.setNombre(rs.getString("nombre"));
+				u.setApellido(rs.getString("apellido"));
+				u.setFechaNacimiento(rs.getDate("fechaNacimiento"));
+				u.setNombreUsuario(rs.getString("nombreUsario"));
+				u.setContraseña(rs.getString("contraseña"));
+				u.setEmail(rs.getString("email"));
+				uu.add(u);
+				}	
+			return uu;
+		
+		} catch (SQLException e) {
+			throw e;
+		} finally{
+			try {
+				if(rs!=null)rs.close();
+				if(stmt!=null)stmt.close();
+				FactoryConexion.getInstancia().releaseConn();
+			} catch (SQLException e) {
+				throw e;
+			}
+		}
 	}
+	
+	public ArrayList<Conductor> getAllConductores() throws SQLException, AppDataException{
+		ArrayList<Conductor> uu= new ArrayList<Conductor>();
+		PreparedStatement stmt=null;
+		ResultSet rs=null;
+		try {
+			stmt=FactoryConexion.getInstancia().getConn().prepareStatement("select `dni`, `nombre`, `apellido`, `fechaNac`, `fechaInicio`, `contacto` from Persona where contacto is not null");
+			rs=stmt.executeQuery();
+			while(rs!=null && rs.next()){
+		
+				Conductor c = new Conductor();
+				c.setDni(rs.getString("dni"));
+				c.setNombre(rs.getString("nombre"));
+				c.setApellido(rs.getString("apellido"));
+				c.setFechaNacimiento(rs.getDate("fechaNacimiento"));
+				c.setFechaInicio(rs.getDate("fechaInicio"));
+				c.setContacto(rs.getString("contacto"));
+				uu.add(c);
+				}	
+			return uu;
+		
+		} catch (SQLException e) {
+			throw e;
+		} finally{
+			try {
+				if(rs!=null)rs.close();
+				if(stmt!=null)stmt.close();
+				FactoryConexion.getInstancia().releaseConn();
+			} catch (SQLException e) {
+				throw e;
+			}
+		}
+	}
+	
+
 
 	public Persona getByDni(String dni) throws SQLException, AppDataException{
 

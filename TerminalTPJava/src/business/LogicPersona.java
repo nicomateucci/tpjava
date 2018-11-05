@@ -13,8 +13,13 @@ public class LogicPersona {
 	public DataPersona dataPer;
 
 
-	public ArrayList<Persona> getAll(){
-		return dataPer.getAll();
+	public ArrayList<Usuario> getAllUsuarios() throws SQLException, AppDataException{
+		dataPer = new DataPersona();
+		return dataPer.getAllUsuarios();
+	}
+	public ArrayList<Conductor> getAllConductores() throws SQLException, AppDataException{
+		dataPer = new DataPersona();
+		return dataPer.getAllConductores();
 	}
 
 	public Persona getByDni(String dni) throws Exception{

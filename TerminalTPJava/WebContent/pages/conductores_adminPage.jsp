@@ -1,15 +1,14 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
 <%@page import="java.util.ArrayList"%>
-<%@page import="entities.Destino"%>
-<%@page import="entities.DestinoDirecto"%>
+<%@page import="entities.Conductor"%>
 <!DOCTYPE html>
 <html>
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-    <title>Pagina de administracion de Destinos</title>
+    <title>Pagina de administracion de Conductores</title>
 
     <!-- Bootstrap core CSS -->
     <link href="assets/css/bootstrap.css" rel="stylesheet">
@@ -153,32 +152,25 @@
 	      			<div class="container main-chart">
 	      				<table class="table table-striped table-bordered">
 	      				<tr>
-	      					<th>  Id </th>
-	      					<th> Localidad </th>
-	      					<th> Aumento </th>
-	      					<th> Tipo </th>
+	      					<th> Nombre </th>
+	      					<th> Apellido </th>
+	      					<th> Fecha Nacimiento </th>
+	      					<th> Fecha Inicio </th>
+	      					<th> Contacto </th>
 	      				</tr>
 	      				<%
-						ArrayList<Destino> listaDes= (ArrayList<Destino>)request.getSession().getAttribute("listaDestinos");
-						for(Destino d : listaDes){
-							if(d.getClass() == DestinoDirecto.class) {
+						ArrayList<Conductor> listaCon = (ArrayList<Conductor>)request.getSession().getAttribute("listaConductores");
+						for(Conductor c : listaCon){
 						%>
 						<tr>
-							<td><%= d.getIdDestino() %></td>
-							<td><%= d.getLocalidad() %></td>
-							<td><%= ((DestinoDirecto) d).getPorcentajeAumento()%></td>
-							<td><%= d.getClass().toString().substring(15) %></td>
-							
-						</tr>
-						<%  } else { %>
-						<tr>
-							<td><%= d.getIdDestino() %></td>
-							<td><%= d.getLocalidad() %></td>
-							<td><%= 0.0  %></td>
-							<td><%= d.getClass().toString().substring(15) %></td>
+							<td><%= c.getNombre()%></td>
+							<td><%= c.getApellido()%></td>
+							<td><%= c.getFechaNacimiento()%></td>
+							<td><%= c.getFechaInicio() %></td>
+							<td><%= c.getContacto() %></td>
 						</tr>
 							<%
-							}}
+							}
 						%>
 						</table>
 	      			</div>

@@ -1,15 +1,15 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
 <%@page import="java.util.ArrayList"%>
-<%@page import="entities.Destino"%>
-<%@page import="entities.DestinoDirecto"%>
+<%@page import="entities.Micro"%>
+<%@page import="entities.MicroCama"%>
 <!DOCTYPE html>
 <html>
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-    <title>Pagina de administracion de Destinos</title>
+    <title>Pagina de administracion de Micros</title>
 
     <!-- Bootstrap core CSS -->
     <link href="assets/css/bootstrap.css" rel="stylesheet">
@@ -153,29 +153,32 @@
 	      			<div class="container main-chart">
 	      				<table class="table table-striped table-bordered">
 	      				<tr>
-	      					<th>  Id </th>
-	      					<th> Localidad </th>
-	      					<th> Aumento </th>
-	      					<th> Tipo </th>
+	      					<th> Patente </th>
+	      					<th> Marca </th>
+	      					<th> Fecha Ultimo Control </th>
+	      					<th> Porcentaje aumento </th>
+							<th> Tipo </th>
 	      				</tr>
 	      				<%
-						ArrayList<Destino> listaDes= (ArrayList<Destino>)request.getSession().getAttribute("listaDestinos");
-						for(Destino d : listaDes){
-							if(d.getClass() == DestinoDirecto.class) {
+						ArrayList<Micro> listaMic = (ArrayList<Micro>)request.getSession().getAttribute("listaMicros");
+						for(Micro m : listaMic){
+							if(m.getClass() == MicroCama.class) {
 						%>
 						<tr>
-							<td><%= d.getIdDestino() %></td>
-							<td><%= d.getLocalidad() %></td>
-							<td><%= ((DestinoDirecto) d).getPorcentajeAumento()%></td>
-							<td><%= d.getClass().toString().substring(15) %></td>
+							<td><%= m.getPatente() %></td>
+							<td><%= m.getMarca() %></td>
+							<td><%= m.getFechaUltimoCtrl() %></td>
+							<td><%= ((MicroCama) m).getAumento() %></td>
+							<td><%= m.getClass().toString().substring(15) %></td>
 							
 						</tr>
 						<%  } else { %>
 						<tr>
-							<td><%= d.getIdDestino() %></td>
-							<td><%= d.getLocalidad() %></td>
-							<td><%= 0.0  %></td>
-							<td><%= d.getClass().toString().substring(15) %></td>
+							<td><%= m.getPatente() %></td>
+							<td><%= m.getMarca() %></td>
+							<td><%= m.getFechaUltimoCtrl() %></td>
+							<td><%= 0.0 %></td>
+							<td><%= m.getClass().toString().substring(15) %></td>
 						</tr>
 							<%
 							}}

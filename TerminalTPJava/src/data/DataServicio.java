@@ -5,19 +5,32 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
 
-import entities.Conductor;
 import entities.Destino;
-import entities.Persona;
 import entities.Servicio;
-import entities.Usuario;
 import util.AppDataException;
 
 public class DataServicio {
 
-	/*
-	public ArrayList<Servicio> getAll(){
-		return new ArrayList<Servicio>();
-	}*/
+	public ResultSet getDetalles() throws AppDataException, SQLException {
+		PreparedStatement stmt=null;
+		ResultSet rs=null;
+		try {
+			stmt=FactoryConexion.getInstancia().getConn().prepareStatement("");
+			rs=stmt.executeQuery();
+
+		} catch (SQLException e) {
+			throw new AppDataException(e, "Error al conectar a la base da datos");
+		} finally{	
+		try {
+				if(rs!=null)rs.close();
+				if(stmt!=null)stmt.close();
+				FactoryConexion.getInstancia().releaseConn();
+			} catch (SQLException e) {
+				throw e;
+			}
+		}
+		return rs;
+	}
 	public ArrayList<Servicio> getAllByDestinos(Destino origen, Destino destino) throws AppDataException, SQLException {
 		
 		ArrayList<Servicio> ss=null;

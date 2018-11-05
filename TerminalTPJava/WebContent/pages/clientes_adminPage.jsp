@@ -1,15 +1,14 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
 <%@page import="java.util.ArrayList"%>
-<%@page import="entities.Destino"%>
-<%@page import="entities.DestinoDirecto"%>
+<%@page import="entities.Usuario"%>
 <!DOCTYPE html>
 <html>
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-    <title>Pagina de administracion de Destinos</title>
+    <title>Pagina de administracion de Clientes</title>
 
     <!-- Bootstrap core CSS -->
     <link href="assets/css/bootstrap.css" rel="stylesheet">
@@ -153,29 +152,23 @@
 	      			<div class="container main-chart">
 	      				<table class="table table-striped table-bordered">
 	      				<tr>
-	      					<th>  Id </th>
-	      					<th> Localidad </th>
-	      					<th> Aumento </th>
-	      					<th> Tipo </th>
+	      					<th> Nombre </th>
+	      					<th> Apellido </th>
+	      					<th> Fecha de Nacimiento </th>
+	      					<th> Nombre de usuario </th>
+	      					<th> Email </th>
 	      				</tr>
 	      				<%
-						ArrayList<Destino> listaDes= (ArrayList<Destino>)request.getSession().getAttribute("listaDestinos");
-						for(Destino d : listaDes){
-							if(d.getClass() == DestinoDirecto.class) {
+						ArrayList<Usuario> listaUsu = (ArrayList<Usuario>)request.getSession().getAttribute("listaUsuarios");
+						for(Usuario u : listaUsu){
+							if (!u.getEsAdmin()){
 						%>
 						<tr>
-							<td><%= d.getIdDestino() %></td>
-							<td><%= d.getLocalidad() %></td>
-							<td><%= ((DestinoDirecto) d).getPorcentajeAumento()%></td>
-							<td><%= d.getClass().toString().substring(15) %></td>
-							
-						</tr>
-						<%  } else { %>
-						<tr>
-							<td><%= d.getIdDestino() %></td>
-							<td><%= d.getLocalidad() %></td>
-							<td><%= 0.0  %></td>
-							<td><%= d.getClass().toString().substring(15) %></td>
+							<td><%= u.getNombre()%></td>
+							<td><%= u.getApellido()%></td>
+							<td><%= u.getFechaNacimiento()%></td>
+							<td><%= u.getNombreUsuario() %></td>
+							<td><%= u.getEmail() %></td>
 						</tr>
 							<%
 							}}
