@@ -10,16 +10,14 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
-import business.LogicDestino;
 import business.LogicMicro;
-import entities.Destino;
 import entities.Micro;
 import util.AppDataException;
 
 /**
- * Servlet implementation class ServletMicro
+ * Servlet implementation class ServletMicro_
  */
-@WebServlet(description = "Servlet que maneja SOLO micros en la base de datos.", urlPatterns = { "/ServletDestino" })
+@WebServlet("/ServletMicro")
 public class ServletMicro extends HttpServlet {
 	private static final long serialVersionUID = 1L;
        

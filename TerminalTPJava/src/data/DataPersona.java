@@ -29,8 +29,8 @@ public class DataPersona {
 				u.setDni(rs.getString("dni"));
 				u.setNombre(rs.getString("nombre"));
 				u.setApellido(rs.getString("apellido"));
-				u.setFechaNacimiento(rs.getDate("fechaNacimiento"));
-				u.setNombreUsuario(rs.getString("nombreUsario"));
+				u.setFechaNacimiento(rs.getDate("fechaNac"));
+				u.setNombreUsuario(rs.getString("nombreUsuario"));
 				u.setContraseña(rs.getString("contraseña"));
 				u.setEmail(rs.getString("email"));
 				uu.add(u);
@@ -63,7 +63,7 @@ public class DataPersona {
 				c.setDni(rs.getString("dni"));
 				c.setNombre(rs.getString("nombre"));
 				c.setApellido(rs.getString("apellido"));
-				c.setFechaNacimiento(rs.getDate("fechaNacimiento"));
+				c.setFechaNacimiento(rs.getDate("fechaNac"));
 				c.setFechaInicio(rs.getDate("fechaInicio"));
 				c.setContacto(rs.getString("contacto"));
 				uu.add(c);

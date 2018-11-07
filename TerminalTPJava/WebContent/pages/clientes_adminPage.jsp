@@ -55,93 +55,92 @@
 	      <!--header end-->
 	      
 	      <!-- **********************************************************************************************************************************************************
-	      MAIN SIDEBAR MENU
-	      *********************************************************************************************************************************************************** -->
-	      <!--sidebar start-->
-	      <aside>
-	          <div id="sidebar"  class="nav-collapse ">
-	              <!-- sidebar menu start-->
-	              <ul class="sidebar-menu" id="nav-accordion">
-	              
-	              	  <p class="centered"><a href="profile.html"><img src="assets/img/ui-sam.jpg" class="img-circle" width="60"></a></p>
-	              	  <h5 class="centered">Matias Lamens</h5>
-	  
-	                  <li class="sub-menu">
-	                      <a href="javascript:;" >
-	                          <i class="fa fa-cogs"></i>
-	                          <span>Servicios</span>
-	                      </a>
-	                      <ul class="sub" >
-	                          <li><a  href="#">Consultar</a></li>
-	                          <li><a  href="#">Agregar</a></li>
-	                          <li><a  href="#">Actualizar</a></li>
-	                          <li><a  href="#">Agregar refuerzo</a></li>
-	                          <li><a  href="#">Dar de baja</a></li>
-	                      </ul>
-	                  </li>
-	                  <li class="sub-menu">
-	                      <a class="" href="index.html">
-	                          <i class="fa fa-dashboard"></i>
-	                          <span>Micros</span>
-	                      </a>
-	                      <ul class="sub">
-	                          <li><a  href="#">Consultar</a></li>
-	                          <li><a  href="#">Agregar</a></li>
-	                          <li><a  href="#">Actualizar</a></li>
-	                          <li><a  href="#">Dar de baja</a></li>
-	                      </ul>
-	                  </li>
-	                  <li class="sub-menu">
-	                      <a href="javascript:;" >
-	                          <i class="fa fa-book"></i>
-	                          <span>Conductores</span>
-	                      </a>
-	                      <ul class="sub">
-	                          <li><a  href="#">Consultar</a></li>
-	                          <li><a  href="#">Agregar</a></li>
-	                          <li><a  href="#">Actualizar</a></li>
-	                          <li><a  href="#">Dar de baja</a></li>
-	                      </ul>
-	                  </li>
-	                  <li class="sub-menu">
-	                      <a href="javascript:;" >
-	                          <i class="fa fa-tasks"></i>
-	                          <span>Destinos</span>
-	                      </a>
-	                      <ul class="sub">
-	                          <li><a  href="#">Consultar</a></li>
-	                          <li><a  href="#">Agregar</a></li>
-	                          <li><a  href="#">Actualizar</a></li>
-	                          <li><a  href="#">Dar de baja</a></li>
-	                      </ul>
-	                  </li>
-	                  <li class="sub-menu">
-	                      <a href="javascript:;" >
-	                          <i class="fa fa-desktop"></i>
-	                          <span>Clientes</span>
-	                      </a>
-	                      <ul class="sub">
-	              
-	                          <li><a  href="#">Consultar</a></li>
-	                          <li><a  href="#">Dar de baja</a></li>
-	                      </ul>
-	                  </li>
-	                  <li class="sub-menu">
-	                      <a href="javascript:;" >
-	                          <i class=" fa fa-bar-chart-o"></i>
-	                          <span>Informes</span>
-	                      </a>
-	                      <ul class="sub">
-	                          <li><a  href="morris.html">Del dia</a></li>
-	                          <li><a  href="chartjs.html">Del mes</a></li>
-	                          <li><a  href="chartjs.html">Del año</a></li>
-	                      </ul>
-	                  </li>
-	              </ul>
-	              <!-- sidebar menu end-->
-	          </div>
-	      </aside>
-	      <!--sidebar end-->
+      MAIN SIDEBAR MENU
+      *********************************************************************************************************************************************************** -->
+      <!--sidebar start-->
+      <aside>
+          <div id="sidebar"  class="nav-collapse ">
+              <!-- sidebar menu start-->
+              <ul class="sidebar-menu" id="nav-accordion" name="#">
+              
+              	  <p class="centered"><a href="profile.html"><img src="assets/img/ui-sam.jpg" class="img-circle" width="60"></a></p>
+              	  <h5 class="centered">Matias Lamens</h5>
+  
+                  <li class="sub-menu">
+                      <a href="javascript:;" >
+                          <i class="fa fa-cogs"></i>
+                          <span>Servicios</span>
+                      </a>
+                      <ul class="sub">
+                          <li><a  href="#">Consultar</a></li>
+                          <li><a  href="#">Agregar</a></li>
+                          <li><a  href="#">Actualizar</a></li>
+                          <li><a  href="#">Agregar refuerzo</a></li>
+                          <li><a  href="#">Dar de baja</a></li>
+                      </ul>
+                  </li>
+                  <li class="sub-menu">
+                      <a class="" href="">
+                          <i class="fa fa-dashboard"></i>
+                          <span>Micros</span>
+                      </a>
+                      <ul class="sub">
+                          <li><a  href="../ServletMicro">Consultar</a></li>
+                          <li><a  href="#">Agregar</a></li>
+                          <li><a  href="#">Actualizar</a></li>
+                          <li><a  href="#">Dar de baja</a></li>
+                      </ul>
+                  </li>
+                  <li class="sub-menu">
+                      <a href="javascript:;" >
+                          <i class="fa fa-book"></i>
+                          <span>Conductores</span>
+                      </a>
+                      <ul class="sub">
+                          <li><a  href="../ServletConductor">Consultar</a></li>
+                          <li><a  href="#">Agregar</a></li>
+                          <li><a  href="#">Actualizar</a></li>
+                          <li><a  href="#">Dar de baja</a></li>
+                      </ul>
+                  </li>
+                  <li class="sub-menu">
+                      <a href="javascript:;" >
+                          <i class="fa fa-tasks"></i>
+                          <span>Destinos</span>
+                      </a>
+                      <ul class="sub">
+                          <li><a  href="../ServletDestino">Consultar</a></li>
+                          <li><a  href="#">Agregar</a></li>
+                          <li><a  href="#">Actualizar</a></li>
+                          <li><a  href="#">Dar de baja</a></li>
+                      </ul>
+                  </li>
+                  <li class="sub-menu">
+                      <a href="javascript:;" >
+                          <i class="fa fa-desktop"></i>
+                          <span>Clientes</span>
+                      </a>
+                      <ul class="sub">
+                          <li><a  href="#">Consultar</a></li>
+                          <li><a  href="#">Dar de baja</a></li>
+                      </ul>
+                  </li>
+                  <li class="sub-menu">
+                      <a href="javascript:;" >
+                          <i class=" fa fa-bar-chart-o"></i>
+                          <span>Informes</span>
+                      </a>
+                      <ul class="sub">
+                          <li><a  href="morris.html">Del dia</a></li>
+                          <li><a  href="chartjs.html">Del mes</a></li>
+                          <li><a  href="chartjs.html">Del año</a></li>
+                      </ul>
+                  </li>
+              </ul>
+              <!-- sidebar menu end-->
+          </div>
+      </aside>
+      <!--sidebar end-->
 	      
 	      <!-- Contenido principal-->
 	      <!-- ****************************************************** -->

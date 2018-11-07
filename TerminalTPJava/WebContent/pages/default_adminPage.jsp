@@ -61,7 +61,7 @@
       <aside>
           <div id="sidebar"  class="nav-collapse ">
               <!-- sidebar menu start-->
-              <ul class="sidebar-menu" id="nav-accordion">
+              <ul class="sidebar-menu" id="nav-accordion" name="#">
               
               	  <p class="centered"><a href="profile.html"><img src="assets/img/ui-sam.jpg" class="img-circle" width="60"></a></p>
               	  <h5 class="centered">Matias Lamens</h5>
@@ -71,7 +71,7 @@
                           <i class="fa fa-cogs"></i>
                           <span>Servicios</span>
                       </a>
-                      <ul class="sub" >
+                      <ul class="sub">
                           <li><a  href="#">Consultar</a></li>
                           <li><a  href="#">Agregar</a></li>
                           <li><a  href="#">Actualizar</a></li>
@@ -80,12 +80,12 @@
                       </ul>
                   </li>
                   <li class="sub-menu">
-                      <a class="" href="index.html">
+                      <a class="" href="">
                           <i class="fa fa-dashboard"></i>
                           <span>Micros</span>
                       </a>
                       <ul class="sub">
-                          <li><a  href="#">Consultar</a></li>
+                          <li><a  href="../ServletMicro">Consultar</a></li>
                           <li><a  href="#">Agregar</a></li>
                           <li><a  href="#">Actualizar</a></li>
                           <li><a  href="#">Dar de baja</a></li>
@@ -97,7 +97,7 @@
                           <span>Conductores</span>
                       </a>
                       <ul class="sub">
-                          <li><a  href="#">Consultar</a></li>
+                          <li><a  href="../ServletConductor">Consultar</a></li>
                           <li><a  href="#">Agregar</a></li>
                           <li><a  href="#">Actualizar</a></li>
                           <li><a  href="#">Dar de baja</a></li>
@@ -109,7 +109,7 @@
                           <span>Destinos</span>
                       </a>
                       <ul class="sub">
-                          <li><a  href="#">Consultar</a></li>
+                          <li><a  href="../ServletDestino">Consultar</a></li>
                           <li><a  href="#">Agregar</a></li>
                           <li><a  href="#">Actualizar</a></li>
                           <li><a  href="#">Dar de baja</a></li>
