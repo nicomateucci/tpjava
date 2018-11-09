@@ -1,163 +1,59 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
-    pageEncoding="UTF-8"%>
+	pageEncoding="UTF-8"%>
 <%@page import="java.util.ArrayList"%>
 <%@page import="entities.Destino"%>
 <%@page import="entities.DestinoDirecto"%>
 <!DOCTYPE html>
 <html>
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-    <title>Pagina de administracion de Destinos</title>
+<title>Pagina de administracion de Destinos</title>
 
-    <!-- Bootstrap core CSS -->
-    <link href="assets/css/bootstrap.css" rel="stylesheet">
-    <!--external css-->
-    <link href="assets/font-awesome/css/font-awesome.css" rel="stylesheet" />
-    <link rel="stylesheet" type="text/css" href="assets/css/zabuto_calendar.css">
-    <link rel="stylesheet" type="text/css" href="assets/js/gritter/css/jquery.gritter.css" />
-    <link rel="stylesheet" type="text/css" href="assets/lineicons/style.css">    
-    
-    <!-- Custom styles for this template -->
-    <link href="assets/css/style.css" rel="stylesheet">
-    <link href="assets/css/style-responsive.css" rel="stylesheet">
+<!-- Bootstrap core CSS -->
+<link href="assets/css/bootstrap.css" rel="stylesheet">
+<!--external css-->
+<link href="assets/font-awesome/css/font-awesome.css" rel="stylesheet" />
+<link rel="stylesheet" type="text/css"
+	href="assets/css/zabuto_calendar.css">
+<link rel="stylesheet" type="text/css"
+	href="assets/js/gritter/css/jquery.gritter.css" />
+<link rel="stylesheet" type="text/css" href="assets/lineicons/style.css">
 
-    <script src="assets/js/chart-master/Chart.js"></script>
-    
-    <!-- HTML5 shim and Respond.js IE8 support of HTML5 elements and media queries -->
-    <!--[if lt IE 9]>
+<!-- Custom styles for this template -->
+<link href="assets/css/style.css" rel="stylesheet">
+<link href="assets/css/style-responsive.css" rel="stylesheet">
+
+<script src="assets/js/chart-master/Chart.js"></script>
+
+<!-- HTML5 shim and Respond.js IE8 support of HTML5 elements and media queries -->
+<!--[if lt IE 9]>
       <script src="https://oss.maxcdn.com/libs/html5shiv/3.7.0/html5shiv.js"></script>
       <script src="https://oss.maxcdn.com/libs/respond.js/1.4.2/respond.min.js"></script>
     <![endif]-->
-  </head>
+</head>
 
-  <body>
-	  <section id="container" >
-	      <!-- **********************************************************************************************************************************************************
-	      TOP BAR CONTENT & NOTIFICATIONS
-	      *********************************************************************************************************************************************************** -->
-	      <!--header start-->
-	      <header class="header black-bg">
-	              <div class="sidebar-toggle-box">
-	                  <div class="fa fa-bars tooltips" data-placement="right" data-original-title="Toggle Navigation"></div>
-	              </div>
-	            <!--logo start-->
-	            <a href="index.html" class="logo"><b>Pasajero 23</b></a>
-	            <!--logo end-->
-	            <div class="nav notify-row" id="top_menu">
-	            </div>
-	            <div class="top-menu">
-	            	<ul class="nav pull-right top-menu">
-	                    <li><a class="logout" href="login.html">Logout</a></li>
-	            	</ul>
-	            </div>
-	        </header>
-	      <!--header end-->
-	      
-	      <!-- **********************************************************************************************************************************************************
-      MAIN SIDEBAR MENU
-      *********************************************************************************************************************************************************** -->
-      <!--sidebar start-->
-      <aside>
-          <div id="sidebar"  class="nav-collapse ">
-              <!-- sidebar menu start-->
-              <ul class="sidebar-menu" id="nav-accordion" name="#">
-              
-              	  <p class="centered"><a href="profile.html"><img src="assets/img/ui-sam.jpg" class="img-circle" width="60"></a></p>
-              	  <h5 class="centered">Matias Lamens</h5>
-  
-                  <li class="sub-menu">
-                      <a href="javascript:;" >
-                          <i class="fa fa-cogs"></i>
-                          <span>Servicios</span>
-                      </a>
-                      <ul class="sub">
-                          <li><a  href="#">Consultar</a></li>
-                          <li><a  href="#">Agregar</a></li>
-                          <li><a  href="#">Actualizar</a></li>
-                          <li><a  href="#">Agregar refuerzo</a></li>
-                          <li><a  href="#">Dar de baja</a></li>
-                      </ul>
-                  </li>
-                  <li class="sub-menu">
-                      <a class="" href="">
-                          <i class="fa fa-dashboard"></i>
-                          <span>Micros</span>
-                      </a>
-                      <ul class="sub">
-                          <li><a  href="../ServletMicro">Consultar</a></li>
-                          <li><a  href="#">Agregar</a></li>
-                          <li><a  href="#">Actualizar</a></li>
-                          <li><a  href="#">Dar de baja</a></li>
-                      </ul>
-                  </li>
-                  <li class="sub-menu">
-                      <a href="javascript:;" >
-                          <i class="fa fa-book"></i>
-                          <span>Conductores</span>
-                      </a>
-                      <ul class="sub">
-                          <li><a  href="../ServletConductor">Consultar</a></li>
-                          <li><a  href="#">Agregar</a></li>
-                          <li><a  href="#">Actualizar</a></li>
-                          <li><a  href="#">Dar de baja</a></li>
-                      </ul>
-                  </li>
-                  <li class="sub-menu">
-                      <a href="javascript:;" >
-                          <i class="fa fa-tasks"></i>
-                          <span>Destinos</span>
-                      </a>
-                      <ul class="sub">
-                          <li><a  href="../ServletDestino">Consultar</a></li>
-                          <li><a  href="#">Agregar</a></li>
-                          <li><a  href="#">Actualizar</a></li>
-                          <li><a  href="#">Dar de baja</a></li>
-                      </ul>
-                  </li>
-                  <li class="sub-menu">
-                      <a href="javascript:;" >
-                          <i class="fa fa-desktop"></i>
-                          <span>Clientes</span>
-                      </a>
-                      <ul class="sub">
-                          <li><a  href="#">Consultar</a></li>
-                          <li><a  href="#">Dar de baja</a></li>
-                      </ul>
-                  </li>
-                  <li class="sub-menu">
-                      <a href="javascript:;" >
-                          <i class=" fa fa-bar-chart-o"></i>
-                          <span>Informes</span>
-                      </a>
-                      <ul class="sub">
-                          <li><a  href="morris.html">Del dia</a></li>
-                          <li><a  href="chartjs.html">Del mes</a></li>
-                          <li><a  href="chartjs.html">Del año</a></li>
-                      </ul>
-                  </li>
-              </ul>
-              <!-- sidebar menu end-->
-          </div>
-      </aside>
-      <!--sidebar end-->
-	      
-	      <!-- Contenido principal-->
-	      <!-- ****************************************************** -->
-	      <!-- ****************************************************** -->
-	      
-	      <section id="main-content">
-	      	<section class="wrapper">
-	      			<div class="container main-chart">
-	      				<table class="table table-striped table-bordered">
-	      				<tr>
-	      					<th>  Id </th>
-	      					<th> Localidad </th>
-	      					<th> Aumento </th>
-	      					<th> Tipo </th>
-	      				</tr>
-	      				<%
+<body>
+	<section id="container">
+		<jsp:include page="plantillas/plantilla_adminPage.jsp"></jsp:include>
+
+		<!-- Contenido principal-->
+		<!-- ****************************************************** -->
+		<!-- ****************************************************** -->
+
+		<% if (request.getSession().getAttribute("tipo") == "consulta"){%>
+		<section id="main-content">
+			<section class="wrapper">
+				<div class="container main-chart">
+					<table class="table table-striped table-bordered">
+						<tr>
+							<th>Id</th>
+							<th>Localidad</th>
+							<th>Aumento</th>
+							<th>Tipo</th>
+						</tr>
+						<%
 						ArrayList<Destino> listaDes= (ArrayList<Destino>)request.getSession().getAttribute("listaDestinos");
 						for(Destino d : listaDes){
 							if(d.getClass() == DestinoDirecto.class) {
@@ -167,7 +63,7 @@
 							<td><%= d.getLocalidad() %></td>
 							<td><%= ((DestinoDirecto) d).getPorcentajeAumento()%></td>
 							<td><%= d.getClass().toString().substring(15) %></td>
-							
+
 						</tr>
 						<%  } else { %>
 						<tr>
@@ -176,50 +72,85 @@
 							<td><%= 0.0  %></td>
 							<td><%= d.getClass().toString().substring(15) %></td>
 						</tr>
-							<%
+						<%
 							}}
 						%>
-						</table>
-	      			</div>
-	      		
-	      	</section>
-	      </section>
-	      
-	      
-	      
-	      
-	     <!--footer start-->
-      <footer class="site-footer">
-          <div class="text-center">
-              Gracias por usar Pasajero23!
-              <a href="#" class="go-top">
-                  <i class="fa fa-angle-up"></i>
-              </a>
-          </div>
-      </footer>
-      <!--footer end-->
-	  </section>
-	       <!-- js placed at the end of the document so the pages load faster -->
-    <script src="assets/js/jquery.js"></script>
-    <script src="assets/js/jquery-1.8.3.min.js"></script>
-    <script src="assets/js/bootstrap.min.js"></script>
-    <script class="include" type="text/javascript" src="assets/js/jquery.dcjqaccordion.2.7.js"></script>
-    <script src="assets/js/jquery.scrollTo.min.js"></script>
-    <script src="assets/js/jquery.nicescroll.js" type="text/javascript"></script>
-    <script src="assets/js/jquery.sparkline.js"></script>
+					</table>
+				</div>
+
+			</section>
+		</section>
+		<%} else if (request.getSession().getAttribute("tipo") == "alta"){ %>
+		<section id="main-content">
+			<section class="wrapper">
+				<div class="container main-chart">
+					<form method=post action="../ServletDestino">
+						<fieldset>
+							<br>
+							<h2>Ingrese los datos del nuevo destino:</h2>
+							<div class="form-group col-lg-9">
+								<label for="localidad">Ingrese localidad: </label> <input
+									type="text" name="localidad" class="form-control" />
+							</div>
+							<div class="form-group col-lg-9">
+								<label for="tipoDestino">Tipo destino: </label> <select
+									name="tipoDestino" id="" class="form-control">
+									<option value="DestinoDirecto">DestinoDirecto</option>
+									<option value="Destino">Normal</option>
+								</select>
+							</div>
+							<div class="form-group col-lg-9">
+								<div class="">
+									<i>Si ingreso un destino directo, ingrese el porcentaje de
+										aumento en % (Ej: 25):</i><br>
+								</div>
+								<input type="number" name="aumento" class="form-control" /> <label
+									for="aumento">% </label>
+							</div>
+							<div class="form-group col-lg-9">
+								<button type="reset" value="Resetear" class="btn btn-warning">Resetear</button>
+								<button type="submit" value="Ingresar" class="btn btn-info">Finalizar</button>
+							</div>
+						</fieldset>
+						> <input type="button"
+							onclick="if(document.getElementById('spoiler1') .style.display=='none') {document.getElementById('spoiler1') .style.display=''; this.value = 'Ocultar'; }else{document.getElementById('spoiler1') .style.display='none';this.value = 'Mostrar'; }"
+							value="Gracias por ..." />
+						<div id="spoiler1" style="display: none">usar Plataforma 23
+							para conocer un nuevo destino en Argentina.</div>
+					</form>
+				</div>
+			</section>
+			<%} else if (request.getSession().getAttribute("tipo") == "baja"){ %>
+
+			<%} %>
 
 
-    <!--common script for all pages-->
-    <script src="assets/js/common-scripts.js"></script>
-    
-    <script type="text/javascript" src="assets/js/gritter/js/jquery.gritter.js"></script>
-    <script type="text/javascript" src="assets/js/gritter-conf.js"></script>
+			<jsp:include page="plantillas/plantillaFooter_adminPage.jsp"></jsp:include>
+		</section>
 
-    <!--script for this page-->
-    <script src="assets/js/sparkline-chart.js"></script>    
-	<script src="assets/js/zabuto_calendar.js"></script>	
-	
-	<script type="text/javascript">
+		<!-- js placed at the end of the document so the pages load faster -->
+		<script src="assets/js/jquery.js"></script>
+		<script src="assets/js/jquery-1.8.3.min.js"></script>
+		<script src="assets/js/bootstrap.min.js"></script>
+		<script class="include" type="text/javascript"
+			src="assets/js/jquery.dcjqaccordion.2.7.js"></script>
+		<script src="assets/js/jquery.scrollTo.min.js"></script>
+		<script src="assets/js/jquery.nicescroll.js" type="text/javascript"></script>
+		<script src="assets/js/jquery.sparkline.js"></script>
+
+
+		<!--common script for all pages-->
+		<script src="assets/js/common-scripts.js"></script>
+
+		<script type="text/javascript"
+			src="assets/js/gritter/js/jquery.gritter.js"></script>
+		<script type="text/javascript" src="assets/js/gritter-conf.js"></script>
+
+		<!--script for this page-->
+		<script src="assets/js/sparkline-chart.js"></script>
+		<script src="assets/js/zabuto_calendar.js"></script>
+
+		<script type="text/javascript">
         $(document).ready(function () {
         var unique_id = $.gritter.add({
             // (string | mandatory) the heading of the notification
@@ -239,8 +170,8 @@
         return false;
         });
 	</script>
-	
-	<script type="application/javascript">
+
+		<script type="application/javascript">
         $(document).ready(function () {
             $("#date-popover").popover({html: true, trigger: "manual"});
             $("#date-popover").hide();
@@ -273,7 +204,7 @@
             var to = $("#" + id).data("to");
             console.log('nav ' + nav + ' to: ' + to.month + '/' + to.year);
         }
-    </script>
-
+   		 </script>
+	</section>
 </body>
 </html>

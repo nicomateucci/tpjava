@@ -5,18 +5,42 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
 
+import entities.Conductor;
 import entities.Destino;
+import entities.Micro;
 import entities.Servicio;
+import entities.Usuario;
 import util.AppDataException;
 
 public class DataServicio {
 
-	public ResultSet getDetalles() throws AppDataException, SQLException {
+	public ArrayList<Servicio> getDetalles() throws AppDataException, SQLException {
+		
+		ArrayList<Servicio> uu= new ArrayList<Servicio>();
 		PreparedStatement stmt=null;
 		ResultSet rs=null;
 		try {
-			stmt=FactoryConexion.getInstancia().getConn().prepareStatement("");
+			
+			stmt=FactoryConexion.getInstancia().getConn().prepareStatement("select * from getDetallesServicios");
 			rs=stmt.executeQuery();
+			while(rs!=null && rs.next()){
+				Micro m = new Micro();
+				Conductor c = new Conductor();
+				Servicio s = new Servicio();
+				
+				s.setIdServicio(rs.getInt("idServicio"));
+				s.setFechaServicio(rs.getDate("fechaServicio"));
+				s.setHoraServicio(rs.getString("HoraServicio"));
+				s.setRecorrido(rs.getString("Recorrido"));
+				//m.setMarca(rs.getString("marca"));
+				//m.setPatente(rs.getString("patente"));				
+				//c.setNombre(rs.getString("nombresApellidos"));
+				
+
+				//m.addConductor(c);
+				//s.addMicro(m);
+				uu.add(s);
+			}
 
 		} catch (SQLException e) {
 			throw new AppDataException(e, "Error al conectar a la base da datos");
@@ -29,7 +53,7 @@ public class DataServicio {
 				throw e;
 			}
 		}
-		return rs;
+		return uu;
 	}
 	public ArrayList<Servicio> getAllByDestinos(Destino origen, Destino destino) throws AppDataException, SQLException {
 		
@@ -113,6 +137,32 @@ public class DataServicio {
 	}
 	public void delete(Servicio elServicio){
 		
+	}
+	public boolean getTieneRefuerzo(Servicio ser) throws AppDataException, SQLException {
+		
+		boolean rta = false;
+		PreparedStatement stmt=null;
+		ResultSet rs=null;
+		try {
+			stmt=FactoryConexion.getInstancia().getConn().prepareStatement("select getTieneRefuerzo(?) as ref");
+			stmt.setInt(1, ser.getIdServicio());
+			rs=stmt.executeQuery();
+			if(rs!=null && rs.next()){
+				//rta = rs.getBoolean(1);			ANDA BIEN
+				rta = rs.getBoolean("ref");
+			}
+		} catch (SQLException e) {
+			throw new AppDataException(e, "Error al conectar a la base da datos");
+		} finally{	
+		try {
+				if(rs!=null)rs.close();
+				if(stmt!=null)stmt.close();
+				FactoryConexion.getInstancia().releaseConn();
+			} catch (SQLException e) {
+				throw e;
+			}
+		}
+		return rta;
 	}
 	
 }

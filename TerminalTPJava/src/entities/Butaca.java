@@ -2,18 +2,18 @@ package entities;
 
 public class Butaca {
 	public int numero;
-	public Persona persona;
+	public Usuario pasajero;
 	public int getNumero() {
 		return numero;
 	}
 	public void setNumero(int numero) {
 		this.numero = numero;
 	}
-	public Persona getPersona() {
-		return persona;
+	public Usuario getPasajero() {
+		return pasajero;
 	}
-	public void setPersona(Persona persona) {
-		this.persona = persona;
+	public void setPasajero(Usuario u) {
+		this.pasajero = u;
 	}
 
 }

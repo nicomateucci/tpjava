@@ -1,12 +1,52 @@
 package entities;
 
-import java.util.Date;
+import java.util.ArrayList;
+
+import business.LogicDestino;
+import business.LogicServicio;
 
 public class Servicio {
 
 		private int idServicio;
 		private java.sql.Date fechaServicio;
 		private String horaServicio;
+		public ArrayList<Destino> destinos;
+		public ArrayList<Micro> micros;
+		//********************************************************************
+		public String recorrido;
+		/* Formato: destino1, destino2, destino3, ..., destinoN
+		 * Atributo agregado para mostrar al usuario administrador todos los destinos de un servicio
+		 * Reulta mas simple ya que en la pagina JSP no va a ser necesario recorreR el ArrayList<Destino>
+		 * y preguntarle a uno por una su localidad y luego concatenarlos para mostrarlos en la talba HTML.
+		 * 
+		 * Ademas mi sirvio para aprender la funcion de sql group_contact(), que concatena las
+		 * distintas columnas segun los registros agrupados por un group by*/
+		//********************************************************************
+		//public boolean tieneRefuerzo;
+		
+		public Servicio() {
+			micros = new ArrayList<Micro>();
+			destinos = new ArrayList<Destino>();
+		}
+		public String getRecorrido() {
+			return recorrido;
+		}
+		public void setRecorrido(String recorrido) {
+			this.recorrido = recorrido;
+		}
+		public void addDestino(Destino des) {
+			destinos.add(des);
+		}
+		public void addDestinos() {
+			
+		}
+		public void addMicro(Micro m) {
+			micros.add(m);
+		}
+		public void addMicros() {
+			
+		}
+		
 		
 		public java.sql.Date getFechaServicio() {
 			return fechaServicio;

@@ -34,91 +34,75 @@
 </head>
 
 <body>
+
 	<section id="container">
 
-		<jsp:include page="plantillas/plantilla_adminPage.jsp"></jsp:include>
+		<jsp:include page="plantillas/plantillaHeader_adminPage.jsp"></jsp:include>
+
 
 		<!-- Contenido principal-->
 		<!-- ****************************************************** -->
 		<!-- ****************************************************** -->
 
-		<% if (request.getSession().getAttribute("tipo") == "consulta"){%>
 		<section id="main-content">
 			<section class="wrapper">
 				<div class="container main-chart">
-					<table class="table table-striped table-bordered">
-						<tr>
-							<th>Nombre</th>
-							<th>Apellido</th>
-							<th>Fecha de Nacimiento</th>
-							<th>Nombre de usuario</th>
-							<th>Email</th>
-						</tr>
-						<%
-						ArrayList<Usuario> listaUsu = (ArrayList<Usuario>)request.getSession().getAttribute("listaUsuarios");
-						for(Usuario u : listaUsu){
-							if (!u.getEsAdmin()){
-						%>
-						<tr>
-							<td><%= u.getNombre()%></td>
-							<td><%= u.getApellido()%></td>
-							<td><%= u.getFechaNacimiento()%></td>
-							<td><%= u.getNombreUsuario() %></td>
-							<td><%= u.getEmail() %></td>
-						</tr>
-						<%
-							}}
-						%>
-					</table>
-				</div>
-
-			</section>
-		</section>
-		<%} else if (request.getSession().getAttribute("tipo") == "alta"){ %>
-		<section id="main-content">
-			<section class="wrapper">
-				<div class="container main-chart">
-					<form method=post action="../ServletDestino">
+					<h2>Ingrese sus datos para registrarse en el sistema:</h2>
+					<form method=post action="../ServletCliente">
 						<fieldset>
 							<br>
-							<h2>Ingrese los datos del nuevo destino:</h2>
-							<div class="form-group">
-								<label for="localidad">Ingrese localidad: </label> <input
-									type="text" name="localidad" class="form-control" />
+							<div class="form-group col-lg-9">
+								<label for="nombre">Nombre: </label> <input type="text"
+									name="nombre" class="form-control" />
 							</div>
-							<div class="form-group">
-								<label for="tipoDestino">Tipo destino: </label> <select
-									name="tipoDestino" id="" class="form-control">
-									<option value="DestinoDirecto">DestinoDirecto</option>
-									<option value="Destino">Normal</option>
+							<div class="form-group col-lg-9">
+								<label for="apellido">Apellido: </label> <input type="text"
+									name="apellido" class="form-control" />
+							</div>
+							<div class="form-group col-lg-9">
+								<label for="tipoDni">Tipo DNI: </label> <select name="tipoDni"
+									id="tipoDni" class="form-control">
+									<option value="DNI">DNI</option>
+									<option value="CI">CI</option>
+									<option value="LE">LE</option>
+									<option value="LC">LC</option>
 								</select>
 							</div>
-							<div class="">
-								<i>Si ingreso un destino directo, ingrese el porcentaje de
-									aumento en % (Ej: 25):</i><br>
+							<div class="form-group col-lg-9">
+								<label for="dni">N° DNI: </label> <input type="text" name="dni"
+									class="form-control" />
 							</div>
-							<div class="form-group">
-								<input type="number" name="aumento" class="form-control" /> <label
-									for="aumento">% </label>
+							<div class="form-group col-lg-9">
+								<label for="fecha">Fecha de nacimiento: </label> <input
+									type="date" name="fecha" placeholder="dd/mm/aaaa"
+									class="form-control" />
 							</div>
-							<div class="form-group">
+							<div class="form-group col-lg-9">
+								<label for="nombreU">Nombre de usuario:</label> <input
+									type="text" name="nombreU" class="form-control" />
+							</div>
+							<div class="form-group col-lg-9">
+								<label for="password">Contraseña:</label> <input type="password"
+									name="password" class="form-control">
+							</div>
+							<div class="form-group col-lg-9">
+								<label for="mail">Mail</label> <input type="text" name="mail"
+									class="form-control" />
+							</div>
+							<div class="form-group col-lg-9">
 								<button type="reset" value="Resetear" class="btn btn-warning">Resetear</button>
 								<button type="submit" value="Ingresar" class="btn btn-info">Finalizar</button>
 							</div>
 						</fieldset>
-						> <input type="button"
+						<input type="button"
 							onclick="if(document.getElementById('spoiler1') .style.display=='none') {document.getElementById('spoiler1') .style.display=''; this.value = 'Ocultar'; }else{document.getElementById('spoiler1') .style.display='none';this.value = 'Mostrar'; }"
 							value="Gracias por ..." />
-						<div id="spoiler1" style="display: none">usar Plataforma 23
+						<div id="spoiler1" style="display: none">Usar Plataforma 23
 							para conocer un nuevo destino en Argentina.</div>
-
 					</form>
 				</div>
 			</section>
 		</section>
-		<%} else if (request.getSession().getAttribute("tipo") == "baja"){ %>
-
-		<%} %>
 
 		<jsp:include page="plantillas/plantillaFooter_adminPage.jsp"></jsp:include>
 
@@ -146,27 +130,37 @@
 	<script src="assets/js/zabuto_calendar.js"></script>
 
 	<script type="text/javascript">
-        $(document).ready(function () {
-        var unique_id = $.gritter.add({
-            // (string | mandatory) the heading of the notification
-            title: 'Bienvenido a Plataforma23!',
-            // (string | mandatory) the text inside the notification
-            text: 'Si desea contactar con el soporte tecnico ingrese a <a href="http://somossistemas.com" target="_blank" style="color:#ffd777">somossistemas.com</a>.<br>Puede cerrar este cuadro de dialogo en cualquier momento.',
-            // (string | optional) the image to display on the left
-            image: 'assets/img/ui-sam.jpg',
-            // (bool | optional) if you want it to fade out on its own or just sit there
-            sticky: true,
-            // (int | optional) the time you want it to be alive for before fading out
-            time: '',
-            // (string | optional) the class name you want to apply to that specific message
-            class_name: 'my-sticky-class'
-        });
+		$(document)
+				.ready(
+						function() {
+							var unique_id = $.gritter
+									.add({
+										// (string | mandatory) the heading of the notification
+										title : 'Bienvenido a Plataforma23!',
+										// (string | mandatory) the text inside the notification
+										text : 'Si desea contactar con el soporte tecnico ingrese a <a href="http://somossistemas.com" target="_blank" style="color:#ffd777">somossistemas.com</a>.<br>Puede cerrar este cuadro de dialogo en cualquier momento.',
+										// (string | optional) the image to display on the left
+										image : 'assets/img/ui-sam.jpg',
+										// (bool | optional) if you want it to fade out on its own or just sit there
+										sticky : true,
+										// (int | optional) the time you want it to be alive for before fading out
+										time : '',
+										// (string | optional) the class name you want to apply to that specific message
+										class_name : 'my-sticky-class'
+									});
 
-        return false;
-        });
+							return false;
+						});
 	</script>
 
 	<script type="application/javascript">
+		
+		
+		
+		
+		
+		
+		
         $(document).ready(function () {
             $("#date-popover").popover({html: true, trigger: "manual"});
             $("#date-popover").hide();
@@ -199,7 +193,14 @@
             var to = $("#" + id).data("to");
             console.log('nav ' + nav + ' to: ' + to.month + '/' + to.year);
         }
-    </script>
+    
+	
+	
+	
+	
+	
+	
+	</script>
 
 </body>
 </html>

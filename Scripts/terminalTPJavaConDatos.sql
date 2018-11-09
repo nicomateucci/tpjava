@@ -29,18 +29,18 @@ INSERT INTO `terminalTPJava`.`Servicio` (`idServicio`, `fechaServicio`, `horaSer
 
 -- Datos tabla ServicioDestino
 
-INSERT INTO `terminalTPJava`.`ServicioDestino` (`idServicio`, `idDestino`, `precio`) VALUES ('1', '2', '0');
-INSERT INTO `terminalTPJava`.`ServicioDestino` (`idServicio`, `idDestino`, `precio`) VALUES ('1', '7', '600');
-INSERT INTO `terminalTPJava`.`ServicioDestino` (`idServicio`, `idDestino`, `precio`) VALUES ('2', '4', '0');
-INSERT INTO `terminalTPJava`.`ServicioDestino` (`idServicio`, `idDestino`, `precio`) VALUES ('2', '2', '400');
-INSERT INTO `terminalTPJava`.`ServicioDestino` (`idServicio`, `idDestino`, `precio`) VALUES ('2', '3', '600');
-INSERT INTO `terminalTPJava`.`ServicioDestino` (`idServicio`, `idDestino`, `precio`) VALUES ('2', '6', '900');
-INSERT INTO `terminalTPJava`.`ServicioDestino` (`idServicio`, `idDestino`, `precio`) VALUES ('3', '3', '0');
-INSERT INTO `terminalTPJava`.`ServicioDestino` (`idServicio`, `idDestino`, `precio`) VALUES ('3', '2', '250');
-INSERT INTO `terminalTPJava`.`ServicioDestino` (`idServicio`, `idDestino`, `precio`) VALUES ('3', '4', '700');
-INSERT INTO `terminalTPJava`.`ServicioDestino` (`idServicio`, `idDestino`, `precio`) VALUES ('4', '5', '0');
-INSERT INTO `terminalTPJava`.`ServicioDestino` (`idServicio`, `idDestino`, `precio`) VALUES ('4', '2', '650');
-INSERT INTO `terminalTPJava`.`ServicioDestino` (`idServicio`, `idDestino`, `precio`) VALUES ('4', '4', '1030');
+INSERT INTO `terminalTPJava`.`ServicioDestino` (`idServicio`, `idDestino`, `precio`, `ordenDestinos`) VALUES ('1', '2', '0','1');
+INSERT INTO `terminalTPJava`.`ServicioDestino` (`idServicio`, `idDestino`, `precio`, `ordenDestinos`) VALUES ('1', '7', '600','2');
+INSERT INTO `terminalTPJava`.`ServicioDestino` (`idServicio`, `idDestino`, `precio`, `ordenDestinos`) VALUES ('2', '4', '0','1');
+INSERT INTO `terminalTPJava`.`ServicioDestino` (`idServicio`, `idDestino`, `precio`, `ordenDestinos`) VALUES ('2', '2', '400','2');
+INSERT INTO `terminalTPJava`.`ServicioDestino` (`idServicio`, `idDestino`, `precio`, `ordenDestinos`) VALUES ('2', '3', '600','3');
+INSERT INTO `terminalTPJava`.`ServicioDestino` (`idServicio`, `idDestino`, `precio`, `ordenDestinos`) VALUES ('2', '6', '900','4');
+INSERT INTO `terminalTPJava`.`ServicioDestino` (`idServicio`, `idDestino`, `precio`, `ordenDestinos`) VALUES ('3', '3', '0','1');
+INSERT INTO `terminalTPJava`.`ServicioDestino` (`idServicio`, `idDestino`, `precio`, `ordenDestinos`) VALUES ('3', '2', '250','2');
+INSERT INTO `terminalTPJava`.`ServicioDestino` (`idServicio`, `idDestino`, `precio`, `ordenDestinos`) VALUES ('3', '4', '700','3');
+INSERT INTO `terminalTPJava`.`ServicioDestino` (`idServicio`, `idDestino`, `precio`, `ordenDestinos`) VALUES ('4', '5', '0','1');
+INSERT INTO `terminalTPJava`.`ServicioDestino` (`idServicio`, `idDestino`, `precio`, `ordenDestinos`) VALUES ('4', '2', '650','2');
+INSERT INTO `terminalTPJava`.`ServicioDestino` (`idServicio`, `idDestino`, `precio`, `ordenDestinos`) VALUES ('4', '4', '1030','3');
 
 -- Datos tabla Micro
 
@@ -50,13 +50,15 @@ INSERT INTO `terminalTPJava`.`Micro` (`patente`, `porcentajeAumento`, `marca`, `
 INSERT INTO `terminalTPJava`.`Micro` (`patente`, `marca`, `fechaUltimoControl`) VALUES ('SSNNN11', 'Ford', '2016-04-05');
 INSERT INTO `terminalTPJava`.`Micro` (`patente`, `porcentajeAumento`, `marca`, `fechaUltimoControl`) VALUES ('00AAA00', '1.20', 'Ford', '2017-8-6');
 
--- Datos tabla MicroSerivicio
+-- Datos tabla ServicioMicro
 
-INSERT INTO `terminalTPJava`.`MicroServicio` (`patente`, `idServicio`) VALUES ('00AAA00', '1');
-INSERT INTO `terminalTPJava`.`MicroServicio` (`patente`, `idServicio`) VALUES ('123ABC', '1');
-INSERT INTO `terminalTPJava`.`MicroServicio` (`patente`, `idServicio`) VALUES ('478DEF', '2');
-INSERT INTO `terminalTPJava`.`MicroServicio` (`patente`, `idServicio`) VALUES ('89ABC00', '3');
-INSERT INTO `terminalTPJava`.`MicroServicio` (`patente`, `idServicio`) VALUES ('SSNNN11', '4');
+INSERT INTO `terminalTPJava`.`ServicioMicro` (`patente`, `idServicio`) VALUES ('00AAA00', '1');
+INSERT INTO `terminalTPJava`.`ServicioMicro` (`patente`, `idServicio`) VALUES ('123ABC', '1');
+INSERT INTO `terminalTPJava`.`ServicioMicro` (`patente`, `idServicio`) VALUES ('478DEF', '2');
+INSERT INTO `terminalTPJava`.`ServicioMicro` (`patente`, `idServicio`) VALUES ('89ABC00', '3');
+INSERT INTO `terminalTPJava`.`ServicioMicro` (`patente`, `idServicio`) VALUES ('SSNNN11', '4');
+INSERT INTO `terminalTPJava`.`ServicioMicro` (`patente`, `idServicio`) VALUES ('89ABC00', '4');
+INSERT INTO `terminalTPJava`.`ServicioMicro` (`patente`, `idServicio`) VALUES ('123ABC', '4');
 
 -- Datos tabla MicroConductor
 
@@ -177,29 +179,6 @@ INSERT INTO `terminalTPJava`.`PersonaServicioMicro` (`dniPersona`, `idServicio`,
 INSERT INTO `terminalTPJava`.`PersonaServicioMicro` (`dniPersona`, `idServicio`, `patenteMicro`, `numButaca`) VALUES ('55555555', '2', '478DEF', '13');
 INSERT INTO `terminalTPJava`.`PersonaServicioMicro` (`dniPersona`, `idServicio`, `patenteMicro`, `numButaca`) VALUES ('33333333', '2', '478DEF', '19');
 INSERT INTO `terminalTPJava`.`PersonaServicioMicro` (`dniPersona`, `idServicio`, `patenteMicro`, `numButaca`) VALUES ('44444444', '3', '89ABC00', '20');
-
-
-
--- Stored procedures
-
-USE `terminalTPJava`;
-DROP procedure IF EXISTS `getServiciosByDestinos`;
-
-DELIMITER $$
-USE `terminalTPJava`$$
-CREATE PROCEDURE `getServiciosByDestinos`(IN id INT, IN id2 INT)
-BEGIN
-
-	drop temporary table if exists temp;
-	create temporary table temp select * from ServicioDestino where idDestino=id;
-	select s.idServicio, s.fechaServicio, s.horaServicio, sd.precio from temp 
-	inner join ServicioDestino sd on temp.idServicio = sd.idServicio
-	inner join Servicio s on s.idServicio = sd.idServicio
-	where sd.idDestino = id2 and sd.idTabla > temp.idTabla;
-    
-END$$
-
-DELIMITER ;
 
 
 

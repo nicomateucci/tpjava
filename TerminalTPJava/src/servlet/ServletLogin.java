@@ -41,7 +41,7 @@ public class ServletLogin extends HttpServlet {
 			if(userOk != null) {
 				if(userOk.esAdmin()) {
 					JOptionPane.showMessageDialog(null, "Usted ingreso como administrador");
-					response.sendRedirect("./pages/adminPage.html");
+					response.sendRedirect("./pages/adminPage.jsp");
 				}else {
 					JOptionPane.showMessageDialog(null, "Ingreso correcto");	
 					response.sendRedirect("./index.html");

@@ -158,7 +158,7 @@ public class DataPersona {
 		try {
 			stmt=FactoryConexion.getInstancia().getConn()
 					.prepareStatement(
-							"insert into persona(dni, nombre, apellido, tipoDni, fechaNac, fechaInicio, contacto) values (?,?,?,?,?,?,?)"
+							"insert into Persona(dni, nombre, apellido, tipoDni, fechaNac, fechaInicio, contacto, esAdmin) values (?,?,?,?,?,?,?,0)"
 							);
 			stmt.setString(1, per.getDni());
 			stmt.setString(2, per.getNombre());

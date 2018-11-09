@@ -4,7 +4,10 @@ package data;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.sql.Statement;
 import java.util.ArrayList;
+
+import javax.swing.JOptionPane;
 
 import entities.Conductor;
 import entities.Destino;
@@ -50,9 +53,69 @@ public class DataDestino {
 		return d;
 	}
 		
-	public void insert(Destino elDestino){
+	public void insert(Destino d) throws AppDataException, SQLException{
 
+			PreparedStatement st = null;
+			ResultSet rs  = null;
+			try {
+				st = FactoryConexion.getInstancia().getConn().prepareStatement("select max(idDestino) as id from Destino");
+				rs = st.executeQuery();
+				rs.first();
+				int idDes = (Integer.parseInt(rs.getString("id")) + 1);
+				st.close();
+				st = null;
+				rs.close();
+				
+				st = FactoryConexion.getInstancia().getConn().prepareStatement("insert into Destino (idDestino, localidad) values (?,?)");
+				st.setInt(1, idDes);
+				st.setString(2, d.getLocalidad());
+				st.executeUpdate();
+				JOptionPane.showMessageDialog(null, "Destino agregado correctamente");
+			} catch (SQLException e) {
+				JOptionPane.showMessageDialog(null, "Error al agrear al nuevo Destino");
+				throw new AppDataException(e, "Error al agrear al nuevo Destino");
+			} finally{	
+			try {
+					if(rs!=null)rs.close();
+					if(st!=null)st.close();
+					FactoryConexion.getInstancia().releaseConn();
+				} catch (SQLException e) {
+					throw e;
+				}
+			}
 	}
+	public void insert(DestinoDirecto d) throws AppDataException, SQLException{
+
+		PreparedStatement st = null;
+		ResultSet rs  = null;
+		try {
+			st = FactoryConexion.getInstancia().getConn().prepareStatement("select max(idDestino) as id from Destino");
+			rs = st.executeQuery();
+			rs.first();
+			int idDes = (Integer.parseInt(rs.getString("id")) + 1);
+			st.close();
+			st = null;
+			rs.close();
+			
+			st = FactoryConexion.getInstancia().getConn().prepareStatement("insert into Destino (idDestino, localidad , porcentajeAumento) values (?,?,?)");
+			st.setInt(1, idDes);
+			st.setString(2, d.getLocalidad());
+			st.setDouble(3, d.getPorcentajeAumento());
+			st.executeUpdate();
+			JOptionPane.showMessageDialog(null, "Destino agregado correctamente");
+		} catch (SQLException e) {
+			JOptionPane.showMessageDialog(null, "Error al agrear al nuevo Destino");
+			throw new AppDataException(e, "Error al agrear al nuevo Destino");
+		} finally{	
+		try {
+				if(rs!=null)rs.close();
+				if(st!=null)st.close();
+				FactoryConexion.getInstancia().releaseConn();
+			} catch (SQLException e) {
+				throw e;
+			}
+		}
+}
 	public void update(Destino elDestino){
 		
 	}

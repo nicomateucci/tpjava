@@ -2,6 +2,8 @@ package servlet;
 
 import java.io.IOException;
 import java.sql.SQLException;
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 
 import javax.servlet.ServletException;
@@ -21,12 +23,12 @@ import util.AppDataException;
 @WebServlet("/ServletCliente")
 public class ServletCliente extends HttpServlet {
 	private static final long serialVersionUID = 1L;
-       
+
     /**
      * @see HttpServlet#HttpServlet()
      */
     public ServletCliente() {
-        super();
+    	super();
         // TODO Auto-generated constructor stub
     }
 
@@ -37,15 +39,25 @@ public class ServletCliente extends HttpServlet {
 		
 		LogicPersona logicp = new LogicPersona();
 		try {
-			ArrayList<Usuario> uu = logicp.getAllUsuarios();
-			//Destino[] miarray = new Destino[dd.size()];
-			//dd.toArray( arregloDestinos[dd.size()]);
-			request.getSession().setAttribute("listaUsuarios", uu);
-			request.getSession().setAttribute("nombre", "Nicomateucci");
-			//miarray = dd.toArray(miarray);
-			//request.getRequestDispatcher("pages/default_adminPage.jsp").forward(request, response);
-			
-			response.sendRedirect("pages/clientes_adminPage.jsp");
+			String tipo = (String) request.getParameter("tipo");
+			if(tipo.equals("consulta")) {
+				request.getSession().setAttribute("tipo", "consulta");
+
+				ArrayList<Usuario> uu = logicp.getAllUsuarios();
+
+				request.getSession().setAttribute("listaUsuarios", uu);
+				request.getSession().setAttribute("nombre", "Nicomateucci");
+
+				response.sendRedirect("pages/clientes_adminPage.jsp");
+			} else if(tipo.equals("alta")){
+				request.getSession().setAttribute("tipo", "alta");
+
+				response.sendRedirect("pages/clientes_adminPage.jsp");
+			}else if (tipo.equals("baja")){
+				request.getSession().setAttribute("tipo", "baja");
+
+				response.sendRedirect("pages/clientes_adminPage.jsp");
+			}
 		} catch (SQLException e) {
 			e.printStackTrace();
 		} catch (AppDataException e) {
@@ -57,8 +69,49 @@ public class ServletCliente extends HttpServlet {
 	 * @see HttpServlet#doPost(HttpServletRequest request, HttpServletResponse response)
 	 */
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		// TODO Auto-generated method stub
-		doGet(request, response);
+		
+		LogicPersona logPer = new LogicPersona();
+		Usuario usu = new Usuario();
+		
+		usu.setNombre(request.getParameter("nombre"));
+		usu.setApellido(request.getParameter("apellido"));
+		usu.setDni(request.getParameter("dni"));
+		usu.setTipoDni(request.getParameter("tipoDni"));
+		
+		SimpleDateFormat format = new SimpleDateFormat("yyyy-MM-dd");
+		java.util.Date date = null;
+		java.sql.Date sqlDate = null;
+		try {
+			date = format.parse(request.getParameter("fecha"));
+			sqlDate = new java.sql.Date(date.getTime());
+		} catch (ParseException e) {
+			e.printStackTrace();
+		}  
+		usu.setFechaNacimiento(sqlDate);
+		//----------------------------------------
+		
+		usu.setNombreUsuario(request.getParameter("nombreU"));
+		usu.setContraseña(request.getParameter("password"));
+		usu.setEmail(request.getParameter("mail"));
+		
+		// Ejemplo de fecha dormateada a JAVA.SQL.DATE
+		/*
+		String startDate="23-05-2018";
+		SimpleDateFormat sdf1 = new SimpleDateFormat("dd-mm-yyyy");
+		java.util.Date date = sdf1.parse(startDate);
+		java.sql.Date sqlStartDate = new java.sql.Date(date.getTime());  
+		*/
+		try {
+			try {
+				logPer.add(usu);
+			} catch (AppDataException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}
+		response.sendRedirect("index.html");
 	}
 
 }

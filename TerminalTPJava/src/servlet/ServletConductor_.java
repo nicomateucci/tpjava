@@ -2,8 +2,10 @@ package servlet;
 
 import java.io.IOException;
 import java.sql.SQLException;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 
+import javax.mail.internet.ParseException;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
@@ -20,12 +22,12 @@ import util.AppDataException;
 @WebServlet("/ServletConductor")
 public class ServletConductor_ extends HttpServlet {
 	private static final long serialVersionUID = 1L;
-       
+	
     /**
      * @see HttpServlet#HttpServlet()
      */
     public ServletConductor_() {
-        super();
+    	super();
         // TODO Auto-generated constructor stub
     }
 
@@ -36,15 +38,24 @@ public class ServletConductor_ extends HttpServlet {
 		
 		LogicPersona logicp = new LogicPersona();
 		try {
-			ArrayList<Conductor> cc = logicp.getAllConductores();
-			//Destino[] miarray = new Destino[dd.size()];
-			//dd.toArray( arregloDestinos[dd.size()]);
-			request.getSession().setAttribute("listaConductores", cc);
-			request.getSession().setAttribute("nombre", "Nicomateucci");
-			//miarray = dd.toArray(miarray);
-			//request.getRequestDispatcher("pages/default_adminPage.jsp").forward(request, response);
-			
-			response.sendRedirect("pages/conductores_adminPage.jsp");
+			String tipo = (String) request.getParameter("tipo");
+			if(tipo.equals("consulta")) {
+				request.getSession().setAttribute("tipo", "consulta");
+				
+				ArrayList<Conductor> cc = logicp.getAllConductores();
+				request.getSession().setAttribute("listaConductores", cc);
+				request.getSession().setAttribute("nombre", "Nicomateucci");
+				
+				response.sendRedirect("pages/conductores_adminPage.jsp");
+			} else if(tipo.equals("alta")){
+				request.getSession().setAttribute("tipo", "alta");
+				
+				response.sendRedirect("pages/conductores_adminPage.jsp");
+			}else if (tipo.equals("baja")){
+				request.getSession().setAttribute("tipo", "baja");
+				
+				response.sendRedirect("pages/conductores_adminPage.jsp");
+			}
 		} catch (SQLException e) {
 			e.printStackTrace();
 		} catch (AppDataException e) {
@@ -56,8 +67,60 @@ public class ServletConductor_ extends HttpServlet {
 	 * @see HttpServlet#doPost(HttpServletRequest request, HttpServletResponse response)
 	 */
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		// TODO Auto-generated method stub
-		doGet(request, response);
+		
+		LogicPersona logPer = new LogicPersona();
+		Conductor con = new Conductor();
+		
+		con.setNombre(request.getParameter("nombre"));
+		con.setApellido(request.getParameter("apellido"));
+		con.setDni(request.getParameter("dni"));
+		con.setTipoDni(request.getParameter("tipoDni"));
+		con.setContacto(request.getParameter("contacto"));
+		
+		
+		//----------Parseo de fecha
+		SimpleDateFormat format = new SimpleDateFormat("yyyy-MM-dd");
+		java.util.Date date = null;
+		java.sql.Date sqlDate = null;
+		try {
+			date = format.parse(request.getParameter("fecha"));
+		} catch (java.text.ParseException e) {
+			e.printStackTrace();
+		}
+		sqlDate = new java.sql.Date(date.getTime());  
+		
+		con.setFechaNacimiento(sqlDate);
+
+		date = null;
+		sqlDate = null;
+		try {
+			date = format.parse(request.getParameter("fecha2"));
+		} catch (java.text.ParseException e) {
+			e.printStackTrace();
+		}
+		sqlDate = new java.sql.Date(date.getTime());  
+		
+		con.setFechaInicio(sqlDate);
+		//----------------------------------------
+		
+		// Ejemplo de fecha dormateada a JAVA.SQL.DATE
+		/*
+		String startDate="23-05-2018";
+		SimpleDateFormat sdf1 = new SimpleDateFormat("dd-mm-yyyy");
+		java.util.Date date = sdf1.parse(startDate);
+		java.sql.Date sqlStartDate = new java.sql.Date(date.getTime());  
+		*/
+		try {
+			try {
+				logPer.add(con);
+			} catch (AppDataException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}
+		response.sendRedirect("ServletConductor?tipo=consulta");
 	}
 
 }
