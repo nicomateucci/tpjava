@@ -9,7 +9,10 @@ public class Persona {
 	public java.sql.Date fechaNacimiento;
 	public boolean esAdmin;
 	
-	
+	public Persona() {}
+	public Persona(String dni) {
+		this.setDni(dni);
+	}
 	public boolean getEsAdmin() {
 		return esAdmin;
 	}

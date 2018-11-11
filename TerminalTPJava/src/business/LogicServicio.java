@@ -26,4 +26,9 @@ public class LogicServicio{
 		dataSer = new DataServicio();
 		return dataSer.getDetalles();
 	}
+	public void addServicioDestino(Servicio s, Destino d) throws AppDataException {
+		dataSer = new DataServicio();
+		dataSer.addServicioDestino(s,d);
+		
+	}
 }

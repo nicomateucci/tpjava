@@ -2,9 +2,14 @@ package entities;
 
 public class Conductor extends Persona{
 	
+	
+	public Conductor() {}
+	public Conductor(String dni) {
+		super(dni);
+		// TODO Auto-generated constructor stub
+	}
 	public java.sql.Date fechaInicio;
 	public String contacto;
-	
 	
 	public java.sql.Date getFechaInicio() {
 		return fechaInicio;

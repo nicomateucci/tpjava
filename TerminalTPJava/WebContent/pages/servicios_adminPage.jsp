@@ -42,7 +42,9 @@
 		<!-- ****************************************************** -->
 		<!-- ****************************************************** -->
 
-		<% if (request.getSession().getAttribute("tipo") == "consulta"){%>
+		<%
+			if (request.getSession().getAttribute("tipo") == "consulta") {
+		%>
 
 		<section id="main-content">
 			<section class="wrapper">
@@ -61,20 +63,22 @@
 							<!-- <th> Asientos disponibles </th>-->
 						</tr>
 						<%
-				ArrayList<Servicio> listaSer = (ArrayList<Servicio>)request.getSession().getAttribute("listaServicios");
-	      				//boolean refuerzos[] = (boolean[]) request.getSession().getAttribute("arregloRefuerzos");
-	      				for(Servicio s: listaSer){
-	      				%>
+							ArrayList<Servicio> listaSer = (ArrayList<Servicio>) request.getSession()
+										.getAttribute("listaServicios");
+								//boolean refuerzos[] = (boolean[]) request.getSession().getAttribute("arregloRefuerzos");
+								for (Servicio s : listaSer) {
+						%>
 						<tr>
-							<td><%= s.getIdServicio()%></td>
-							<td><%= s.getFechaServicio()%></td>
-							<td><%= s.getHoraServicio()%></td>
-							<td><%= s.getRecorrido()%></td>
+							<td><%=s.getIdServicio()%></td>
+							<td><%=s.getFechaServicio()%></td>
+							<td><%=s.getHoraServicio()%></td>
+							<td><%=s.getRecorrido()%></td>
 							<!-- Tengo que ver como lo hago -->
 						</tr>
 						<%
-	      			}
-	      			%>
+							}
+							}
+						%>
 					</table>
 				</div>
 
@@ -82,53 +86,16 @@
 		</section>
 
 
-
-		<%} else if (request.getSession().getAttribute("tipo") == "alta"){ %>
-
-
-		<section id="main-content">
-			<section class="wrapper">
-				<div class="container main-chart">
-					<form method=post action="">
-						<fieldset>
-							<br>
-							<h2>Ingrese los datos del nuevo servicio:</h2>
-
-							<div class="form-group col-lg-9">
-								<label for="fechaServicio">Fecha del servicio: </label> <input
-									type="date" name="fechaServicio" placeholder="aaaa-mm-dd"
-									class="form-control" />
-							</div>
-							<div class="form-group col-lg-9">
-								<label for="horaServicio">Hora del servicio: </label> <input
-									type="text" name="horaServicio" class="form-control" />
-							</div>
-							<div class="form-group col-lg-9">
-								<label for="tipoServicio">Tipo de Servicio: </label> <select
-									name="tipoServicio" id="" class="form-control">
-									<option value="ServicioDirecto">Servicio con destin
-										directo</option>
-									<option value="ServicioNormal">Serivico normal</option>
-								</select>
-							</div>
-							<div class="form-group col-lg-9">
-								<button type="" href="" value="Ingresar" class="btn btn-info">Siguiente</button>
-							</div>
-						</fieldset>
-						<input type="button"
-							onclick="if(document.getElementById('spoiler1') .style.display=='none') {document.getElementById('spoiler1') .style.display=''; this.value = 'Ocultar'; }else{document.getElementById('spoiler1') .style.display='none';this.value = 'Mostrar'; }"
-							value="Gracias por ..." />
-						<div id="spoiler1" style="display: none">Usar Plataforma 23
-							para conocer un nuevo destino en Argentina.</div>
-					</form>
-				</div>
-			</section>
-		</section>
+		<jsp:include page="plantillas/carga_servicio_adminPage.jsp"></jsp:include>
 
 
-		<%} else if (request.getSession().getAttribute("tipo") == "baja"){ %>
+		<%
+			if (request.getSession().getAttribute("tipo") == "baja") {
+		%>
 
-		<%} %>
+		<%
+			}
+		%>
 
 		<jsp:include page="plantillas/plantillaFooter_adminPage.jsp"></jsp:include>
 
@@ -181,6 +148,8 @@
 
 	<script type="application/javascript">
 		
+		
+		
         $(document).ready(function () {
             $("#date-popover").popover({html: true, trigger: "manual"});
             $("#date-popover").hide();
@@ -214,6 +183,8 @@
             console.log('nav ' + nav + ' to: ' + to.month + '/' + to.year);
         }
     
+	
+	
 	</script>
 
 </body>

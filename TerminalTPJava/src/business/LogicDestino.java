@@ -13,6 +13,10 @@ public class LogicDestino {
 	
 	private DataDestino dataDes;
 	
+	public Destino getById(Destino d) throws AppDataException, SQLException {
+		dataDes = new DataDestino();
+		return dataDes.getById(d);
+	}
 	public Destino getByNombre(String nombre) throws AppDataException, SQLException {
 		dataDes = new DataDestino();
 		return dataDes.getByNombre(nombre);

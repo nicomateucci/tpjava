@@ -164,5 +164,22 @@ public class DataServicio {
 		}
 		return rta;
 	}
+	public void addServicioDestino(Servicio s, Destino d) throws AppDataException {
+		
+		PreparedStatement stmt=null;
+		try {
+			stmt=FactoryConexion.getInstancia().getConn()
+					.prepareStatement(
+							"insert into ServicioDestino(idServicio, idDestino, precio, ordenDestinos) values (?,?,?,?)"
+							);
+			stmt.setInt(1, s.getIdServicio());
+			stmt.setInt(2, d.getIdDestino());
+			stmt.setDouble(3, s.getPrecioDestino());
+			stmt.setInt(4, s.getOrdenDestino());
+			stmt.executeUpdate();
+		} catch (SQLException e) {
+			throw new AppDataException(e, "Error en al conexion a la base de datos");
+		}
+	}
 	
 }

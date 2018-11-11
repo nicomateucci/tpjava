@@ -2,10 +2,15 @@ package entities;
 
 public class Usuario extends Persona {
 
+	public Usuario(String dni) {
+		super(dni);
+		// TODO Auto-generated constructor stub
+	}
 	public String nombreUsuario;
 	public String contraseña;
 	public String email;
 	
+	public Usuario() {}
 	public String getNombreUsuario() {
 		return nombreUsuario;
 	}

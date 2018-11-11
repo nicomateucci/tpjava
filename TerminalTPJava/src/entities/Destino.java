@@ -23,5 +23,8 @@ public class Destino implements Serializable{
 		this.localidad = localidad;
 	}
 	public Destino() {}
+	public Destino(int id) {
+		this.setIdDestino(id);
+	}
 
 }

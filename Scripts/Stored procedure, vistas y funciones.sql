@@ -15,7 +15,7 @@ BEGIN
 	select s.idServicio, s.fechaServicio, s.horaServicio, sd.precio from temp 
 	inner join ServicioDestino sd on temp.idServicio = sd.idServicio
 	inner join Servicio s on s.idServicio = sd.idServicio
-	where sd.idDestino = id2 and sd.idTabla > temp.idTabla;
+	where sd.idDestino = id2 and sd.ordenDestinos > temp.ordenDestinos;
     
 END$$
 DELIMITER ;

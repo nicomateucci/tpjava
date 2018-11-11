@@ -17,6 +17,10 @@ public class Micro implements Serializable{
 	public Micro() {
 		conductores = new ArrayList<Conductor>();
 	}
+	public Micro(String patente) {
+		conductores = new ArrayList<Conductor>();
+		this.setPatente(patente);
+	}
 	
 	
 	public ArrayList<Conductor> getConductores() {
