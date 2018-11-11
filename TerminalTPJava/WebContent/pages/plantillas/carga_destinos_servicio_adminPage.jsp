@@ -164,8 +164,7 @@
 	if (request.getSession().getAttribute("estadoCargaDestino").equals("CARGADESTINOFIN")) {
 		JOptionPane.showMessageDialog(null, "La carga del destino esta en estado CARGADESTINOFIN");
 		System.out.println("La carga del destino esta en estado CARGADESTINOFIN");
-		int cant = Integer.parseInt((String) request.getSession().getAttribute("cantDestinos"));
-		if (cant == 2) {
+		if ((int) request.getSession().getAttribute("cantDestinos") == 2) {
 %>
 <section id="main-content">
 	<section class="wrapper">

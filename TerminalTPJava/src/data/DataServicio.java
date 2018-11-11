@@ -166,13 +166,21 @@ public class DataServicio {
 	}
 	public void addServicioDestino(Servicio s, Destino d) throws AppDataException {
 		
+		ResultSet rs = null;
 		PreparedStatement stmt=null;
 		try {
+			stmt = FactoryConexion.getInstancia().getConn().prepareStatement("select max(idServicio) as id from Servicio");
+			rs = stmt.executeQuery();
+			rs.first();
+			int idSer = ((rs.getInt("id")) + 1);
+			stmt.close();
+			stmt = null;
+			rs.close();
 			stmt=FactoryConexion.getInstancia().getConn()
 					.prepareStatement(
 							"insert into ServicioDestino(idServicio, idDestino, precio, ordenDestinos) values (?,?,?,?)"
 							);
-			stmt.setInt(1, s.getIdServicio());
+			stmt.setInt(1, idSer);
 			stmt.setInt(2, d.getIdDestino());
 			stmt.setDouble(3, s.getPrecioDestino());
 			stmt.setInt(4, s.getOrdenDestino());

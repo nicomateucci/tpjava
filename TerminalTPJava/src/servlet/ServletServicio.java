@@ -164,7 +164,7 @@ public class ServletServicio extends HttpServlet {
 				}
 				request.getSession().setAttribute("listaServicios", ss);
 				//int idDestino = Integer.parseInt((String) request.getSession().getAttribute("idDestino"));
-				int idDestino = (int) request.getSession().getAttribute("idDestino");
+				int idDestino = Integer.parseInt(request.getParameter("idDestino"));
 				Destino d2 = new Destino(idDestino);
 				try {
 					d = logicd.getById(d2);
@@ -183,7 +183,7 @@ public class ServletServicio extends HttpServlet {
 				}
 				
 				
-				if((int) request.getSession().getAttribute("cantidadDestinos") == 2) {
+				if((int) request.getSession().getAttribute("cantDestinos") == 2) {
 					request.getSession().setAttribute("estadoCargaDestino", "CARGADESTINOFIN");
 				}else {
 					request.getSession().setAttribute("estadoCargaDestino", "CARGADESTINOSIGUIENTE");
@@ -233,8 +233,8 @@ public class ServletServicio extends HttpServlet {
 				int contador = (int) request.getSession().getAttribute("contadorDestinos");
 				contador++;
 				request.getSession().setAttribute("contadorDestinos", contador);
-				int idDestino = Integer.parseInt((String) request.getSession().getAttribute("idDestino"));
-				Double precio = Double.parseDouble(request.getParameter(""));
+				int idDestino = Integer.parseInt( request.getParameter("idDestino"));
+				Double precio = Double.parseDouble(request.getParameter("precio"));
 				ser.setPrecioDestino(precio);
 				ser.setOrdenDestino(contador);
 				Destino d2 = new Destino(idDestino);
