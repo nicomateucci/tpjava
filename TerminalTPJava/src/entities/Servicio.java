@@ -14,8 +14,7 @@ public class Servicio {
 		public ArrayList<Micro> micros;
 		//********************************************************************
 		public String recorrido;
-		public int ordenDestino;
-		public Double precioDestino;
+
 		/* Formato: destino1, destino2, destino3, ..., destinoN
 		 * Atributo agregado para mostrar al usuario administrador todos los destinos de un servicio
 		 * Reulta mas simple ya que en la pagina JSP no va a ser necesario recorreR el ArrayList<Destino>
@@ -31,21 +30,26 @@ public class Servicio {
 			destinos = new ArrayList<Destino>();
 		}
 		
-		public int getOrdenDestino() {
-			return ordenDestino;
+		
+		public ArrayList<Destino> getDestinos() {
+			return destinos;
 		}
 
-		public void setOrdenDestino(int ordenDestino) {
-			this.ordenDestino = ordenDestino;
+
+		public void setDestinos(ArrayList<Destino> destinos) {
+			this.destinos = destinos;
 		}
 
-		public Double getPrecioDestino() {
-			return precioDestino;
+
+		public ArrayList<Micro> getMicros() {
+			return micros;
 		}
 
-		public void setPrecioDestino(Double precioDestino) {
-			this.precioDestino = precioDestino;
+
+		public void setMicros(ArrayList<Micro> micros) {
+			this.micros = micros;
 		}
+
 
 		public String getRecorrido() {
 			return recorrido;
@@ -56,10 +60,16 @@ public class Servicio {
 		public void addDestino(Destino des) {
 			destinos.add(des);
 		}
+		public void addDestino(DestinoDirecto des) {
+			destinos.add(des);
+		}
 		public void addDestinos() {
 			
 		}
 		public void addMicro(Micro m) {
+			micros.add(m);
+		}
+		public void addMicro(MicroCama m) {
 			micros.add(m);
 		}
 		public void addMicros() {

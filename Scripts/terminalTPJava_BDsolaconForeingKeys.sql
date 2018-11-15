@@ -89,7 +89,7 @@ CREATE TABLE IF NOT EXISTS `terminalTPJava`.`Persona` (
   `fechaInicio` DATE NULL,
   `contacto` VARCHAR(45) NULL,
   `nombreUsuario` VARCHAR(45) NULL,
-  `contraseña` VARCHAR(45) NULL,
+  `contrasena` VARCHAR(45) NULL,
   `email` VARCHAR(45) NULL,
   `esAdmin` TINYINT(1) NOT NULL,
   `fotoPerfil` MEDIUMBLOB NULL,

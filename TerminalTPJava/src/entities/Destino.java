@@ -10,6 +10,25 @@ public class Destino implements Serializable{
 	private static final long serialVersionUID = 1L;
 	public int idDestino;
 	public String localidad;
+	public int ordenDestino;
+	public Double precioDestino;
+	
+	
+	public int getOrdenDestino() {
+		return ordenDestino;
+	}
+
+	public void setOrdenDestino(int ordenDestino) {
+		this.ordenDestino = ordenDestino;
+	}
+
+	public Double getPrecioDestino() {
+		return precioDestino;
+	}
+
+	public void setPrecioDestino(Double precioDestino) {
+		this.precioDestino = precioDestino;
+	}
 	public int getIdDestino() {
 		return idDestino;
 	}

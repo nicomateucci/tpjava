@@ -12,6 +12,20 @@ public class LogicMicro{
 
 	private DataMicro datam;
 
+	
+	public boolean esCama(String p) throws SQLException, AppDataException {
+		datam = new DataMicro();
+		return datam.esCama(p);
+		
+	}
+	public Micro getByPatente(Micro m) throws AppDataException, SQLException {
+		datam = new DataMicro();
+		return datam.getByPatente(m);
+	}
+	public MicroCama getByPatente(MicroCama m) throws AppDataException, SQLException {
+		datam = new DataMicro();
+		return datam.getByPatente(m);
+	}
 	public ArrayList<Micro> getAll() throws SQLException, AppDataException{
 
 		datam = new DataMicro();

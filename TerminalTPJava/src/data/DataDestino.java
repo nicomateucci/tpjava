@@ -47,6 +47,36 @@ public Destino getById(Destino d) throws AppDataException, SQLException {
 		}
 		return des;
 	}
+public DestinoDirecto getById(DestinoDirecto d) throws AppDataException, SQLException {
+	
+	DestinoDirecto des = null;
+	PreparedStatement stmt=null;
+	ResultSet rs=null;
+	try {
+		stmt=FactoryConexion.getInstancia().getConn().prepareStatement("select idDestino, localidad, porcentajeAumento from Destino where idDestino=?");
+		stmt.setInt(1, d.getIdDestino());
+		rs=stmt.executeQuery();
+		if(rs!=null && rs.next()){
+
+			des = new DestinoDirecto();
+			des.setIdDestino(rs.getInt("idDestino"));
+			des.setLocalidad(rs.getString("localidad"));
+			des.setPorcentajeAumento(rs.getDouble("porcentajeAumento"));
+		}
+
+	} catch (SQLException e) {
+		throw new AppDataException(e, "Error al consultar destinos en la base da datos");
+	} finally{	
+	try {
+			if(rs!=null)rs.close();
+			if(stmt!=null)stmt.close();
+			FactoryConexion.getInstancia().releaseConn();
+		} catch (SQLException e) {
+			throw e;
+		}
+	}
+	return des;
+}
 	
 	public Destino getByNombre(String nombre) throws AppDataException, SQLException {
 		

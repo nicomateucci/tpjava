@@ -7,7 +7,7 @@ public class Usuario extends Persona {
 		// TODO Auto-generated constructor stub
 	}
 	public String nombreUsuario;
-	public String contraseña;
+	public String contrasena;
 	public String email;
 	
 	public Usuario() {}
@@ -17,11 +17,11 @@ public class Usuario extends Persona {
 	public void setNombreUsuario(String nombreUsuario) {
 		this.nombreUsuario = nombreUsuario;
 	}
-	public String getContraseña() {
-		return contraseña;
+	public String getContrasena() {
+		return contrasena;
 	}
-	public void setContraseña(String contraseña) {
-		this.contraseña = contraseña;
+	public void setContraseña(String c) {
+		this.contrasena = c;
 	}
 	public String getEmail() {
 		return email;

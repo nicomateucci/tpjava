@@ -27,6 +27,19 @@ public class Micro implements Serializable{
 		return conductores;
 	}
 
+	public Butaca getButaca(int num) {
+		return pasajeros[num];
+		
+	}
+	public Butaca[] getPasajeros() {
+		return pasajeros;
+	}
+	public void setPasajeros(Butaca[] pasajeros) {
+		this.pasajeros = pasajeros;
+	}
+	public void setConductores(ArrayList<Conductor> conductores) {
+		this.conductores = conductores;
+	}
 	public void addConductor(Conductor con) {
 		
 		conductores.add(con);
@@ -36,9 +49,11 @@ public class Micro implements Serializable{
 		pasajeros = new Butaca[numButacas];
 		
 	}
-	public void setPasajero(int numButaca, Usuario pasajero) {
+	public void setPasajero(int numButaca, Usuario p) {
 		
-		pasajeros[numButaca].setPasajero(pasajero);
+		int x = numButaca;
+		Usuario p2 = p;
+		pasajeros[x].setPasajero(p2);
 	}
 	public Usuario getPasajero(int numButaca) {
 		

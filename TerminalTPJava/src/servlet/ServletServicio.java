@@ -12,10 +12,13 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 import business.LogicDestino;
+import business.LogicMicro;
 import business.LogicPersona;
 import business.LogicServicio;
 import entities.Conductor;
 import entities.Destino;
+import entities.Micro;
+import entities.MicroCama;
 import entities.Servicio;
 import util.AppDataException;
 
@@ -86,10 +89,12 @@ public class ServletServicio extends HttpServlet {
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 
 		LogicDestino logicd = new LogicDestino();
-		LogicServicio logics = new LogicServicio();
+		LogicPersona logicc = new LogicPersona();
+		LogicMicro logicm = new LogicMicro();
 		Servicio ser = (Servicio) request.getSession().getAttribute("servicio");
-		ArrayList<Servicio> ss = null;
 		ArrayList<Destino> dd = null;
+		ArrayList<Micro> mm = null;
+		ArrayList<Conductor> cc= null;
 
 		//5 estados de la carga del servicio: CARGAID, CARGADESTINO, CARGAMICRO, CARGACONDCUTOR, SERVICIOAGREGADO
 		//4 estados de la varga de destinos: CARGADESTINOCANTIDAD, CARGADESTINOORIGEN, CARGADESTINOSIGUIENTE, CARGADESTINOFIN
@@ -125,7 +130,6 @@ public class ServletServicio extends HttpServlet {
 			if(tipoDestino.equals("ServicioNormal")) {
 
 				request.getSession().setAttribute("estadoCargaDestino", "CARGADESTINOCANTIDAD");
-				//CARGADESTINOCANTIDADServicioNormal
 			} else {
 				request.getSession().setAttribute("estadoCargaDestino", "CARGADESTINOORIGEN");
 				request.getSession().setAttribute("cantDestinos", 2);
@@ -139,7 +143,7 @@ public class ServletServicio extends HttpServlet {
 
 			if(estadoCargaDestino.equals("CARGADESTINOCANTIDAD")) {
 				int cantDestinos = Integer.parseInt(request.getParameter("cantDestinos"));
-				request.getSession().setAttribute("cantDestino", cantDestinos);
+				request.getSession().setAttribute("cantDestinos", cantDestinos);
 				try {
 					dd = logicd.getAll();
 				} catch (AppDataException e) {
@@ -156,14 +160,13 @@ public class ServletServicio extends HttpServlet {
 			if(estadoCargaDestino.equals("CARGADESTINOORIGEN")) {
 				request.getSession().setAttribute("contadorDestinos", 1);
 				try {
-					ss = logics.getDetalles();
+					dd = logicd.getAll();
 				} catch (AppDataException e) {
 					e.printStackTrace();
 				} catch (SQLException e) {
 					e.printStackTrace();
 				}
-				request.getSession().setAttribute("listaServicios", ss);
-				//int idDestino = Integer.parseInt((String) request.getSession().getAttribute("idDestino"));
+				request.getSession().setAttribute("listaDestinos", dd);
 				int idDestino = Integer.parseInt(request.getParameter("idDestino"));
 				Destino d2 = new Destino(idDestino);
 				try {
@@ -173,16 +176,11 @@ public class ServletServicio extends HttpServlet {
 				} catch (SQLException e) {
 					e.printStackTrace();
 				}
-				ser.setOrdenDestino(1);
-				ser.setPrecioDestino(0.0);
-				try {
-					logics.addServicioDestino(ser, d);
-				} catch (AppDataException e) {
-					// TODO Auto-generated catch block
-					e.printStackTrace();
-				}
-				
-				
+				d.setOrdenDestino(1);
+				d.setPrecioDestino(0.0);
+				ser.addDestino(d);
+
+
 				if((int) request.getSession().getAttribute("cantDestinos") == 2) {
 					request.getSession().setAttribute("estadoCargaDestino", "CARGADESTINOFIN");
 				}else {
@@ -193,10 +191,6 @@ public class ServletServicio extends HttpServlet {
 			if(estadoCargaDestino.equals("CARGADESTINOSIGUIENTE")) {
 				int contador = (int) request.getSession().getAttribute("contadorDestinos");
 				request.getSession().setAttribute("contadorDestinos", contador++);
-				
-				if(contador == (int) request.getSession().getAttribute("cantidadDestino") - 1) {
-					request.getSession().setAttribute("estadoCargaDestino", "CARGADESTINOFIN");
-				}
 				try {
 					dd = logicd.getAll();
 				} catch (AppDataException e) {
@@ -205,10 +199,8 @@ public class ServletServicio extends HttpServlet {
 					e.printStackTrace();
 				}
 				request.getSession().setAttribute("listaDestinos", dd);
-				int idDestino = Integer.parseInt((String) request.getSession().getAttribute("idDestino"));
-				Double precio = Double.parseDouble(request.getParameter(""));
-				ser.setPrecioDestino(precio);
-				ser.setOrdenDestino(contador);
+				int idDestino = Integer.parseInt(request.getParameter("idDestino"));
+				Double precio = Double.parseDouble(request.getParameter("precio"));
 				Destino d2 = new Destino(idDestino);
 				try {
 					d = logicd.getById(d2);
@@ -217,42 +209,49 @@ public class ServletServicio extends HttpServlet {
 				} catch (SQLException e) {
 					e.printStackTrace();
 				}
-				try {
-					logics.addServicioDestino(ser, d);
-				} catch (AppDataException e) {
-					// TODO Auto-generated catch block
-					e.printStackTrace();
-				}
-				
-				
+				d.setPrecioDestino(precio);
+				d.setOrdenDestino(contador);
+				ser.addDestino(d);
 
+				if(contador == (int) request.getSession().getAttribute("cantDestinos") - 1) {
+					request.getSession().setAttribute("estadoCargaDestino", "CARGADESTINOFIN");
+				}
 				response.sendRedirect("pages/servicios_adminPage.jsp");
 			}
 			if(estadoCargaDestino.equals("CARGADESTINOFIN")) {
-				
+
+
 				int contador = (int) request.getSession().getAttribute("contadorDestinos");
 				contador++;
 				request.getSession().setAttribute("contadorDestinos", contador);
 				int idDestino = Integer.parseInt( request.getParameter("idDestino"));
 				Double precio = Double.parseDouble(request.getParameter("precio"));
-				ser.setPrecioDestino(precio);
-				ser.setOrdenDestino(contador);
-				Destino d2 = new Destino(idDestino);
+				if((int) request.getSession().getAttribute("cantDestinos") == 2) {
+					//------------------------------------------------------------------------
+					//Tengo que agregar el if por el caso de que se ingrese un Destino Directo
+
+
+					Destino des = new Destino(idDestino);
+
+					try {
+						d = logicd.getById(des);
+					} catch (AppDataException e) {
+						e.printStackTrace();
+					} catch (SQLException e) {
+						e.printStackTrace();
+					}
+					d.setPrecioDestino(precio);
+					d.setOrdenDestino(contador);
+					ser.addDestino(d);
+				}
 				try {
-					d = logicd.getById(d2);
+					mm = logicm.getAll();
 				} catch (AppDataException e) {
 					e.printStackTrace();
 				} catch (SQLException e) {
 					e.printStackTrace();
 				}
-				try {
-					logics.addServicioDestino(ser, d);
-				} catch (AppDataException e) {
-					// TODO Auto-generated catch block
-					e.printStackTrace();
-				}
-
-
+				request.getSession().setAttribute("listaMicros", mm);
 
 				request.getSession().setAttribute("estadoServicio", "CARGAMICRO");
 				response.sendRedirect("pages/servicios_adminPage.jsp");
@@ -261,19 +260,88 @@ public class ServletServicio extends HttpServlet {
 			break;
 		case "CARGAMICRO":
 
-			ser.setRecorrido(request.getParameter("fechaServicio"));
+			String patente = request.getParameter("patenteMicro");
+			try {
+				if(logicm.esCama(patente)) {
+					MicroCama m = new MicroCama();
+					m.setPatente(patente);
+					ser.addMicro(logicm.getByPatente(m));
+				}else{
+					Micro m = new Micro();
+					m.setPatente(patente);
+					ser.addMicro(logicm.getByPatente(m));
+				}
+			} catch (SQLException e) {
+				e.printStackTrace();
+			} catch (AppDataException e) {
+				e.printStackTrace();
+			}
+			patente = request.getParameter("patenteRefuerzo");
+			if(patente != "") {
+				try {
+					if(logicm.esCama(patente)) {
+						MicroCama m = new MicroCama();
+						m.setPatente(patente);
+						ser.addMicro(logicm.getByPatente(m));
+					}else{
+						Micro m = new Micro();
+						m.setPatente(patente);
+						ser.addMicro(logicm.getByPatente(m));
+					}
+				} catch (SQLException e) {
+					e.printStackTrace();
+				} catch (AppDataException e) {
+					e.printStackTrace();
+				}
+			}
+			try {
+				cc = logicc.getAllConductores();
+			} catch (AppDataException e) {
+				e.printStackTrace();
+			} catch (SQLException e) {
+				e.printStackTrace();
+			}
+			request.getSession().setAttribute("listaConductores", cc);
 			request.getSession().setAttribute("estadoServicio", "CARGACONDUCTOR");
 			response.sendRedirect("pages/servicios_adminPage.jsp");
 			break;
 		case "CARGACONDUCTOR":
 
+			Conductor c = new Conductor();
+			
+			String dni = request.getParameter("dni");
+			try {
+				c = (Conductor) logicc.getByDni(dni);
+			} catch (Exception e) {
+				e.printStackTrace();
+			}
+			
+			ser.getMicros().get(0).addConductor(c);
+
+
+			dni = request.getParameter("dni2");
+			try {
+				c = (Conductor) logicc.getByDni(dni);
+			} catch (Exception e) {
+				e.printStackTrace();
+			}
+			dni = request.getParameter("dniRef");
+			try {
+				c = (Conductor) logicc.getByDni(dni);
+			} catch (Exception e) {
+				e.printStackTrace();
+			}
+			dni = request.getParameter("dniRef2");
+			try {
+				c = (Conductor) logicc.getByDni(dni);
+			} catch (Exception e) {
+				e.printStackTrace();
+			}
 
 			System.out.println("Id servicio, fechaServicio, horaServicio, tipo servicio" + ser.getIdServicio() + ser.getFechaServicio() + ser.getHoraServicio() + request.getParameter("tipoServicio"));
 			break;
 		}
-
 	}
-
 }
 
 

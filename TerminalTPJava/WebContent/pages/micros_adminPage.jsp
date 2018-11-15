@@ -43,7 +43,9 @@
 		<!-- ****************************************************** -->
 		<!-- ****************************************************** -->
 
-		<% if (request.getSession().getAttribute("tipo") == "consulta"){%>
+		<%
+			if (request.getSession().getAttribute("tipo") == "consulta") {
+		%>
 		<section id="main-content">
 			<section class="wrapper">
 				<div class="container main-chart">
@@ -56,36 +58,41 @@
 							<th>Tipo</th>
 						</tr>
 						<%
-				ArrayList<Micro> listaMic = (ArrayList<Micro>)request.getSession().getAttribute("listaMicros");
-					for(Micro m : listaMic){
-					if(m.getClass() == MicroCama.class) {
-					%>
+							ArrayList<Micro> listaMic = (ArrayList<Micro>) request.getSession().getAttribute("listaMicros");
+								for (Micro m : listaMic) {
+									if (m.getClass() == MicroCama.class) {
+						%>
 						<tr>
-							<td><%= m.getPatente() %></td>
-							<td><%= m.getMarca() %></td>
-							<td><%= m.getFechaUltimoCtrl() %></td>
-							<td><%= ((MicroCama) m).getAumento() %></td>
-							<td><%= m.getClass().toString().substring(15) %></td>
+							<td><%=m.getPatente()%></td>
+							<td><%=m.getMarca()%></td>
+							<td><%=m.getFechaUltimoCtrl()%></td>
+							<td><%=((MicroCama) m).getAumento()%></td>
+							<td><%=m.getClass().toString().substring(15)%></td>
 
 						</tr>
-						<%  } else { %>
+						<%
+							} else {
+						%>
 						<tr>
-							<td><%= m.getPatente() %></td>
-							<td><%= m.getMarca() %></td>
-							<td><%= m.getFechaUltimoCtrl() %></td>
-							<td><%= 0.0 %></td>
-							<td><%= m.getClass().toString().substring(15) %></td>
+							<td><%=m.getPatente()%></td>
+							<td><%=m.getMarca()%></td>
+							<td><%=m.getFechaUltimoCtrl()%></td>
+							<td><%=0.0%></td>
+							<td><%=m.getClass().toString().substring(15)%></td>
 						</tr>
 						<%
-				}}
-				%>
+							}
+								}
+						%>
 					</table>
 				</div>
 
 			</section>
 		</section>
 
-		<%} else if (request.getSession().getAttribute("tipo") == "alta"){ %>
+		<%
+			} else if (request.getSession().getAttribute("tipo") == "alta") {
+		%>
 
 
 		<section id="main-content">
@@ -139,9 +146,13 @@
 		</section>
 
 
-		<%} else if (request.getSession().getAttribute("tipo") == "baja"){ %>
+		<%
+			} else if (request.getSession().getAttribute("tipo") == "baja") {
+		%>
 
-		<%} %>
+		<%
+			}
+		%>
 
 		<jsp:include page="plantillas/plantillaFooter_adminPage.jsp"></jsp:include>
 
@@ -169,27 +180,31 @@
 	<script src="assets/js/zabuto_calendar.js"></script>
 
 	<script type="text/javascript">
-        $(document).ready(function () {
-        var unique_id = $.gritter.add({
-            // (string | mandatory) the heading of the notification
-            title: 'Bienvenido a Plataforma23!',
-            // (string | mandatory) the text inside the notification
-            text: 'Si desea contactar con el soporte tecnico ingrese a <a href="http://somossistemas.com" target="_blank" style="color:#ffd777">somossistemas.com</a>.<br>Puede cerrar este cuadro de dialogo en cualquier momento.',
-            // (string | optional) the image to display on the left
-            image: 'assets/img/ui-sam.jpg',
-            // (bool | optional) if you want it to fade out on its own or just sit there
-            sticky: true,
-            // (int | optional) the time you want it to be alive for before fading out
-            time: '',
-            // (string | optional) the class name you want to apply to that specific message
-            class_name: 'my-sticky-class'
-        });
+		$(document)
+				.ready(
+						function() {
+							var unique_id = $.gritter
+									.add({
+										// (string | mandatory) the heading of the notification
+										title : 'Bienvenido a Plataforma23!',
+										// (string | mandatory) the text inside the notification
+										text : 'Si desea contactar con el soporte tecnico ingrese a <a href="http://somossistemas.com" target="_blank" style="color:#ffd777">somossistemas.com</a>.<br>Puede cerrar este cuadro de dialogo en cualquier momento.',
+										// (string | optional) the image to display on the left
+										image : 'assets/img/ui-sam.jpg',
+										// (bool | optional) if you want it to fade out on its own or just sit there
+										sticky : true,
+										// (int | optional) the time you want it to be alive for before fading out
+										time : '',
+										// (string | optional) the class name you want to apply to that specific message
+										class_name : 'my-sticky-class'
+									});
 
-        return false;
-        });
+							return false;
+						});
 	</script>
 
 	<script type="application/javascript">
+		
         $(document).ready(function () {
             $("#date-popover").popover({html: true, trigger: "manual"});
             $("#date-popover").hide();
@@ -222,7 +237,8 @@
             var to = $("#" + id).data("to");
             console.log('nav ' + nav + ' to: ' + to.month + '/' + to.year);
         }
-    </script>
+    
+	</script>
 
 </body>
 </html>

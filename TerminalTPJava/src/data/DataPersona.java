@@ -21,7 +21,7 @@ public class DataPersona {
 		PreparedStatement stmt=null;
 		ResultSet rs=null;
 		try {
-			stmt=FactoryConexion.getInstancia().getConn().prepareStatement("select `dni`, `nombre`, `apellido`, `fechaNac`, `nombreUsuario`, `contraseña`, `email` from Persona where esAdmin = 0 and nombreUsuario is not null");
+			stmt=FactoryConexion.getInstancia().getConn().prepareStatement("select `dni`, `nombre`, `apellido`, `fechaNac`, `nombreUsuario`, `contrasena`, `email` from Persona where esAdmin = 0 and nombreUsuario is not null");
 			rs=stmt.executeQuery();
 			while(rs!=null && rs.next()){
 		
@@ -31,7 +31,7 @@ public class DataPersona {
 				u.setApellido(rs.getString("apellido"));
 				u.setFechaNacimiento(rs.getDate("fechaNac"));
 				u.setNombreUsuario(rs.getString("nombreUsuario"));
-				u.setContraseña(rs.getString("contraseña"));
+				u.setcontrasena(rs.getString("contrasena"));
 				u.setEmail(rs.getString("email"));
 				uu.add(u);
 				}	
@@ -99,7 +99,7 @@ public class DataPersona {
 				if (rs.getString("fechaInicio") == null){
 					p = new Usuario();
 					((Usuario) p).setNombreUsuario(rs.getString("nombreUsuario"));
-					((Usuario) p).setContraseña(rs.getString("contraseña"));;
+					((Usuario) p).setcontrasena(rs.getString("contrasena"));;
 					((Usuario) p).setEmail(rs.getString("email"));
 
 				} else {
@@ -128,13 +128,16 @@ public class DataPersona {
 		}
 		return p;
 	}
+	
+	
+	
 	public void add(Usuario per) throws SQLException, AppDataException{
 
 		PreparedStatement stmt=null;
 		try {
 			stmt=FactoryConexion.getInstancia().getConn()
 					.prepareStatement(
-							"insert into Persona(dni, nombre, apellido, tipoDni, fechaNac, nombreUsuario, contraseña, email, esAdmin)  values (?,?,?,?,?,?,?,?,?)"
+							"insert into Persona(dni, nombre, apellido, tipoDni, fechaNac, nombreUsuario, contrasena, email, esAdmin)  values (?,?,?,?,?,?,?,?,?)"
 							);
 			stmt.setString(1, per.getDni());
 			stmt.setString(2, per.getNombre());
@@ -142,7 +145,7 @@ public class DataPersona {
 			stmt.setString(4, per.getTipoDni());
 			stmt.setDate(5, per.getFechaNacimiento());
 			stmt.setString(6, per.getNombreUsuario());
-			stmt.setString(7, per.getContraseña());
+			stmt.setString(7, per.getContrasena());
 			stmt.setString(8, per.getEmail());
 			stmt.setBoolean(9,((Persona) per).getEsAdmin());
 
@@ -179,9 +182,9 @@ public class DataPersona {
 		ResultSet rs = null;
 		try {
 			stmt=FactoryConexion.getInstancia().getConn().prepareStatement(
-					"select dni, nombre, apellido, tipoDni, fechaNac, email, esAdmin from Persona where nombreUsuario=? and contraseña=?");
+					"select dni, nombre, apellido, tipoDni, fechaNac, email, esAdmin from Persona where nombreUsuario=? and contrasena=?");
 			stmt.setString(1, per.getNombreUsuario());
-			stmt.setString(2, per.getContraseña());
+			stmt.setString(2, per.getContrasena());
 			rs=stmt.executeQuery();
 			if(rs!=null && rs.next()){
 				u = new Usuario();

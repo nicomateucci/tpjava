@@ -124,13 +124,33 @@ public class DataServicio {
 		return s;
 	}
 
-	public void add(Servicio elServicio){
+	public void add(Servicio s){
 	
 	}
 	
 	
-	public void insert(Servicio elServicio){
-
+	public void insert(Servicio s) throws AppDataException{
+		ResultSet rs = null;
+		PreparedStatement stmt=null;
+		try {
+			stmt = FactoryConexion.getInstancia().getConn().prepareStatement("select max(idServicio) as id from Servicio");
+			rs = stmt.executeQuery();
+			rs.first();
+			int idSer = ((rs.getInt("id")) + 1);
+			stmt.close();
+			stmt = null;
+			rs.close();
+			stmt=FactoryConexion.getInstancia().getConn()
+					.prepareStatement(
+							"insert into Servicio(idServicio, fechaServicio, horaServicio) values (?,?,?)"
+							);
+			stmt.setInt(1, idSer);
+			stmt.setDate(2, s.getFechaServicio());
+			stmt.setString(3, s.getHoraServicio());
+			stmt.executeUpdate();
+		} catch (SQLException e) {
+			throw new AppDataException(e, "Error en al conexion a la base de datos");
+		}
 	}
 	public void update(Servicio elServicio){
 		
@@ -182,8 +202,8 @@ public class DataServicio {
 							);
 			stmt.setInt(1, idSer);
 			stmt.setInt(2, d.getIdDestino());
-			stmt.setDouble(3, s.getPrecioDestino());
-			stmt.setInt(4, s.getOrdenDestino());
+			stmt.setDouble(3, d.getPrecioDestino());
+			stmt.setInt(4, d.getOrdenDestino());
 			stmt.executeUpdate();
 		} catch (SQLException e) {
 			throw new AppDataException(e, "Error en al conexion a la base de datos");

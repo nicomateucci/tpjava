@@ -13,7 +13,30 @@ import util.AppDataException;
 public class DataMicro {
 
 	
+	public boolean esCama(String p) throws SQLException, AppDataException {
+		
+		PreparedStatement stmt=null;
+		ResultSet rs=null;
+		try {
+			stmt=FactoryConexion.getInstancia().getConn().prepareStatement("select porcentajeAumento from Micro where patente=?");
+			stmt.setString(1, p);
+			rs=stmt.executeQuery();
+			rs.next();
+			return (rs.getDouble("porcentajeAumento") > 0);
+			
+		} catch (SQLException e) {
+			throw new AppDataException(e, "Error al consultar destinos en la base da datos");
+		} finally{	
+		try {
+				if(rs!=null)rs.close();
+				if(stmt!=null)stmt.close();
+				FactoryConexion.getInstancia().releaseConn();
+			} catch (SQLException e) {
+				throw e;
+			}
+		}
 	
+	}
 	public ArrayList<Micro> getAll() throws SQLException, AppDataException{
 		
 		ArrayList<Micro> mm= new ArrayList<Micro>();
@@ -55,9 +78,70 @@ public class DataMicro {
 		}
 	}
 	
-	public Micro getByPatente(String patente){
-		return new Micro();
+	public Micro getByPatente(Micro mic) throws AppDataException, SQLException{
+		
+		Micro m = null;
+		PreparedStatement stmt=null;
+		ResultSet rs=null;
+		try {
+			stmt=FactoryConexion.getInstancia().getConn().prepareStatement("select patente, marca, fechaUltimoControl from Micro where patente=?");
+			stmt.setString(1, mic.getPatente());
+			rs=stmt.executeQuery();
+			if(rs!=null && rs.next()){
+
+				m = new Micro();
+				m.setPatente(rs.getString("patente"));
+				m.setMarca(rs.getString("marca"));
+				m.setFechaUltimoCtrl(rs.getDate("fechaUltimoControl"));
+			}
+
+		} catch (SQLException e) {
+			throw new AppDataException(e, "Error al conectar con la BD producido en el metodo getByPatente(Micro m)");
+		} finally{	
+		try {
+				if(rs!=null)rs.close();
+				if(stmt!=null)stmt.close();
+				FactoryConexion.getInstancia().releaseConn();
+			} catch (SQLException e) {
+				throw e;
+			}
+		}
+		return m;
 	}
+public MicroCama getByPatente(MicroCama mic) throws AppDataException, SQLException{
+		
+		MicroCama m = null;
+		PreparedStatement stmt=null;
+		ResultSet rs=null;
+		try {
+			stmt=FactoryConexion.getInstancia().getConn().prepareStatement("select patente, marca, fechaUltimoControl, porcentajeAumento from Micro where patente=?");
+			stmt.setString(1, mic.getPatente());
+			rs=stmt.executeQuery();
+			if(rs!=null && rs.next()){
+
+				m = new MicroCama();
+				m.setPatente(rs.getString("patente"));
+				m.setMarca(rs.getString("marca"));
+				m.setFechaUltimoCtrl(rs.getDate("fechaUltimoControl"));
+				m.setAumento(rs.getDouble("porcentajeAumento"));
+			}
+
+		} catch (SQLException e) {
+			throw new AppDataException(e, "Error al conectar con la BD producido en el metodo getByPatente(MicroCama m)");
+		} finally{	
+		try {
+				if(rs!=null)rs.close();
+				if(stmt!=null)stmt.close();
+				FactoryConexion.getInstancia().releaseConn();
+			} catch (SQLException e) {
+				throw e;
+			}
+		}
+		return m;
+	}
+	
+	
+	
 	public void add(Micro elMicro){
 		
 	}	

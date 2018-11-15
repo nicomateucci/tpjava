@@ -14,6 +14,34 @@
 <section id="main-content">
 	<section class="wrapper">
 		<div class="container main-chart">
+			<form method=post action="../ServletServicio">
+				<fieldset>
+					<br>
+					<h2>Ingrese el numero de identificacion del siguiente destino
+						del viaje:</h2>
+					<i>Cargo el destino </i>
+
+					<div class="form-group col-lg-9">
+						<label for="idDestino">Id del destino a agregar: </label> <input
+							type="number" name="idDestino" placeholder="Ej: 1 o 5 o 9 ..."
+							class="form-control" />
+					</div>
+					<div class="form-group col-lg-9">
+						<label for="precio">Precio del origen a este destino: </label> <input
+							type="number" name="precio" placeholder="Ej: 50, 150, 500 ..."
+							class="form-control" />
+					</div>
+					<div class="form-group col-lg-9">
+						<button value="Cargar micro" class="btn btn-primary" type="submit">Destino
+							siguiente</button>
+					</div>
+				</fieldset>
+				<input type="button"
+					onclick="if(document.getElementById('spoiler1') .style.display=='none') {document.getElementById('spoiler1') .style.display=''; this.value = 'Ocultar'; }else{document.getElementById('spoiler1') .style.display='none';this.value = 'Mostrar'; }"
+					value="Gracias por ..." />
+				<div id="spoiler1" style="display: none">Usar Plataforma 23
+					para conocer un nuevo destino en Argentina.</div>
+			</form>
 			<table class="table table-striped table-bordered">
 				<tr>
 					<th>Id</th>
@@ -37,34 +65,7 @@
 						}
 				%>
 			</table>
-			<form method=post action="../ServletServicio">
-				<fieldset>
-					<br>
-					<h2>Ingrese el numero de identificacion del siguiente destino
-						del viaje:</h2>
-					<i>Cargo el destino </i>
 
-					<div class="form-group col-lg-9">
-						<label for="idDestino">Id del destino a agregar: </label> <input
-							type="number" name="idDestino" placeholder="Ej: 1 o 5 o 9 ..."
-							class="form-control" />
-					</div>
-					<div class="form-group col-lg-9">
-						<label for="precio">Precio del origen a este destino: </label> <input
-							type="number" name="precio" placeholder="Ej: 50, 150, 500 ..."
-							class="form-control" />
-					</div>
-					<div class="form-group col-lg-9">
-						<button value="Cargar micro" class="btn btn-primary" type="submit">Cargar
-							micros</button>
-					</div>
-				</fieldset>
-				<input type="button"
-					onclick="if(document.getElementById('spoiler1') .style.display=='none') {document.getElementById('spoiler1') .style.display=''; this.value = 'Ocultar'; }else{document.getElementById('spoiler1') .style.display='none';this.value = 'Mostrar'; }"
-					value="Gracias por ..." />
-				<div id="spoiler1" style="display: none">Usar Plataforma 23
-					para conocer un nuevo destino en Argentina.</div>
-			</form>
 		</div>
 	</section>
 </section>
@@ -112,6 +113,26 @@
 <section id="main-content">
 	<section class="wrapper">
 		<div class="container main-chart">
+			<form method=post action="../ServletServicio">
+				<fieldset>
+					<br>
+					<h2>Ingrese el numero de identificacion del lugar de partida
+						del micro:</h2>
+
+					<div class="form-group col-lg-9">
+						<label for="idDestino">Numero: </label> <input type="number"
+							name="idDestino" placeholder="Ej: 1, 5, 18" class="form-control" />
+					</div>
+					<div class="form-group col-lg-9">
+						<button value="Cargar micro" class="btn btn-primary" type="submit">Siguiente</button>
+					</div>
+					<input type="button"
+						onclick="if(document.getElementById('spoiler1') .style.display=='none') {document.getElementById('spoiler1') .style.display=''; this.value = 'Ocultar'; }else{document.getElementById('spoiler1') .style.display='none';this.value = 'Mostrar'; }"
+						value="Gracias por ..." />
+					<div id="spoiler1" style="display: none">Usar Plataforma 23
+						para conocer un nuevo destino en Argentina.</div>
+				</fieldset>
+			</form>
 			<table class="table table-striped table-bordered">
 				<tr>
 					<th>Id</th>
@@ -135,26 +156,6 @@
 						}
 				%>
 			</table>
-			<form method=post action="../ServletServicio">
-				<fieldset>
-					<br>
-					<h2>Ingrese el numero de identificacion del lugar de partida del micro:</h2>
-
-					<div class="form-group col-lg-9">
-						<label for="idDestino">Numero: </label> <input
-							type="number" name="idDestino" placeholder="Ej: 1, 5, 18"
-							class="form-control" />
-					</div>
-					<div class="form-group col-lg-9">
-						<button value="Cargar micro" class="btn btn-primary" type="submit">Siguiente</button>
-					</div>
-					<input type="button"
-						onclick="if(document.getElementById('spoiler1') .style.display=='none') {document.getElementById('spoiler1') .style.display=''; this.value = 'Ocultar'; }else{document.getElementById('spoiler1') .style.display='none';this.value = 'Mostrar'; }"
-						value="Gracias por ..." />
-					<div id="spoiler1" style="display: none">Usar Plataforma 23
-						para conocer un nuevo destino en Argentina.</div>
-				</fieldset>
-			</form>
 		</div>
 	</section>
 </section>
@@ -169,6 +170,34 @@
 <section id="main-content">
 	<section class="wrapper">
 		<div class="container main-chart">
+			<form method=post action="../ServletServicio">
+				<fieldset>
+					<br>
+					<h2>Ingrese el numero de identificacion del lugar de arrivo
+						del servicio directo:</h2>
+
+					<div class="form-group col-lg-9">
+						<label for="idDestino">Numero: </label> <input type="number"
+							name="idDestino"
+							placeholder="Ej: Directo a Santa Fe, Directo a Junin"
+							class="form-control" />
+					</div>
+					<div class="form-group col-lg-9">
+						<label for="precio">Precio del origen a este destino: </label> <input
+							type="number" name="precio" placeholder="Ej: 50, 150, 500 ..."
+							class="form-control" />
+					</div>
+					<div class="form-group col-lg-9">
+						<button value="Cargar micros" class="btn btn-primary"
+							type="submit">Cargar micros</button>
+					</div>
+					<input type="button"
+						onclick="if(document.getElementById('spoiler1') .style.display=='none') {document.getElementById('spoiler1') .style.display=''; this.value = 'Ocultar'; }else{document.getElementById('spoiler1') .style.display='none';this.value = 'Mostrar'; }"
+						value="Gracias por ..." />
+					<div id="spoiler1" style="display: none">Usar Plataforma 23
+						para conocer un nuevo destino en Argentina.</div>
+				</fieldset>
+			</form>
 			<table class="table table-striped table-bordered">
 				<tr>
 					<th>Id</th>
@@ -194,33 +223,6 @@
 							}
 				%>
 			</table>
-			<form method=post action="../ServletServicio">
-				<fieldset>
-					<br>
-					<h2>Ingrese el numero de identificacion del lugar de arrivo del servicio directo:</h2>
-
-					<div class="form-group col-lg-9">
-						<label for="idDestino">Numero: </label> <input type="number"
-							name="idDestino"
-							placeholder="Ej: Directo a Santa Fe, Directo a Junin"
-							class="form-control" />
-					</div>
-					<div class="form-group col-lg-9">
-						<label for="precio">Precio del origen a este destino: </label> <input
-							type="number" name="precio" placeholder="Ej: 50, 150, 500 ..."
-							class="form-control" />
-					</div>
-					<div class="form-group col-lg-9">
-						<button value="Cargar micros" class="btn btn-primary"
-							type="submit">Cargar micros</button>
-					</div>
-					<input type="button"
-						onclick="if(document.getElementById('spoiler1') .style.display=='none') {document.getElementById('spoiler1') .style.display=''; this.value = 'Ocultar'; }else{document.getElementById('spoiler1') .style.display='none';this.value = 'Mostrar'; }"
-						value="Gracias por ..." />
-					<div id="spoiler1" style="display: none">Usar Plataforma 23
-						para conocer un nuevo destino en Argentina.</div>
-				</fieldset>
-			</form>
 		</div>
 	</section>
 </section>
@@ -230,6 +232,33 @@
 <section id="main-content">
 	<section class="wrapper">
 		<div class="container main-chart">
+			<form method=post action="../ServletServicio">
+				<fieldset>
+					<br>
+					<h2>Ingrese el numero de identificacion del lugar de arrivo
+						del servicio:</h2>
+
+					<div class="form-group col-lg-9">
+						<label for="idDestino">Numero: </label> <input type="number"
+							name="idDestino" placeholder="Ej: Santa Fe, Rosario"
+							class="form-control" />
+					</div>
+					<div class="form-group col-lg-9">
+						<label for="precio">Precio del origen a este destino: </label> <input
+							type="number" name="precio" placeholder="Ej: 50, 150, 500 ..."
+							class="form-control" />
+					</div>
+					<div class="form-group col-lg-9">
+						<button value="Cargar micro" class="btn btn-primary" type="submit">Cargar
+							micros</button>
+					</div>
+					<input type="button"
+						onclick="if(document.getElementById('spoiler1') .style.display=='none') {document.getElementById('spoiler1') .style.display=''; this.value = 'Ocultar'; }else{document.getElementById('spoiler1') .style.display='none';this.value = 'Mostrar'; }"
+						value="Gracias por ..." />
+					<div id="spoiler1" style="display: none">Usar Plataforma 23
+						para conocer un nuevo destino en Argentina.</div>
+				</fieldset>
+			</form>
 			<table class="table table-striped table-bordered">
 				<tr>
 					<th>Id</th>
@@ -246,35 +275,10 @@
 				<tr>
 					<td><%=d.getIdDestino()%></td>
 					<td><%=d.getLocalidad()%></td>
-					<td><%= 0.0%></td>
+					<td><%=0.0%></td>
 					<td><%=d.getClass().toString().substring(15)%></td>
 				</tr>
 			</table>
-			<form method=post action="../ServletServicio">
-				<fieldset>
-					<br>
-					<h2>Ingrese el numero de identificacion del lugar de arrivo del servicio:</h2>
-
-					<div class="form-group col-lg-9">
-						<label for="idDestino">Numero: </label> <input
-							type="number" name="idDestino" placeholder="Ej: Santa Fe, Rosario"
-							class="form-control" />
-					</div>
-					<div class="form-group col-lg-9">
-						<label for="precio">Precio del origen a este destino: </label> <input
-							type="number" name="precio" placeholder="Ej: 50, 150, 500 ..."
-							class="form-control" />
-					</div>
-					<div class="form-group col-lg-9">
-						<button value="Cargar micro" class="btn btn-primary" type="submit">Cargar micros</button>
-					</div>
-					<input type="button"
-						onclick="if(document.getElementById('spoiler1') .style.display=='none') {document.getElementById('spoiler1') .style.display=''; this.value = 'Ocultar'; }else{document.getElementById('spoiler1') .style.display='none';this.value = 'Mostrar'; }"
-						value="Gracias por ..." />
-					<div id="spoiler1" style="display: none">Usar Plataforma 23
-						para conocer un nuevo destino en Argentina.</div>
-				</fieldset>
-			</form>
 		</div>
 	</section>
 </section>
