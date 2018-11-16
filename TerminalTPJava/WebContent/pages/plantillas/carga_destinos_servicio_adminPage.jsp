@@ -8,7 +8,7 @@
 
 <%
 	if (request.getSession().getAttribute("estadoCargaDestino").equals("CARGADESTINOSIGUIENTE")) {
-		JOptionPane.showMessageDialog(null, "La carga del destinio esta en estado CARGADESTINOSIGUIENTE");
+		//JOptionPane.showMessageDialog(null, "La carga del destino esta en estado CARGADESTINOORIGEN");
 		System.out.println("La carga del destino esta en estado CARGADESTINOSIGUIENTE");
 %>
 <section id="main-content">
@@ -73,7 +73,6 @@
 	}
 
 	if (request.getSession().getAttribute("estadoCargaDestino").equals("CARGADESTINOCANTIDAD")) {
-		JOptionPane.showMessageDialog(null, "La carga del destino esta en estado CARGADESTINOCANTIDAD");
 		System.out.println("La carga del destino esta en estado CARGADESTINOCANTIDAD");
 %>
 <section id="main-content">
@@ -107,7 +106,6 @@
 	}
 
 	if (request.getSession().getAttribute("estadoCargaDestino").equals("CARGADESTINOORIGEN")) {
-		JOptionPane.showMessageDialog(null, "La carga del destino esta en estado CARGADESTINOORIGEN");
 		System.out.println("La carga del destino esta en estado CARGADESTINOORIGEN");
 %>
 <section id="main-content">
@@ -163,7 +161,6 @@
 	}
 
 	if (request.getSession().getAttribute("estadoCargaDestino").equals("CARGADESTINOFIN")) {
-		JOptionPane.showMessageDialog(null, "La carga del destino esta en estado CARGADESTINOFIN");
 		System.out.println("La carga del destino esta en estado CARGADESTINOFIN");
 		if ((int) request.getSession().getAttribute("cantDestinos") == 2) {
 %>

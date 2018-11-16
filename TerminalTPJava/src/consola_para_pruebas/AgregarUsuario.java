@@ -45,7 +45,7 @@ public class AgregarUsuario {
 		System.out.println("Ingrese su nombre de usuario:");
 		user.setNombreUsuario(s.nextLine());
 		System.out.println("Ingrese su contraseña:");
-		user.setContraseña(s.nextLine());
+		user.setContrasena(s.nextLine());
 		System.out.println("Ingrese email");
 		user.setEmail(s.nextLine());
 		

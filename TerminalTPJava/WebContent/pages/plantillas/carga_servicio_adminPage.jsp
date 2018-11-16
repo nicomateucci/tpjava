@@ -12,7 +12,6 @@
 
 		if (request.getSession().getAttribute("estadoServicio").equals("CARGAID")) {
 
-			JOptionPane.showMessageDialog(null, "La carga del servicio esta en estado CARGAID");
 			System.out.println("La carga del servicio esta en estado CARGAID");
 %>
 
@@ -31,7 +30,8 @@
 					</div>
 					<div class="form-group col-lg-9">
 						<label for="horaServicio">Hora del servicio: </label> <input
-							type="text" name="horaServicio" class="form-control" />
+							type="text" name="horaServicio" class="form-control" 
+							placeholder="Ej: 13:30"/>
 					</div>
 					<div class="form-group col-lg-9">
 						<label for="tipoServicio">Tipo de Servicio: </label> <select
@@ -62,7 +62,6 @@
 	}
 
 		if (request.getSession().getAttribute("estadoServicio").equals("CARGADESTINO")) {
-			JOptionPane.showMessageDialog(null, "La carga del servicio esta en estado CARGADESTINO");
 			System.out.println("La carga del servicio esta en estado CARGADESTINO");
 %>
 
@@ -71,7 +70,6 @@
 <%
 	}
 		if (request.getSession().getAttribute("estadoServicio").equals("CARGAMICRO")) {
-			JOptionPane.showMessageDialog(null, "La carga del servicio esta en estado CARGAMICRO");
 			System.out.println("La carga del servicio esta en estado CARGAMICRO");
 %>
 <section id="main-content">
@@ -155,7 +153,6 @@
 <%
 	}
 		if (request.getSession().getAttribute("estadoServicio").equals("CARGACONDUCTOR")) {
-			JOptionPane.showMessageDialog(null, "La carga del servicio esta en estado CARGACONDUCTOR");
 			System.out.println("La carga del servicio esta en estado CARGACONDUCTOR");
 %>
 <section id="main-content">
@@ -170,8 +167,7 @@
 				</tr>
 				<%
 					Servicio ser = (Servicio) request.getSession().getAttribute("servicio");
-							Micro m = ser.getMicros().get(0);
-							if (m.getClass() == MicroCama.class) {
+							for (Micro m : ser.getMicros()) {
 				%>
 				<tr>
 					<td><%=m.getPatente()%></td>
@@ -180,45 +176,14 @@
 
 				</tr>
 				<%
-					} else {
-				%>
-				<tr>
-					<td><%=m.getPatente()%></td>
-					<td><%=m.getMarca()%></td>
-					<td><%=m.getClass().toString().substring(15)%></td>
-				</tr>
-				<%
 					}
 				%>
-				<%
-					if (ser.getMicros().size() == 2) {
 
-						if (ser.getMicros().get(1).getClass() == MicroCama.class) {
-							MicroCama mref = ser.getMicros().get(1);
-				%>
-				<tr>
-					<td><%=mref.getPatente()%></td>
-					<td><%=mref.getMarca()%></td>
-					<td><%=mref.getClass().toString().substring(15)%></td>
-
-				</tr>
-				<%
-					} else {
-				%>
-				<tr>
-					<td><%=mref.getPatente()%></td>
-					<td><%=mref.getMarca()%></td>
-					<td><%=mref.getClass().toString().substring(15)%></td>
-				</tr>
-				<%
-					}
-							}
-				%>
 			</table>
 			<form method=post action="../ServletServicio">
 				<fieldset>
 					<br>
-					<h2>Ingrese los conductores de los micros: </h2>
+					<h2>Ingrese los conductores de los micros:</h2>
 
 					<div class="form-group col-lg-9">
 						<label for="dni">Ingrese dni del conductor del micro

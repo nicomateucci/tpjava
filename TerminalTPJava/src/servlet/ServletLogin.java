@@ -35,7 +35,7 @@ public class ServletLogin extends HttpServlet {
 		Usuario user = new Usuario();
 		LogicPersona logPer = new LogicPersona();
 		user.setNombreUsuario(request.getParameter("textUsuario"));
-		user.setContraseña(request.getParameter("textContraseña"));
+		user.setContrasena(request.getParameter("textContraseña"));
 		try {
 			Usuario userOk = logPer.getLogedUser(user);
 			if(userOk != null) {

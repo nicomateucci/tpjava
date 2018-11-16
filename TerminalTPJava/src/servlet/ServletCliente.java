@@ -91,7 +91,7 @@ public class ServletCliente extends HttpServlet {
 		//----------------------------------------
 		
 		usu.setNombreUsuario(request.getParameter("nombreU"));
-		usu.setContraseña(request.getParameter("password"));
+		usu.setContrasena(request.getParameter("password"));
 		usu.setEmail(request.getParameter("mail"));
 		
 		// Ejemplo de fecha dormateada a JAVA.SQL.DATE

@@ -10,6 +10,8 @@ import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.swing.JOptionPane;
+import javax.swing.JPanel;
 
 import business.LogicDestino;
 import business.LogicMicro;
@@ -44,8 +46,7 @@ public class ServletServicio extends HttpServlet {
 
 		LogicServicio logics = new LogicServicio();
 		try {
-			//String tipo = (String) request.getParameter("tipo");
-			String tipo = "alta";
+			String tipo = (String) request.getParameter("tipo");
 			if(tipo.equals("consulta")) {
 				request.getSession().setAttribute("tipo", "consulta");
 
@@ -91,6 +92,7 @@ public class ServletServicio extends HttpServlet {
 		LogicDestino logicd = new LogicDestino();
 		LogicPersona logicc = new LogicPersona();
 		LogicMicro logicm = new LogicMicro();
+		LogicServicio logs = new LogicServicio();
 		Servicio ser = (Servicio) request.getSession().getAttribute("servicio");
 		ArrayList<Destino> dd = null;
 		ArrayList<Micro> mm = null;
@@ -190,7 +192,7 @@ public class ServletServicio extends HttpServlet {
 			}
 			if(estadoCargaDestino.equals("CARGADESTINOSIGUIENTE")) {
 				int contador = (int) request.getSession().getAttribute("contadorDestinos");
-				request.getSession().setAttribute("contadorDestinos", contador++);
+				request.getSession().setAttribute("contadorDestinos", ++contador);
 				try {
 					dd = logicd.getAll();
 				} catch (AppDataException e) {
@@ -212,9 +214,11 @@ public class ServletServicio extends HttpServlet {
 				d.setPrecioDestino(precio);
 				d.setOrdenDestino(contador);
 				ser.addDestino(d);
-
+				System.out.println("El contador de destinos esta en " + contador);
+				
 				if(contador == (int) request.getSession().getAttribute("cantDestinos") - 1) {
 					request.getSession().setAttribute("estadoCargaDestino", "CARGADESTINOFIN");
+					
 				}
 				response.sendRedirect("pages/servicios_adminPage.jsp");
 			}
@@ -226,24 +230,25 @@ public class ServletServicio extends HttpServlet {
 				request.getSession().setAttribute("contadorDestinos", contador);
 				int idDestino = Integer.parseInt( request.getParameter("idDestino"));
 				Double precio = Double.parseDouble(request.getParameter("precio"));
-				if((int) request.getSession().getAttribute("cantDestinos") == 2) {
-					//------------------------------------------------------------------------
-					//Tengo que agregar el if por el caso de que se ingrese un Destino Directo
+
+				//if((int) request.getSession().getAttribute("cantDestinos") == 2) {
+				//------------------------------------------------------------------------
+				//Tengo que agregar el if por el caso de que se ingrese un Destino Directo
 
 
-					Destino des = new Destino(idDestino);
+				Destino des = new Destino(idDestino);
 
-					try {
-						d = logicd.getById(des);
-					} catch (AppDataException e) {
-						e.printStackTrace();
-					} catch (SQLException e) {
-						e.printStackTrace();
-					}
-					d.setPrecioDestino(precio);
-					d.setOrdenDestino(contador);
-					ser.addDestino(d);
+				try {
+					d = logicd.getById(des);
+				} catch (AppDataException e) {
+					e.printStackTrace();
+				} catch (SQLException e) {
+					e.printStackTrace();
 				}
+				d.setPrecioDestino(precio);
+				d.setOrdenDestino(contador);
+				ser.addDestino(d);
+
 				try {
 					mm = logicm.getAll();
 				} catch (AppDataException e) {
@@ -308,37 +313,52 @@ public class ServletServicio extends HttpServlet {
 		case "CARGACONDUCTOR":
 
 			Conductor c = new Conductor();
-			
+
 			String dni = request.getParameter("dni");
 			try {
 				c = (Conductor) logicc.getByDni(dni);
 			} catch (Exception e) {
 				e.printStackTrace();
 			}
-			
+
 			ser.getMicros().get(0).addConductor(c);
-
-
 			dni = request.getParameter("dni2");
-			try {
-				c = (Conductor) logicc.getByDni(dni);
-			} catch (Exception e) {
-				e.printStackTrace();
+			if (!(dni == "")) {
+				try {
+					c = (Conductor) logicc.getByDni(dni);
+				} catch (Exception e) {
+					e.printStackTrace();
+				}
+				ser.getMicros().get(0).addConductor(c);
 			}
 			dni = request.getParameter("dniRef");
-			try {
-				c = (Conductor) logicc.getByDni(dni);
-			} catch (Exception e) {
-				e.printStackTrace();
+			if (!(dni == "")) {
+				try {
+					c = (Conductor) logicc.getByDni(dni);
+				} catch (Exception e) {
+					e.printStackTrace();
+				}
+				ser.getMicros().get(1).addConductor(c);
 			}
 			dni = request.getParameter("dniRef2");
+			if (!(dni == "")) {
+				try {
+					c = (Conductor) logicc.getByDni(dni);
+				} catch (Exception e) {
+					e.printStackTrace();
+				}
+				ser.getMicros().get(1).addConductor(c);
+			}
+			
 			try {
-				c = (Conductor) logicc.getByDni(dni);
-			} catch (Exception e) {
+				logs.addAll(ser);
+			} catch (AppDataException e) {
+				e.printStackTrace();
+			} catch (SQLException e) {
 				e.printStackTrace();
 			}
-
-			System.out.println("Id servicio, fechaServicio, horaServicio, tipo servicio" + ser.getIdServicio() + ser.getFechaServicio() + ser.getHoraServicio() + request.getParameter("tipoServicio"));
+			JOptionPane.showMessageDialog(null, "Servicio agregado correctamente. Click para ver los servicios existente al dia de hoy.");
+			response.sendRedirect("ServletServicio?tipo=consulta");
 			break;
 		}
 	}

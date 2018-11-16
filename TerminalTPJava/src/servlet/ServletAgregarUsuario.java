@@ -11,6 +11,7 @@ import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.swing.JOptionPane;
 
 import org.apache.taglibs.standard.lang.jpath.example.Person;
 
@@ -36,7 +37,13 @@ public class ServletAgregarUsuario extends HttpServlet {
 		LogicPersona logPer = new LogicPersona();
 		Usuario usu = new Usuario();
 		
-		usu.setNombre(request.getParameter("nombre"));
+		String nom = request.getParameter("nombre");
+		if(nom == "") {
+			JOptionPane.showMessageDialog(null, "Ingreso en el if(nom == vacio");
+			System.out.println("Ingreso al if");
+			usu.setNombre(nom);
+		}
+		
 		usu.setApellido(request.getParameter("apellido"));
 		usu.setDni(request.getParameter("dni"));
 		usu.setTipoDni(request.getParameter("tipoDni"));
@@ -55,7 +62,7 @@ public class ServletAgregarUsuario extends HttpServlet {
 		//----------------------------------------
 		
 		usu.setNombreUsuario(request.getParameter("nombreU"));
-		usu.setContraseña(request.getParameter("password"));
+		usu.setContrasena(request.getParameter("password"));
 		usu.setEmail(request.getParameter("mail"));
 		
 		// Ejemplo de fecha dormateada a JAVA.SQL.DATE

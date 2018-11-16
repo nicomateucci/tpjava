@@ -108,7 +108,6 @@ public DestinoDirecto getById(DestinoDirecto d) throws AppDataException, SQLExce
 		}
 		return d;
 	}
-		
 	public void insert(Destino d) throws AppDataException, SQLException{
 
 			PreparedStatement st = null;

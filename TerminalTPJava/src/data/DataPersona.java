@@ -31,7 +31,7 @@ public class DataPersona {
 				u.setApellido(rs.getString("apellido"));
 				u.setFechaNacimiento(rs.getDate("fechaNac"));
 				u.setNombreUsuario(rs.getString("nombreUsuario"));
-				u.setcontrasena(rs.getString("contrasena"));
+				u.setContrasena(rs.getString("contrasena"));
 				u.setEmail(rs.getString("email"));
 				uu.add(u);
 				}	
@@ -99,7 +99,7 @@ public class DataPersona {
 				if (rs.getString("fechaInicio") == null){
 					p = new Usuario();
 					((Usuario) p).setNombreUsuario(rs.getString("nombreUsuario"));
-					((Usuario) p).setcontrasena(rs.getString("contrasena"));;
+					((Usuario) p).setContrasena(rs.getString("contrasena"));;
 					((Usuario) p).setEmail(rs.getString("email"));
 
 				} else {

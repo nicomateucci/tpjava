@@ -20,7 +20,7 @@ public class Usuario extends Persona {
 	public String getContrasena() {
 		return contrasena;
 	}
-	public void setContraseña(String c) {
+	public void setContrasena(String c) {
 		this.contrasena = c;
 	}
 	public String getEmail() {

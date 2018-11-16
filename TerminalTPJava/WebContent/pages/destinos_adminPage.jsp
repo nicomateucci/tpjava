@@ -62,8 +62,7 @@
 							<td><%= d.getIdDestino() %></td>
 							<td><%= d.getLocalidad() %></td>
 							<td><%= ((DestinoDirecto) d).getPorcentajeAumento()%></td>
-							<td><%= d.getClass().toString().substring(15) %></td>
-
+							<td><%= d.getClass().toString().substring(15) %></td>                        
 						</tr>
 						<%  } else { %>
 						<tr>
