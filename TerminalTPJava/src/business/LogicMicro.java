@@ -3,9 +3,8 @@ package business;
 import java.sql.SQLException;
 import java.util.ArrayList;
 
-import data.DataMicro;
-import entities.Micro;
-import entities.MicroCama;
+import data.*;
+import entities.*;
 import util.AppDataException;
 
 public class LogicMicro{
@@ -42,6 +41,13 @@ public class LogicMicro{
 		datam = new DataMicro();
 		datam.insert(m);
 	}
-
+	public void update(Micro m) throws Exception {
+		datam = new DataMicro();
+		datam.update(m);
+	}
+	public void delete(Micro m) throws Exception {
+		datam = new DataMicro();
+		datam.delete(m);
+	}
 
 }

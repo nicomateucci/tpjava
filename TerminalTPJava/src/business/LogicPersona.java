@@ -43,4 +43,14 @@ public class LogicPersona {
 		return dataPer.getLogedUser(u);
 
 	}
+	
+	public void update(Persona p) throws Exception {
+		dataPer = new DataPersona();
+		dataPer.update(p);
+	}
+	public void delete(Persona p) throws Exception {
+		dataPer = new DataPersona();
+		dataPer.delete(p);
+	}
+	
 }

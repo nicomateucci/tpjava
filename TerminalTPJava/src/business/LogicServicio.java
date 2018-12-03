@@ -49,4 +49,12 @@ public class LogicServicio{
 		dataSer = new DataServicio();
 		return dataSer.getDetalles();
 	}
+public void update(Servicio s) throws Exception {
+		dataSer = new DataServicio();
+		dataSer.update(s);
+	}
+	public void delete(Servicio s) throws Exception {
+		dataSer = new DataServicio();
+		dataSer.delete(s);
+	}
 }

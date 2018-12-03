@@ -429,12 +429,6 @@ public class DataServicio {
 			throw new AppDataException(e, "Error ocurrido en el metodo insert(Serivicio s) en la calse DataServicio al conectar a la base de datos");
 		}
 	}
-	public void update(Servicio elServicio){
-
-	}
-	public void delete(Servicio elServicio){
-
-	}
 	public boolean getTieneRefuerzo(Servicio ser) throws AppDataException, SQLException {
 
 		boolean rta = false;
@@ -460,6 +454,47 @@ public class DataServicio {
 			}
 		}
 		return rta;
+	}
+public void update(Servicio elServicio) throws Exception{
+		PreparedStatement stmt=null;
+		try {
+			stmt=FactoryConexion.getInstancia().getConn().prepareStatement(
+					"update Servicio set "
+					+ "fechaServicio=?, horaServicio=? where idServicio=?");
+			stmt.setDate(1, elServicio.getFechaServicio());
+			stmt.setString(2, elServicio.getHoraServicio());
+			stmt.setInt(3,elServicio.getIdServicio());
+			stmt.executeUpdate();
+		} catch (Exception e) {
+			throw e;
+		} finally{
+			try {
+				if(stmt != null)stmt.close();
+				FactoryConexion.getInstancia().releaseConn();
+			} catch (SQLException e) {
+				throw e;
+			}
+		}
+	}
+	
+
+	public void delete(Servicio elServicio) throws Exception{
+		PreparedStatement stmt = null;
+		try {
+			stmt=FactoryConexion.getInstancia().getConn().prepareStatement(
+					"delete from Servicio WHERE idServicio=?"); 
+			stmt.setInt(1,elServicio.getIdServicio());
+				stmt.executeUpdate();
+		} catch (Exception e) {
+			throw e;
+		} finally{
+			try {
+				if(stmt != null)stmt.close();
+				FactoryConexion.getInstancia().releaseConn();
+			} catch (SQLException e) {
+				throw e;
+			}
+		}
 	}
 
 }

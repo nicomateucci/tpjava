@@ -3,10 +3,8 @@ package business;
 import java.sql.SQLException;
 import java.util.ArrayList;
 
-import data.DataDestino;
-import data.DataServicio;
-import entities.Destino;
-import entities.DestinoDirecto;
+import data.*;
+import entities.*;
 import util.AppDataException;
 
 public class LogicDestino {
@@ -33,5 +31,14 @@ public class LogicDestino {
 	public void insert(DestinoDirecto d) throws AppDataException, SQLException {
 		dataDes = new DataDestino();
 		dataDes.insert(d);
+	}
+	
+	public void update(Destino d)  throws Exception{
+		dataDes = new DataDestino();
+		dataDes.update(d);
+	}
+	public void delete(Destino d)  throws Exception{
+		dataDes = new DataDestino();
+		dataDes.delete(d);
 	}
 }
