@@ -19,11 +19,15 @@ public class DataButaca {
 	public void insert(Butaca laButaca){
 
 	}
+	
+	/* No se contempla....
+	
 	public void update(Butaca laButaca){
 		
 	}
 	public void delete(Butaca laButaca){
 		
 	}
+	*/
 	
 }

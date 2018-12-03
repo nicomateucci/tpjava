@@ -48,33 +48,33 @@ public class ServletServicio extends HttpServlet {
 		try {
 			String tipo = (String) request.getParameter("tipo");
 			if(tipo.equals("consulta")) {
+
 				request.getSession().setAttribute("tipo", "consulta");
-
 				ArrayList<Servicio> ss = logics.getDetalles();
-				//int cantServicios = ss.size();
-				//boolean refuerzos[] = null;
-
-
-				/*for (int i = 0; i < cantServicios; i++){
-				refuerzos[i] = logics.getTieneRefuerzo(ss.get(i));
-			}*/
-
-
-				//request.getSession().setAttribute("arregloRefuerzos", refuerzos);
 				request.getSession().setAttribute("listaServicios", ss);
 				response.sendRedirect("pages/servicios_adminPage.jsp");
+
 			} else if(tipo.equals("alta")){
+				
 				request.getSession().setAttribute("tipo", "alta");
-
 				request.getSession().setAttribute("estadoServicio", "CARGAID");
-
-				Servicio ser = new Servicio();
+				Servicio ser = new Servicio(); //Creo el servicio aca, porque sino cada vez que redirije al doPost()
+												//se crearia un servicio nuevo.
 				request.getSession().setAttribute("servicio", ser);
-
 				response.sendRedirect("pages/servicios_adminPage.jsp");
-			}else if (tipo.equals("baja")){
-				request.getSession().setAttribute("tipo", "baja");
 
+			}else if (tipo.equals("modifica")){
+
+				request.getSession().setAttribute("tipo", "modifica");
+				ArrayList<Servicio> ss = logics.getDetalles();
+				request.getSession().setAttribute("listaServicios", ss);
+				response.sendRedirect("pages/servicios_adminPage.jsp");
+
+			}else if (tipo.equals("baja")){
+
+				request.getSession().setAttribute("tipo", "baja");
+				ArrayList<Servicio> ss = logics.getDetalles();
+				request.getSession().setAttribute("listaServicios", ss);
 				response.sendRedirect("pages/servicios_adminPage.jsp");
 			}
 		} catch (SQLException e) {
@@ -215,10 +215,10 @@ public class ServletServicio extends HttpServlet {
 				d.setOrdenDestino(contador);
 				ser.addDestino(d);
 				System.out.println("El contador de destinos esta en " + contador);
-				
+
 				if(contador == (int) request.getSession().getAttribute("cantDestinos") - 1) {
 					request.getSession().setAttribute("estadoCargaDestino", "CARGADESTINOFIN");
-					
+
 				}
 				response.sendRedirect("pages/servicios_adminPage.jsp");
 			}
@@ -349,7 +349,7 @@ public class ServletServicio extends HttpServlet {
 				}
 				ser.getMicros().get(1).addConductor(c);
 			}
-			
+
 			try {
 				logs.addAll(ser);
 			} catch (AppDataException e) {

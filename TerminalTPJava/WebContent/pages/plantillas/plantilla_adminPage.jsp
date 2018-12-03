@@ -42,7 +42,7 @@
 				<ul class="sub">
 					<li><a href="../ServletServicio?tipo=consulta">Consultar</a></li>
 					<li><a href="../ServletServicio?tipo=alta">Agregar</a></li>
-					<li><a href="../ServletServicio?tipo=actualizar">Actualizar</a></li>
+					<li><a href="../ServletServicio?tipo=modifica">Actualizar</a></li>
 					<li><a href="../ServletServicio?tipo=agregarRefuerzo">Agregar
 							refuerzo</a></li>
 					<li><a href="../ServletServicio?tipo=baja">Dar de baja</a></li>
@@ -53,7 +53,7 @@
 				<ul class="sub">
 					<li><a href="../ServletMicro?tipo=consulta">Consultar</a></li>
 					<li><a href="../ServletMicro?tipo=alta">Agregar</a></li>
-					<li><a href="../ServletMicro?tipo=actualizar">Actualizar</a></li>
+					<li><a href="../ServletMicro?tipo=modifica">Actualizar</a></li>
 					<li><a href="../ServletMicro?tipo=baja">Dar de baja</a></li>
 				</ul></li>
 			<li class="sub-menu"><a href="javascript:;"> <i
@@ -62,7 +62,7 @@
 				<ul class="sub">
 					<li><a href="../ServletConductor?tipo=consulta">Consultar</a></li>
 					<li><a href="../ServletConductor?tipo=alta">Agregar</a></li>
-					<li><a href="../ServletConductor?tipo=actualizar">Actualizar</a></li>
+					<li><a href="../ServletConductor?tipo=modifica">Actualizar</a></li>
 					<li><a href="../ServletConductor?tipo=baja">Dar de baja</a></li>
 				</ul></li>
 			<li class="sub-menu"><a href="javascript:;"> <i
@@ -71,7 +71,7 @@
 				<ul class="sub">
 					<li><a href="../ServletDestino?tipo=consulta">Consultar</a></li>
 					<li><a href="../ServletDestino?tipo=alta">Agregar</a></li>
-					<li><a href="../ServletDestino?tipo=actualizar">Actualizar</a></li>
+					<li><a href="../ServletDestino?tipo=modifica">Actualizar</a></li>
 					<li><a href="../ServletDestino?tipo=baja">Dar de baja</a></li>
 				</ul></li>
 			<li class="sub-menu"><a href="javascript:;"> <i

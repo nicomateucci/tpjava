@@ -8,6 +8,7 @@ import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.swing.JOptionPane;
 
 import business.LogicMicro;
 import business.LogicServicio;
@@ -42,36 +43,28 @@ public class ServletVentaPasaje extends HttpServlet {
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 
 		if(request.getSession().getAttribute("estadoventa").equals("SELECCIONARMICRO")) {
-			LogicMicro logicm = new LogicMicro();
-			String patente = (String) request.getParameter("patente");
-			Servicio ser = (Servicio) request.getSession().getAttribute("servicio");			
-			Micro mic = null;
-			Micro m = null;
-			try {
-				if(logicm.esCama(patente)) {
-					mic = new MicroCama(patente);
-					m = logicm.getByPatente(mic);
-				}else{
-					mic = new Micro(patente);
-					m = logicm.getByPatente(mic);
+			String patente = (String) request.getParameter("patente").toUpperCase();
+			Servicio ser = (Servicio) request.getSession().getAttribute("servicio");	
+			Micro micro = null;
+			for(Micro m: ser.getMicros()) {
+				if(m.getPatente().equals(patente) ) {
+					micro = m;
+					Butaca[] but = micro.getButacas();
+					request.getSession().setAttribute("pasajeros", but);
+					request.getSession().setAttribute("estadoventa", "SELECCIONARBUTACA");
+					response.sendRedirect("pages/ventaPasaje.jsp");
 				}
-				
-			} catch (SQLException e) {
-				e.printStackTrace();
-			} catch (AppDataException e) {
-				e.printStackTrace();
 			}
-			if(m != null) {
-				int num = ser.getMicros().indexOf(m);
-				Butaca[] but = ser.getMicros().get(num).getButacas();
-				request.getSession().setAttribute("pasajeros", but);
-				request.getSession().setAttribute("estadoventa", "SELECCIONARBUTACA");
+			if( ! (micro instanceof Micro) ){
+				JOptionPane.showMessageDialog(null, "Como no se encontro el micro ingresado, lo redirigiremos de nuevo a la pagina. (Deberia ver el caso de que si encuentre el Micro, si este codigo se ejecuta igual.)");
 				response.sendRedirect("pages/ventaPasaje.jsp");
 			}
-
+			
 		}
 		if(request.getSession().getAttribute("estadoventa").equals("SELECCIONARBUTACA")) {
-
+			
+			
+			JOptionPane.showMessageDialog(null, "Ingreso a la seccion de seleccion de butaca");
 
 
 		}

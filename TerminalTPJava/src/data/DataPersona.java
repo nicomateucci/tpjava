@@ -5,13 +5,9 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
-import java.util.Date;
+//import java.util.Date;
 
-import entities.Conductor;
-import entities.Destino;
-import entities.DestinoDirecto;
-import entities.Persona;
-import entities.Usuario;
+import entities.*;
 import util.AppDataException;
 
 public class DataPersona {
@@ -210,16 +206,66 @@ public class DataPersona {
 		}
 
 		return u;
+	}	
+	public void update(Persona laPersona) throws Exception{
+		PreparedStatement stmt=null;
+		try {
+			stmt=FactoryConexion.getInstancia().getConn().prepareStatement(
+					"update Persona set "
+					+ "nombre=?, apellido=?, fechaNac=?, esAdmin=?, nombreUsuario=?, contrasena=?, email=?, fechaInicio=?, contacto=? "
+					+ "where dni=?");
+			stmt.setString(1, laPersona.getNombre());
+			stmt.setString(2, laPersona.getApellido());
+			stmt.setDate(3, laPersona.getFechaNacimiento());
+			stmt.setBoolean(4, laPersona.getEsAdmin());
+			
+			if (laPersona instanceof Usuario){
+				stmt.setString(5,((Usuario) laPersona).getNombreUsuario());
+				stmt.setString(6,((Usuario) laPersona).getContrasena());
+				stmt.setString(7,((Usuario) laPersona).getEmail());
+				stmt.setDate(8, null);
+				stmt.setString(9,null);
+
+			} else {
+				stmt.setString(5,null);
+				stmt.setString(6,null);
+				stmt.setString(7,null);
+				stmt.setDate(8,((Conductor) laPersona).getFechaInicio());
+				stmt.setString(9,((Conductor) laPersona).getContacto());
+			}
+			stmt.setString(10, laPersona.getDni());
+			stmt.executeUpdate();
+		} catch (Exception e) {
+			throw e;
+		} finally{
+			try {
+				if(stmt != null)stmt.close();
+				FactoryConexion.getInstancia().releaseConn();
+			} catch (SQLException e) {
+				throw e;
+			}
+		}
 	}
+	
 
-	public void insert(Persona laPersona){
-
-	}
-	public void update(Persona laPersona){
-
-	}
-	public void delete(Persona laPersona){
-
+	public void delete(Persona laPersona) throws Exception{
+		PreparedStatement stmt = null;
+		//No tengo que dejar que borre las cuentas propia.
+		try {
+			stmt=FactoryConexion.getInstancia().getConn().prepareStatement(
+					"delete from Persona WHERE dni=?"); 
+				stmt.setString(1, laPersona.getDni());
+				stmt.executeUpdate();
+		} catch (Exception e) {
+			throw e;
+		} finally{
+			try {
+				if(stmt != null)stmt.close();
+				FactoryConexion.getInstancia().releaseConn();
+			} catch (SQLException e) {
+				throw e;
+			}
+		}
 	}
 
 }

@@ -50,7 +50,7 @@
 						<tr>
 							<th>Id</th>
 							<th>Localidad</th>
-							<th>Aumento</th>
+							<th>Aumento (%)</th>
 							<th>Tipo</th>
 						</tr>
 						<%
@@ -101,10 +101,10 @@
 							<div class="form-group col-lg-9">
 								<div class="">
 									<i>Si ingreso un destino directo, ingrese el porcentaje de
-										aumento en % (Ej: 25):</i><br>
+										aumento en numeros enteros:</i><br>
 								</div>
-								<input type="number" name="aumento" class="form-control" /> <label
-									for="aumento">% </label>
+								<input type="number" name="aumento" class="form-control" placeholder="Ej: 10, 25, 30 (%)"/> <label
+									for="aumento"></label>
 							</div>
 							<div class="form-group col-lg-9">
 								<button type="reset" value="Resetear" class="btn btn-warning">Resetear</button>
@@ -119,7 +119,112 @@
 					</form>
 				</div>
 			</section>
+			<%} else if (request.getSession().getAttribute("tipo") == "modifica"){ %>
+			<section id="main-content">
+			<section class="wrapper">
+				<div class="container main-chart">
+					<table class="table table-striped table-bordered">
+						<tr>
+							<th>Id</th>
+							<th>Localidad</th>
+							<th>Aumento</th>
+							<th>Tipo</th>
+						</tr>
+						<%
+						ArrayList<Destino> listaDes= (ArrayList<Destino>)request.getSession().getAttribute("listaDestinos");
+						for(Destino d : listaDes){
+							if(d.getClass() == DestinoDirecto.class) {
+						%>
+						<tr>
+							<td><%= d.getIdDestino() %></td>
+							<td><%= d.getLocalidad() %></td>
+							<td><%= ((DestinoDirecto) d).getPorcentajeAumento()%></td>
+							<td><%= d.getClass().toString().substring(15) %></td>                        
+						</tr>
+						<%  } else { %>
+						<tr>
+							<td><%= d.getIdDestino() %></td>
+							<td><%= d.getLocalidad() %></td>
+							<td><%= 0.0  %></td>
+							<td><%= d.getClass().toString().substring(15) %></td>
+						</tr>
+						<%
+							}}
+						%>
+					</table>
+					<form method=post action="../ServletDestino">
+						<fieldset>
+							<br>
+							<h2>Ingrese los campos a modificar del destino:</h2>
+							<div class="form-group col-lg-9">
+								<label for="idDestino">Id destino: </label> <input
+									type="number" name="idDestino" class="form-control" />
+							</div>
+							<div class="form-group col-lg-9">
+								<label for="localidad">Ingrese nueva localidad: </label> <input
+									type="text" name="localidad" class="form-control" />
+							</div>
+							<div class="form-group col-lg-9">
+								<div class="">
+									<i>Si es un destino directo, ingrese el nuevo porcentaje de
+										aumento en % (Ej: 25):</i><br>
+								</div>
+								<input value="0.0" type="number" name="aumento" class="form-control" /> <label
+									for="aumento">% </label>
+							</div>
+							<div class="form-group col-lg-9">
+								<button type="reset" value="Resetear" class="btn btn-warning">Resetear</button>
+								<button type="submit" value="Ingresar" class="btn btn-info">Finalizar</button>
+							</div>
+						</fieldset>
+						> <input type="button"
+							onclick="if(document.getElementById('spoiler1') .style.display=='none') {document.getElementById('spoiler1') .style.display=''; this.value = 'Ocultar'; }else{document.getElementById('spoiler1') .style.display='none';this.value = 'Mostrar'; }"
+							value="Gracias por ..." />
+						<div id="spoiler1" style="display: none">usar Plataforma 23
+							para conocer un nuevo destino en Argentina.</div>
+					</form>
+				</div>
+
+			</section>
+		</section>
+
 			<%} else if (request.getSession().getAttribute("tipo") == "baja"){ %>
+			<section id="main-content">
+			<section class="wrapper">
+				<div class="container main-chart">
+					<table class="table table-striped table-bordered">
+						<tr>
+							<th>Id</th>
+							<th>Localidad</th>
+							<th>Aumento</th>
+							<th>Tipo</th>
+						</tr>
+						<%
+						ArrayList<Destino> listaDes= (ArrayList<Destino>)request.getSession().getAttribute("listaDestinos");
+						for(Destino d : listaDes){
+							if(d.getClass() == DestinoDirecto.class) {
+						%>
+						<tr>
+							<td><%= d.getIdDestino() %></td>
+							<td><%= d.getLocalidad() %></td>
+							<td><%= ((DestinoDirecto) d).getPorcentajeAumento()%></td>
+							<td><%= d.getClass().toString().substring(15) %></td>                        
+						</tr>
+						<%  } else { %>
+						<tr>
+							<td><%= d.getIdDestino() %></td>
+							<td><%= d.getLocalidad() %></td>
+							<td><%= 0.0  %></td>
+							<td><%= d.getClass().toString().substring(15) %></td>
+						</tr>
+						<%
+							}}
+						%>
+					</table>
+				</div>
+
+			</section>
+		</section>
 
 			<%} %>
 

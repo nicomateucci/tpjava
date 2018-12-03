@@ -43,20 +43,29 @@ public class ServletMicro extends HttpServlet {
 		try {
 			String tipo = (String) request.getParameter("tipo");
 			if(tipo.equals("consulta")) {
-				request.getSession().setAttribute("tipo", "consulta");
 
+				request.getSession().setAttribute("tipo", "consulta");
 				ArrayList<Micro> mm = logicm.getAll();
 				request.getSession().setAttribute("listaMicros", mm);
-				request.getSession().setAttribute("nombre", "Nicomateucci");
-
 				response.sendRedirect("pages/micros_adminPage.jsp");
+
 			} else if(tipo.equals("alta")){
+
 				request.getSession().setAttribute("tipo", "alta");
+				response.sendRedirect("pages/destinos_adminPage.jsp");
 
+			}else if (tipo.equals("modifica")){
+
+				request.getSession().setAttribute("tipo", "modifica");
+				ArrayList<Micro> mm = logicm.getAll();
+				request.getSession().setAttribute("listaMicros", mm);
 				response.sendRedirect("pages/micros_adminPage.jsp");
-			}else if (tipo.equals("baja")){
-				request.getSession().setAttribute("tipo", "baja");
 
+			}else if (tipo.equals("baja")){
+
+				request.getSession().setAttribute("tipo", "baja");
+				ArrayList<Micro> mm = logicm.getAll();
+				request.getSession().setAttribute("listaMicros", mm);
 				response.sendRedirect("pages/micros_adminPage.jsp");
 			}
 		} catch (SQLException e) {
@@ -74,7 +83,7 @@ public class ServletMicro extends HttpServlet {
 		LogicMicro logicm = new LogicMicro();
 		String tipoMicro = request.getParameter("tipoMicro");
 		Micro m = null;
-		
+
 		if(tipoMicro.equals("MicroCama")) {
 			m = new MicroCama();
 			double por = Double.parseDouble(request.getParameter("aumento"));

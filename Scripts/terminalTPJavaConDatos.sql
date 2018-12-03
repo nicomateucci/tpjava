@@ -7,8 +7,10 @@ INSERT INTO `terminalTPJava`.`Destino` (`idDestino`, `localidad`) VALUES ('2', '
 INSERT INTO `terminalTPJava`.`Destino` (`idDestino`, `localidad`) VALUES ('3', 'Santa Fe');
 INSERT INTO `terminalTPJava`.`Destino` (`idDestino`, `localidad`) VALUES ('4', 'Buenos Aires');
 INSERT INTO `terminalTPJava`.`Destino` (`idDestino`, `localidad`) VALUES ('5', 'Mendoza');
-INSERT INTO `terminalTPJava`.`Destino` (`idDestino`, `localidad`, `porcentajeAumento`) VALUES ('6', 'Cordoba', '1.15');
-INSERT INTO `terminalTPJava`.`Destino` (`idDestino`, `localidad`, `porcentajeAumento`) VALUES ('7', 'Buenos Aires', '1.20');
+INSERT INTO `terminalTPJava`.`Destino` (`idDestino`, `localidad`, `porcentajeAumento`) VALUES ('6', 'Cordoba', '15');
+INSERT INTO `terminalTPJava`.`Destino` (`idDestino`, `localidad`, `porcentajeAumento`) VALUES ('7', 'Buenos Aires', '20');
+INSERT INTO `terminalTPJava`.`Destino` (`idDestino`, `localidad`, `porcentajeAumento`) VALUES ('8', 'Junin', '30');
+INSERT INTO `terminalTPJava`.`Destino` (`idDestino`, `localidad`, `porcentajeAumento`) VALUES ('9', 'Diego de Alvear', '35');
 
 -- Datos tabla Persona
 
