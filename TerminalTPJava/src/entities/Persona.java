@@ -2,12 +2,12 @@ package entities;
 
 public class Persona {
 	
-	public String dni;
-	public String nombre;
-	public String apellido;
-	public String tipoDni;
-	public java.sql.Date fechaNacimiento;
-	public boolean esAdmin;
+	private String dni;
+	private String nombre;
+	private String apellido;
+	private String tipoDni;
+	private java.sql.Date fechaNacimiento;
+	private boolean esAdmin;
 	
 	public Persona() {}
 	public Persona(String dni) {

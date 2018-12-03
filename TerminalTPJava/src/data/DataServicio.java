@@ -8,9 +8,13 @@ import java.util.ArrayList;
 import business.LogicDestino;
 import business.LogicMicro;
 import business.LogicPersona;
+import business.LogicServicio;
+import entities.Butaca;
 import entities.Conductor;
 import entities.Destino;
+import entities.DestinoDirecto;
 import entities.Micro;
+import entities.MicroCama;
 import entities.Servicio;
 import entities.Usuario;
 import util.AppDataException;
@@ -18,6 +22,177 @@ import util.AppDataException;
 public class DataServicio {
 
 
+	public Servicio getServicioParaVenta(int id) throws Exception {
+		Servicio ser = this.getById(id);
+		//No seria necesario, ya que al momento de vender, el usuario ya definio cual es el recorrido.
+		//Podria servir para calcular el precio a sea un destino normal o un destino directo.
+		ser.addDestinos(this.getDestinos(ser.getIdServicio()));
+		ser.addMicros(this.getMicros(ser));
+
+		return ser;
+	}
+	public ArrayList<Micro> getMicros(Servicio s) throws Exception{
+		ArrayList<Micro> mm=null;
+		Micro m = null;
+		PreparedStatement stmt=null;
+		ResultSet rs=null;
+		try {
+			stmt=FactoryConexion.getInstancia().getConn().prepareStatement(""
+					+ "select sm.patente, marca, \n" + 
+					"porcentajeAumento, fechaUltimoControl, count(b.numButaca) as cantButacas\n" + 
+					"from ServicioMicro sm\n" + 
+					"inner join Micro m on sm.patente = m.patente\n" + 
+					"inner join Butaca b on b.patenteMicro = m.patente\n" + 
+					"where sm.idServicio = ?\n" + 
+					"group by m.patente");
+			stmt.setInt(1, s.getIdServicio());
+			rs=stmt.executeQuery();
+			mm = new ArrayList<Micro>();
+			while(rs!=null && rs.next()){
+				double pAumento = rs.getDouble("porcentajeAumento");
+				if(pAumento != 0) {
+					m = new MicroCama();
+					((MicroCama) m).setAumento(pAumento);
+				}
+				else {
+					m = new Micro();
+				}	
+				m.setMarca(rs.getString("marca"));
+				m.setPatente(rs.getString("patente"));
+				m.setFechaUltimoCtrl(rs.getDate("fechaUltimoControl"));
+				m.setCantidadButacas(rs.getInt("cantButacas"));
+				m.setConductores(this.getConductoresMicro(s, m));
+				m.setButacas(this.getButacasMicro(s, m));
+				mm.add(m);
+			}
+		} catch (SQLException e) {
+			throw new AppDataException(e, "Error al conectar a la base da datos");
+		} finally{	
+			try {
+				if(rs!=null)rs.close();
+				if(stmt!=null)stmt.close();
+				FactoryConexion.getInstancia().releaseConn();
+			} catch (SQLException e) {
+				throw e;
+			}
+		}
+		return mm;
+	}
+	public Butaca[] getButacasMicro(Servicio s, Micro m) throws Exception {
+
+		Butaca[] pasajeros = new Butaca[m.getCantidadButacas()];
+		for(int i = 0; i < pasajeros.length; i++) {
+			pasajeros[i] = new Butaca(i + 1);
+		}
+		PreparedStatement stmt = null;
+		ResultSet rs = null;
+		try {
+			stmt=FactoryConexion.getInstancia().getConn().prepareStatement("select dniPersona, numButaca from PersonaServicioMicro where patenteMicro = ? and idServicio = ?");
+			stmt.setString(1, m.getPatente());
+			stmt.setInt(2, s.getIdServicio());
+			rs=stmt.executeQuery();
+			while(rs!=null && rs.next()){
+				int num = rs.getInt("numButaca");
+				Usuario u = new Usuario(rs.getString("dniPersona"));
+				pasajeros[num - 1].setPasajero(u);
+			}
+		} catch (SQLException e) {
+			throw new AppDataException(e, "Error al conectar a la base da datos");
+		} finally{	
+			try {
+				if(rs!=null)rs.close();
+				if(stmt!=null)stmt.close();
+				FactoryConexion.getInstancia().releaseConn();
+			} catch (SQLException e) {
+				throw e;
+			}
+		}
+		return pasajeros;
+		
+	}
+	private ArrayList<Conductor> getConductoresMicro(Servicio s, Micro m) throws AppDataException, SQLException {
+
+		ArrayList<Conductor> cc=null;
+		Conductor c = null;
+		PreparedStatement stmt=null;
+		ResultSet rs=null;
+		try {
+			stmt=FactoryConexion.getInstancia().getConn().prepareStatement("select distinct p.dni, p.nombre, p.apellido, "
+					+ "p.tipoDni, p.fechaNac, p.fechaInicio, p.contacto\n" + 
+					"from ServicioMicro sm\n" + 
+					"inner join MicroConductor mc on sm.patente = mc.patente\n" + 
+					"inner join Persona p on mc.dniConductor = p.dni\n" + 
+					"where sm.idServicio = ? and sm.patente = ?");
+			stmt.setInt(1, s.getIdServicio());
+			stmt.setString(2, m.getPatente());
+			rs=stmt.executeQuery();
+			cc = new ArrayList<Conductor>();
+			while(rs!=null && rs.next()){
+				c = new Conductor();
+				c.setDni(rs.getString("dni"));
+				c.setNombre(rs.getString("nombre"));
+				c.setApellido(rs.getString("apellido"));
+				c.setTipoDni(rs.getString("tipoDni") );
+				c.setFechaNacimiento(rs.getDate("fechaNac"));
+				c.setFechaInicio(rs.getDate("fechaInicio"));
+				c.setContacto(rs.getString("contacto"));
+				cc.add(c);
+			}
+
+		} catch (SQLException e) {
+			throw new AppDataException(e, "Error al conectar a la base da datos");
+		} finally{	
+			try {
+				if(rs!=null)rs.close();
+				if(stmt!=null)stmt.close();
+				FactoryConexion.getInstancia().releaseConn();
+			} catch (SQLException e) {
+				throw e;
+			}
+		}
+		return cc;
+
+
+	}
+	public ArrayList<Destino> getDestinos(int idSer) throws AppDataException, SQLException{
+		ArrayList<Destino> dd=null;
+		Destino d = null;
+		PreparedStatement stmt=null;
+		ResultSet rs=null;
+		try {
+			stmt=FactoryConexion.getInstancia().getConn().prepareStatement("select sd.idDestino, localidad, precio, ordenDestinos, porcentajeAumento"
+					+ " from ServicioDestino sd"
+					+ " inner join Destino d on d.idDestino = sd.idDestino"
+					+ " where sd.idServicio = ?");
+			stmt.setInt(1, idSer);
+			rs=stmt.executeQuery();
+			dd = new ArrayList<Destino>();
+			while(rs!=null && rs.next()){
+				double pAumento = rs.getDouble("porcentajeAumento");
+				if(pAumento != 0) {
+					d = new DestinoDirecto();
+					((DestinoDirecto) d).setPorcentajeAumento(pAumento);
+				} else {
+					d = new Destino();
+				}	
+				d.setIdDestino(rs.getInt("idDestino"));
+				d.setLocalidad(rs.getString("localidad"));
+				dd.add(d);
+			}
+
+		} catch (SQLException e) {
+			throw new AppDataException(e, "Error al conectar a la base da datos");
+		} finally{	
+			try {
+				if(rs!=null)rs.close();
+				if(stmt!=null)stmt.close();
+				FactoryConexion.getInstancia().releaseConn();
+			} catch (SQLException e) {
+				throw e;
+			}
+		}
+		return dd;
+	}
 	public void addAll(Servicio s) throws AppDataException, SQLException{
 
 		s.setIdServicio(this.generateIdServicio());
@@ -26,7 +201,6 @@ public class DataServicio {
 		this.insertAllMicros(s.getMicros(), s.getIdServicio());
 		this.insertAllConductores(s.getMicros(), s.getIdServicio());
 	}
-
 	public void insertAllConductores(ArrayList<Micro> mm, int idServicio) throws SQLException, AppDataException {
 
 		PreparedStatement stmt = null;
@@ -37,7 +211,7 @@ public class DataServicio {
 					+ "VALUES (?,?,?)");
 			for (Micro m : mm) {
 				for(Conductor c: m.getConductores()) {
-					
+
 					stmt.setString(1, m.getPatente());
 					stmt.setString(2, c.getDni());
 					stmt.setInt(3, idServicio);
@@ -77,7 +251,6 @@ public class DataServicio {
 			}
 		}
 	}
-
 	public int generateIdServicio() throws AppDataException, SQLException {
 		ResultSet rs = null;
 		PreparedStatement stmt=null;
@@ -98,9 +271,6 @@ public class DataServicio {
 			}
 		}
 	}
-
-
-
 	private static final String SQL_INSERT = "INSERT INTO ServicioDestino (idServicio, idDestino, precio, ordenDestinos) VALUES (?,?, ?, ?)";
 	public void insertAllDestinos(ArrayList<Destino> dd, int idServicio) throws SQLException, AppDataException {
 
@@ -148,8 +318,6 @@ public class DataServicio {
 				//m.setMarca(rs.getString("marca"));
 				//m.setPatente(rs.getString("patente"));				
 				//c.setNombre(rs.getString("nombresApellidos"));
-
-
 				//m.addConductor(c);
 				//s.addMicro(m);
 				uu.add(s);
@@ -204,7 +372,6 @@ public class DataServicio {
 		}
 		return ss;
 	}
-
 	public Servicio getById(int idServicio) throws SQLException, AppDataException{
 
 		Servicio s=null;
@@ -236,10 +403,6 @@ public class DataServicio {
 		}
 		return s;
 	}
-
-
-
-
 	public void insert(Servicio s) throws AppDataException{
 		ResultSet rs = null;
 		PreparedStatement stmt=null;

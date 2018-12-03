@@ -12,6 +12,8 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.swing.JOptionPane;
 
+import com.sun.org.apache.regexp.internal.RESyntaxException;
+
 import business.LogicDestino;
 import business.LogicServicio;
 import entities.Destino;
@@ -21,7 +23,7 @@ import util.AppDataException;
 /**
  * Servlet implementation class ServletBuscarServicios
  */
-@WebServlet(description = "Servlet para buscar servicios en la base de datos segun destino de origen, llegada y fecha.", urlPatterns = { "/ServletBuscarServicios" })
+@WebServlet("/ServletBuscarServicios")
 public class ServletBuscarServicios extends HttpServlet {
 	private static final long serialVersionUID = 1L;
 
@@ -56,10 +58,10 @@ public class ServletBuscarServicios extends HttpServlet {
 					
 					ss = logSer.getAllByDestinos(d, d2);
 					if(!ss.isEmpty()) {
-						for(int i = 0; i < ss.size(); i++){
-						JOptionPane.showMessageDialog(null, "Encontramos " + ss.size() + " servicio/s numero " + ss.get(i).getIdServicio() + " para la fecha " + ss.get(i).getFechaServicio() + " y la hora " + ss.get(i).getHoraServicio());
-						}
-						response.sendRedirect("./index.html");
+						
+						request.getSession().setAttribute("serviciosEcontrados", ss);
+						response.sendRedirect("pages/listarServiciosEcontrados.jsp");
+						
 					}else {
 						JOptionPane.showMessageDialog(null, "Aun no tenemos servicios para su viaje. En breve ampliaremos nuestros recorridos. Nos vemos luego!.");
 						response.sendRedirect("./index.html");

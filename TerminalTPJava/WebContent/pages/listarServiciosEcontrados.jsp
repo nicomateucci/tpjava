@@ -1,3 +1,9 @@
+<%@ page language="java" contentType="text/html; charset=UTF-8"
+	pageEncoding="UTF-8"%>
+<%@page import="java.util.ArrayList"%>
+<%@page import="entities.Micro"%>
+<%@page import="entities.Servicio"%>
+<%@page import="entities.Butaca"%>
 <!DOCTYPE html>
 <html lang="en">
 
@@ -12,10 +18,10 @@
 <title>Terminal</title>
 
 <!-- Bootstrap core CSS -->
-<link href="vendor/bootstrap/css/bootstrap.min.css" rel="stylesheet">
+<link href="../vendor/bootstrap/css/bootstrap.min.css" rel="stylesheet">
 
 <!-- Custom fonts for this template -->
-<link href="vendor/font-awesome/css/font-awesome.min.css"
+<link href="../vendor/font-awesome/css/font-awesome.min.css"
 	rel="stylesheet" type="text/css">
 <link href="https://fonts.googleapis.com/css?family=Montserrat:400,700"
 	rel="stylesheet" type="text/css">
@@ -29,9 +35,9 @@
 	rel='stylesheet' type='text/css'>
 
 <!-- Custom styles for this template -->
-<link href="css/agency.min.css" rel="stylesheet">
-<link href="css/agency.css" rel="stylesheet">
-<link href="css/mystyle.css" rel="stylesheet">
+<link href="../css/agency.min.css" rel="stylesheet">
+<link href="../css/agency.css" rel="stylesheet">
+<link href="../css/mystyle.css" rel="stylesheet">
 
 
 
@@ -52,8 +58,6 @@
 			<div class="collapse navbar-collapse" id="navbarResponsive">
 				<ul class="navbar-nav text-uppercase ml-auto">
 					<li class="nav-item"><a class="nav-link js-scroll-trigger"
-						href="#services">Servicios</a></li>
-					<li class="nav-item"><a class="nav-link js-scroll-trigger"
 						href="#contact">Contacto</a></li>
 					<li><a class="fa fa-user nav-link js-scroll-trigger user"
 						href="./pages/LoginUsuario.html"></a></li>
@@ -62,52 +66,47 @@
 		</div>
 	</nav>
 
-	<!-- Header -->
-	<header class="masthead">
-		<div class="container">
-			<div class="intro-text">
-				<div class="intro-lead-in">Bienvenidos a Pasajero23</div>
-				<div class="intro-heading text-uppercase ">Nos encanta que
-					estes aquí</div>
-				<div></div>
-				<a class="btn btn-primary btn-xl text-uppercase js-scroll-trigger"
-					href="#services">Viajar</a>
-			</div>
 
+	<h2>Lista de servicios encontrados:</h2>
+	<table class="table table-striped table-bordered">
+		<tr>
+			<th>Numero</th>
+			<th>Fecha partida</th>
+			<th>Hora partida</th>
+		</tr>
+
+		<% ArrayList<Servicio> ss = (ArrayList<Servicio>) request.getSession().getAttribute("serviciosEcontrados");
+			for (Servicio s : ss) {
+		%>
+		<tr>
+			<td><%=s.getIdServicio()%></td>
+			<td><%=s.getFechaServicio()%></td>
+			<td><%=s.getHoraServicio()%></td>
+		</tr>
+		<%
+			}
+		%>
+	</table>
+	<form method=get action="../ServletVentaPasaje">
+		<div class="form-group col-lg-9">
+			<label for="idServicio">N° de servicio: </label> <input
+				type="number" name="idServicio" class="form-control">
 		</div>
-	</header>
-
-	<!-- Services -->
-	<section id="services">
-		<div class="container">
-			<div class="row">
-				<div class="col-lg-12 text-center">
-					<h2 class="section-heading text-uppercase">Servicios</h2>
-
-					<form method=get action="ServletBuscarServicios">
-						<input type="text" name="textOrigen" placeholder="Ingrese Origen"
-							class="search-bar"><br> <input type="text"
-							name="textDestino" placeholder="Ingrese Destino"
-							class="search-bar"> <br>
-						<button id="sendMessageButton"
-							class="btn btn-primary btn-xl text-uppercase" type="submit">Buscar</button>
-
-
-					</form>
-
-				</div>
-			</div>
+		<div class="form-group col-lg-9">
+			<button type="submit" value="Siguiente" class="btn btn-info">Siguiente</button>
 		</div>
-	</section>
-
-
-
+		<input type="button"
+			onclick="if(document.getElementById('spoiler1') .style.display=='none') {document.getElementById('spoiler1') .style.display=''; this.value = 'Ocultar'; }else{document.getElementById('spoiler1') .style.display='none';this.value = 'Mostrar'; }"
+			value="Gracias por ..." />
+		<div id="spoiler1" style="display: none">usar Plataforma 23 para
+			conocer un nuevo destino en Argentina.</div>
+	</form>
 	<!-- Contact -->
 	<section id="contact">
 		<div class="container">
 			<div class="row">
 				<div class="col-lg-12 text-center">
-					<h2 class="section-heading text-uppercase">Contáctanos</h2>
+					<h2 class="section-heading text-uppercase">Contactanos</h2>
 				</div>
 			</div>
 			<div class="row">
@@ -132,7 +131,7 @@
 								</div>
 								<div class="form-group">
 									<input class="form-control" name="telefono" type="tel"
-										placeholder="Tu Teléfono *" required="required"
+										placeholder="Tu TelÃ©fono *" required="required"
 										data-validation-required-message="Please enter your phone number.">
 									<p class="help-block text-danger"></p>
 								</div>
@@ -180,6 +179,7 @@
 						</a></li>
 					</ul>
 				</div>
+				SELECCIONARMICRO
 				<div class="col-md-4">
 					<ul class="list-inline quicklinks">
 						<li class="list-inline-item"><a href="#">Privacy Policy</a></li>
@@ -193,18 +193,18 @@
 
 
 	<!-- Bootstrap core JavaScript -->
-	<script src="vendor/jquery/jquery.min.js"></script>
-	<script src="vendor/bootstrap/js/bootstrap.bundle.min.js"></script>
+	<script src="../vendor/jquery/jquery.min.js"></script>
+	<script src="../vendor/bootstrap/js/bootstrap.bundle.min.js"></script>
 
 	<!-- Plugin JavaScript -->
-	<script src="vendor/jquery-easing/jquery.easing.min.js"></script>
+	<script src="../vendor/jquery-easing/jquery.easing.min.js"></script>
 
 	<!-- Contact form JavaScript -->
-	<script src="js/jqBootstrapValidation.js"></script>
-	<script src="js/contact_me.js"></script>
+	<script src="../js/jqBootstrapValidation.js"></script>
+	<script src="../js/contact_me.js"></script>
 
 	<!-- Custom scripts for this template -->
-	<script src="js/agency.min.js"></script>
+	<script src="../js/agency.min.js"></script>
 
 </body>
 

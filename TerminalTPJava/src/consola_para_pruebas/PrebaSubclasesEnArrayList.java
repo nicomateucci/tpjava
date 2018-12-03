@@ -30,19 +30,19 @@ public class PrebaSubclasesEnArrayList {
 		fechaSql = new java.sql.Date(fechaJava.getTime());
 		mc.setFechaUltimoCtrl(fechaSql);
 		mc.setMarca("Mercedes Benz");
-		
-		mc.setPasajeros(20);
+		mc.setButacas(15);
 		
 		Usuario u = new Usuario();
 		u.setDni("37829123");
 		u.setNombre("Nicolas");
 		u.setApellido("Mateucci");
-		mc.getButaca(3).setPasajero(u);
+		mc.addPasajero(u, 5);
+		
 		Usuario u2 = new Usuario();
 		u2.setDni("34981626");
 		u2.setNombre("Sebastian");
 		u2.setApellido("Mateucci");
-		mc.setPasajero(15, u2);
+		mc.addPasajero(u2, 15);
 		
 		Conductor c = new Conductor();
 		c.setDni("26165984");
@@ -50,6 +50,7 @@ public class PrebaSubclasesEnArrayList {
 		c.setApellido("Canale");
 		c.setContacto("3462169548");
 		mc.addConductor(c);
+		
 		Conductor c2 = new Conductor();
 		c2.setDni("22984325");
 		c2.setNombre("Carlos Mario");
@@ -59,7 +60,7 @@ public class PrebaSubclasesEnArrayList {
 		
 		mm.add(mc);
 		for(Micro m:mm) {
-			System.out.println("El micro de AttayList<Micro> es de la calse: " + m.getClass());
+			System.out.println("El micro de ArrayList<Micro> es de la calse: " + m.getClass());
 		}
 		
 

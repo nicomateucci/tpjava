@@ -12,7 +12,14 @@ public class LogicServicio{
 
 	public DataServicio dataSer;
 
-	
+	public Servicio getServicioParaVenta(int id) throws Exception {
+		dataSer = new DataServicio();
+		return dataSer.getServicioParaVenta(id);
+	}
+	public Servicio getById(int id) throws SQLException, AppDataException{
+		dataSer = new DataServicio();
+		return dataSer.getById(id);
+	}
 	public void addAll(Servicio s) throws AppDataException, SQLException {
 		dataSer = new DataServicio();
 		dataSer.addAll(s);

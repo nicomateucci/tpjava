@@ -8,16 +8,17 @@ public class Destino implements Serializable{
 	 * 
 	 */
 	private static final long serialVersionUID = 1L;
-	public int idDestino;
-	public String localidad;
-	public int ordenDestino;
-	public Double precioDestino;
+	private int idDestino;
+	private String localidad;
+	private int ordenDestino;
+	private Double precioDestino;
 	
-	
+	public double getPorcentajeAumento() {
+		return 0.0;
+	}
 	public int getOrdenDestino() {
 		return ordenDestino;
 	}
-
 	public void setOrdenDestino(int ordenDestino) {
 		this.ordenDestino = ordenDestino;
 	}

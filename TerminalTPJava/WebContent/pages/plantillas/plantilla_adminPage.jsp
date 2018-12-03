@@ -35,8 +35,9 @@
 			</p>
 			<h5 class="centered">Matias Lamens</h5>
 
-			<li class="sub-menu"><a href="javascript:;"> <i
-					class="fa fa-cogs"></i> <span>Servicios</span>
+			<li class="sub-menu"><a href="javascript:;"> <!--  class="fa fa-cogs"></i> <span>Servicios</span>-->
+					<i class="glyphicon glyphicon-globe"></i> <span>Servicios</span>
+
 			</a>
 				<ul class="sub">
 					<li><a href="../ServletServicio?tipo=consulta">Consultar</a></li>
@@ -56,7 +57,7 @@
 					<li><a href="../ServletMicro?tipo=baja">Dar de baja</a></li>
 				</ul></li>
 			<li class="sub-menu"><a href="javascript:;"> <i
-					class="fa fa-book"></i> <span>Conductores</span>
+					class="glyphicon glyphicon-user"></i> <span>Conductores</span>
 			</a>
 				<ul class="sub">
 					<li><a href="../ServletConductor?tipo=consulta">Consultar</a></li>
@@ -65,7 +66,7 @@
 					<li><a href="../ServletConductor?tipo=baja">Dar de baja</a></li>
 				</ul></li>
 			<li class="sub-menu"><a href="javascript:;"> <i
-					class="fa fa-tasks"></i> <span>Destinos</span>
+					class="glyphicon glyphicon-road"></i> <span>Destinos</span>
 			</a>
 				<ul class="sub">
 					<li><a href="../ServletDestino?tipo=consulta">Consultar</a></li>
@@ -81,7 +82,7 @@
 					<li><a href="../ServletCliente?tipo=baja">Dar de baja</a></li>
 				</ul></li>
 			<li class="sub-menu"><a href="javascript:;"> <i
-					class=" fa fa-bar-chart-o"></i> <span>Informes</span>
+					class=" glyphicon glyphicon-stats"></i> <span>Informes</span>
 			</a>
 				<ul class="sub">
 					<li><a href="morris.html">Del dia</a></li>

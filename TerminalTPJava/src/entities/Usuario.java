@@ -6,9 +6,9 @@ public class Usuario extends Persona {
 		super(dni);
 		// TODO Auto-generated constructor stub
 	}
-	public String nombreUsuario;
-	public String contrasena;
-	public String email;
+	private String nombreUsuario;
+	private String contrasena;
+	private String email;
 	
 	public Usuario() {}
 	public String getNombreUsuario() {

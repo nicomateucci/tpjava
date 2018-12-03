@@ -1,3 +1,9 @@
+<%@ page language="java" contentType="text/html; charset=UTF-8"
+	pageEncoding="UTF-8"%>
+<%@page import="java.util.ArrayList"%>
+<%@page import="entities.Micro"%>
+<%@page import="entities.Servicio"%>
+<%@page import="entities.Butaca"%>
 <!DOCTYPE html>
 <html lang="en">
 
@@ -12,10 +18,10 @@
 <title>Terminal</title>
 
 <!-- Bootstrap core CSS -->
-<link href="vendor/bootstrap/css/bootstrap.min.css" rel="stylesheet">
+<link href="../vendor/bootstrap/css/bootstrap.min.css" rel="stylesheet">
 
 <!-- Custom fonts for this template -->
-<link href="vendor/font-awesome/css/font-awesome.min.css"
+<link href="../vendor/font-awesome/css/font-awesome.min.css"
 	rel="stylesheet" type="text/css">
 <link href="https://fonts.googleapis.com/css?family=Montserrat:400,700"
 	rel="stylesheet" type="text/css">
@@ -29,9 +35,9 @@
 	rel='stylesheet' type='text/css'>
 
 <!-- Custom styles for this template -->
-<link href="css/agency.min.css" rel="stylesheet">
-<link href="css/agency.css" rel="stylesheet">
-<link href="css/mystyle.css" rel="stylesheet">
+<link href="../css/agency.min.css" rel="stylesheet">
+<link href="../css/agency.css" rel="stylesheet">
+<link href="../css/mystyle.css" rel="stylesheet">
 
 
 
@@ -52,8 +58,6 @@
 			<div class="collapse navbar-collapse" id="navbarResponsive">
 				<ul class="navbar-nav text-uppercase ml-auto">
 					<li class="nav-item"><a class="nav-link js-scroll-trigger"
-						href="#services">Servicios</a></li>
-					<li class="nav-item"><a class="nav-link js-scroll-trigger"
 						href="#contact">Contacto</a></li>
 					<li><a class="fa fa-user nav-link js-scroll-trigger user"
 						href="./pages/LoginUsuario.html"></a></li>
@@ -61,40 +65,99 @@
 			</div>
 		</div>
 	</nav>
-
-	<!-- Header -->
-	<header class="masthead">
-		<div class="container">
-			<div class="intro-text">
-				<div class="intro-lead-in">Bienvenidos a Pasajero23</div>
-				<div class="intro-heading text-uppercase ">Nos encanta que
-					estes aquí</div>
-				<div></div>
-				<a class="btn btn-primary btn-xl text-uppercase js-scroll-trigger"
-					href="#services">Viajar</a>
-			</div>
-
-		</div>
-	</header>
-
-	<!-- Services -->
-	<section id="services">
+	<!--Tengo que mostrar dos distintis con un if: seleccion de micro y seleccion de butaca-->
+	<%
+		if (request.getSession().getAttribute("estadoventa").equals("SELECCIONARMICRO")) {
+	%>
+	<section id="form">
 		<div class="container">
 			<div class="row">
 				<div class="col-lg-12 text-center">
-					<h2 class="section-heading text-uppercase">Servicios</h2>
+					<%!int i = 0;%>
+					<h2>Lista de micros asignados al servicio elegido:</h2>
+					<table class="table table-striped table-bordered">
+						<tr>
+							<th>Numero</th>
+							<th>Patente</th>
+							<th>Marca</th>
+							<th>Fecha Ultimo Control</th>
+							<th>Porcentaje aumento</th>
+							<th>Tipo</th>
+						</tr>
+						<%
+							Servicio ser = (Servicio) request.getSession().getAttribute("servicio");
+								for (Micro m : ser.getMicros()) {
+						%>
+						<tr>
+							<td><%=i++%></td>
+							<td><%=m.getPatente()%></td>
+							<td><%=m.getMarca()%></td>
+							<td><%=m.getFechaUltimoCtrl()%></td>
+							<td><%=m.getAumento()%></td>
+							<td><%=m.getClass().toString().substring(15)%></td>
 
-					<form method=get action="ServletBuscarServicios">
-						<input type="text" name="textOrigen" placeholder="Ingrese Origen"
-							class="search-bar"><br> <input type="text"
-							name="textDestino" placeholder="Ingrese Destino"
-							class="search-bar"> <br>
-						<button id="sendMessageButton"
-							class="btn btn-primary btn-xl text-uppercase" type="submit">Buscar</button>
+						</tr>
+						<%
+							}
+						%>
+					</table>
+					<form method=post action="../ServletVentaPasaje">
+						<br>
+						<h2>Ingrese la patente del micro:</h2>
 
-
+						<div class="form-group col-lg-9">
+							<label for="patente">Patente: </label> <input type="text"
+								name="patente" placeholder="Ej: AA123BB o 961ASD"
+								class="form-control" />
+						</div>
+						<div class="form-group col-lg-9">
+							<button value="Ingresar" class="btn btn-primary">Continuar</button>
+						</div>
 					</form>
+				</div>
+			</div>
+		</div>
+	</section>
+	<%
+		}
+		if (request.getSession().getAttribute("estadoventa").equals("SELECCIONARBUTACA")) {
+	%>
+	<section id="form">
+		<div class="container">
+			<div class="row">
+				<div class="col-lg-12 text-center">
+					<h2>Butacas libres:</h2>
+					<table class="table table-striped table-bordered">
+						<tr>
+							<th>Numero</th>
+							<th>Pasajero</th>
+						</tr>
+						<%
+							Butaca[] pasajeros = (Butaca[]) request.getSession().getAttribute("pasajeros");
+								for (int i = 0; i <= Math.ceil(pasajeros.length / 10); i++) {
+									for (int j = 0; j < 10; j++) {
+						%>
+						<tr>
+							<td><%=pasajeros[(i * 10) + j].getNumero()%></td>
+							<td><%=pasajeros[(i * 10) + j].getPasajero().getDni()%></td>
+						</tr>
+						<%
+							}
+								}
+						%>
+					</table>
+					<form method=post action="../ServletVenderPasaje">
+						<br>
+						<h2>Ingrese la patente del micro:</h2>
 
+						<div class="form-group col-lg-9">
+							<label for="dni">Dni n°: </label> <input type="text" name="dni"
+								placeholder="Ej: 39052489" class="form-control" />
+						</div>
+						<div class="form-group col-lg-9">
+							<button value="Ingresar" class="btn btn-primary">Continuar</button>
+						</div>
+					</form>
 				</div>
 			</div>
 		</div>
@@ -102,12 +165,15 @@
 
 
 
+	<%
+		}
+	%>
 	<!-- Contact -->
 	<section id="contact">
 		<div class="container">
 			<div class="row">
 				<div class="col-lg-12 text-center">
-					<h2 class="section-heading text-uppercase">Contáctanos</h2>
+					<h2 class="section-heading text-uppercase">Contactanos</h2>
 				</div>
 			</div>
 			<div class="row">
@@ -132,7 +198,7 @@
 								</div>
 								<div class="form-group">
 									<input class="form-control" name="telefono" type="tel"
-										placeholder="Tu Teléfono *" required="required"
+										placeholder="Tu TelÃ©fono *" required="required"
 										data-validation-required-message="Please enter your phone number.">
 									<p class="help-block text-danger"></p>
 								</div>
@@ -180,6 +246,7 @@
 						</a></li>
 					</ul>
 				</div>
+				SELECCIONARMICRO
 				<div class="col-md-4">
 					<ul class="list-inline quicklinks">
 						<li class="list-inline-item"><a href="#">Privacy Policy</a></li>
@@ -193,18 +260,18 @@
 
 
 	<!-- Bootstrap core JavaScript -->
-	<script src="vendor/jquery/jquery.min.js"></script>
-	<script src="vendor/bootstrap/js/bootstrap.bundle.min.js"></script>
+	<script src="../vendor/jquery/jquery.min.js"></script>
+	<script src="../vendor/bootstrap/js/bootstrap.bundle.min.js"></script>
 
 	<!-- Plugin JavaScript -->
-	<script src="vendor/jquery-easing/jquery.easing.min.js"></script>
+	<script src="../vendor/jquery-easing/jquery.easing.min.js"></script>
 
 	<!-- Contact form JavaScript -->
-	<script src="js/jqBootstrapValidation.js"></script>
-	<script src="js/contact_me.js"></script>
+	<script src="../js/jqBootstrapValidation.js"></script>
+	<script src="../js/contact_me.js"></script>
 
 	<!-- Custom scripts for this template -->
-	<script src="js/agency.min.js"></script>
+	<script src="../js/agency.min.js"></script>
 
 </body>
 

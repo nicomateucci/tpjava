@@ -13,6 +13,7 @@ import javax.servlet.http.HttpServletResponse;
 
 import business.LogicDestino;
 import business.LogicMicro;
+import entities.Butaca;
 import entities.Destino;
 import entities.DestinoDirecto;
 import entities.Micro;
@@ -25,7 +26,6 @@ import util.AppDataException;
 @WebServlet("/ServletMicro")
 public class ServletMicro extends HttpServlet {
 	private static final long serialVersionUID = 1L;
-
 	/**
 	 * @see HttpServlet#HttpServlet()
 	 */
@@ -73,62 +73,41 @@ public class ServletMicro extends HttpServlet {
 
 		LogicMicro logicm = new LogicMicro();
 		String tipoMicro = request.getParameter("tipoMicro");
+		Micro m = null;
+		
 		if(tipoMicro.equals("MicroCama")) {
-			MicroCama m = new MicroCama();
-			m.setPatente(request.getParameter("patente"));
-			m.setMarca(request.getParameter("marca"));
+			m = new MicroCama();
 			double por = Double.parseDouble(request.getParameter("aumento"));
 			por = por / 100 + 1;
-			m.setAumento(por);
-
-			//----------Parseo de fecha
-			SimpleDateFormat format = new SimpleDateFormat("yyyy-MM-dd");
-			java.util.Date date = null;
-			java.sql.Date sqlDate = null;
-			try {
-				date = format.parse(request.getParameter("fechaControl"));
-			} catch (java.text.ParseException e) {
-				e.printStackTrace();
-			}
-			sqlDate = new java.sql.Date(date.getTime());  
-
-			m.setFechaUltimoCtrl(sqlDate);
-			try {
-				logicm.insert(m);
-			} catch (AppDataException e) {
-				// TODO Auto-generated catch block
-				e.printStackTrace();
-			} catch (SQLException e) {
-				// TODO Auto-generated catch block
-				e.printStackTrace();
-			}
+			((MicroCama) m).setAumento(por);
 		}else {
-			Micro m = new Micro();
-			m.setPatente(request.getParameter("patente"));
-			m.setMarca(request.getParameter("marca"));
+			m = new Micro();
+		}
+		System.out.println("El micro cargado es de la clase " + m.getClass());
+		m.setPatente(request.getParameter("patente"));
+		m.setMarca(request.getParameter("marca"));
+		int num = Integer.parseInt(request.getParameter("cantButacas"));
+		m.setButacas(num);
+		//----------Parseo de fecha
+		SimpleDateFormat format = new SimpleDateFormat("yyyy-MM-dd");
+		java.util.Date date = null;
+		java.sql.Date sqlDate = null;
+		try {
+			date = format.parse(request.getParameter("fechaControl"));
+		} catch (java.text.ParseException e) {
+			e.printStackTrace();
+		}
+		sqlDate = new java.sql.Date(date.getTime());  
+		m.setFechaUltimoCtrl(sqlDate);
 
-			//----------Parseo de fecha
-			SimpleDateFormat format = new SimpleDateFormat("yyyy-MM-dd");
-			java.util.Date date = null;
-			java.sql.Date sqlDate = null;
-			try {
-				date = format.parse(request.getParameter("fechaControl"));
-			} catch (java.text.ParseException e) {
-				e.printStackTrace();
-			}
-			sqlDate = new java.sql.Date(date.getTime());  
-
-			m.setFechaUltimoCtrl(sqlDate);
-			try {
-				logicm.insert(m);
-			} catch (AppDataException e) {
-				// TODO Auto-generated catch block
-				e.printStackTrace();
-			} catch (SQLException e) {
-				// TODO Auto-generated catch block
-				e.printStackTrace();
-			}
+		try {
+			logicm.insert(m);
+		} catch (AppDataException e) {
+			e.printStackTrace();
+		} catch (SQLException e) {
+			e.printStackTrace();
 		}
 		response.sendRedirect("ServletMicro?tipo=consulta");
 	}
 }
+

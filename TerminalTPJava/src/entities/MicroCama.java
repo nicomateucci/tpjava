@@ -8,9 +8,12 @@ public class MicroCama extends Micro implements Serializable{
 	 * 
 	 */
 	private static final long serialVersionUID = 1L;
-	public double aumento;
+	private double aumento;
 	
 	public MicroCama() {}
+	public MicroCama(String patente) {
+		this.setPatente(patente);
+	}
 	public double getAumento() {
 		return aumento;
 	}

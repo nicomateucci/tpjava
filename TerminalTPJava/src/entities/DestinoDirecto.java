@@ -6,7 +6,7 @@ public class DestinoDirecto extends Destino{
 	 * 
 	 */
 	private static final long serialVersionUID = 1L;
-	public double porcentajeAumento;
+	private double porcentajeAumento;
 
 	public double getPorcentajeAumento() {
 		return porcentajeAumento;

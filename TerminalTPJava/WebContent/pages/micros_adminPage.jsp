@@ -56,33 +56,22 @@
 							<th>Fecha Ultimo Control</th>
 							<th>Porcentaje aumento</th>
 							<th>Tipo</th>
+							<th>Cantidad de asientos</th>
 						</tr>
 						<%
 							ArrayList<Micro> listaMic = (ArrayList<Micro>) request.getSession().getAttribute("listaMicros");
 								for (Micro m : listaMic) {
-									if (m.getClass() == MicroCama.class) {
 						%>
 						<tr>
-							<td><%=m.getPatente()%></td>
-							<td><%=m.getMarca()%></td>
-							<td><%=m.getFechaUltimoCtrl()%></td>
-							<td><%=((MicroCama) m).getAumento()%></td>
-							<td><%=m.getClass().toString().substring(15)%></td>
-
-						</tr>
-						<%
-							} else {
-						%>
-						<tr>
-							<td><%=m.getPatente()%></td>
-							<td><%=m.getMarca()%></td>
-							<td><%=m.getFechaUltimoCtrl()%></td>
-							<td><%=0.0%></td>
-							<td><%=m.getClass().toString().substring(15)%></td>
+							<td><%= m.getPatente()%></td>
+							<td><%= m.getMarca()%></td>
+							<td><%= m.getFechaUltimoCtrl()%></td>
+							<td><%= m.getAumento()%></td>
+							<td><%= m.getClass().toString().substring(15)%></td>
+							<td><%= m.getCantidadButacas() %></td>
 						</tr>
 						<%
 							}
-								}
 						%>
 					</table>
 				</div>
@@ -118,8 +107,9 @@
 							<div class="form-group col-lg-9">
 								<label for="tipoMicro">Tipo de Micro: </label> <select
 									name="tipoMicro" id="" class="form-control">
-									<option value="MicroCama">Micro con butacas cama</option>
 									<option value="Micro">Micro con butacas semicama</option>
+									<option value="MicroCama">Micro con butacas cama</option>
+				
 								</select>
 							</div>
 							<div class="form-group col-lg-9">
@@ -129,6 +119,11 @@
 								</div>
 								<input type="number" name="aumento" class="form-control" /> <label
 									for="aumento">% </label>
+							</div>
+							<div class="form-group col-lg-9">
+								<label for="cantButacas">Ingrese cantidad de butacas: </label> <input
+									type="date" name="cantButacas"
+									class="form-control" />
 							</div>
 							<div class="form-group col-lg-9">
 								<button type="reset" value="Resetear" class="btn btn-warning">Resetear</button>

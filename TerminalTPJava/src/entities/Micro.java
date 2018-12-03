@@ -5,15 +5,28 @@ import java.util.ArrayList;
 import entities.Usuario;;
 
 public class Micro implements Serializable{
-	
+
 	private static final long serialVersionUID = 1L;
 
-	public String patente;
-	public ArrayList<Conductor> conductores;
-	public Butaca[] pasajeros;
-	public String marca;
-	public java.sql.Date fechaUltimoCtrl;
-	
+	private String patente;
+	private ArrayList<Conductor> conductores;
+	private Butaca butacas[];
+	private String marca;
+	private java.sql.Date fechaUltimoCtrl;
+	private int cantidadButacas;
+
+	public double getAumento() {
+		return 0.0;
+	}
+	public void setCantidadButacas(int cantidadButacas) {
+		this.cantidadButacas = cantidadButacas;
+	}
+	public int getCantidadButacas() {
+		return cantidadButacas;
+	}
+	public void addPasajero(Usuario pasajero, int numButaca) {
+		butacas[--numButaca].setPasajero(pasajero);
+	}
 	public Micro() {
 		conductores = new ArrayList<Conductor>();
 	}
@@ -21,43 +34,39 @@ public class Micro implements Serializable{
 		conductores = new ArrayList<Conductor>();
 		this.setPatente(patente);
 	}
-	
-	
+
+
 	public ArrayList<Conductor> getConductores() {
 		return conductores;
 	}
 
 	public Butaca getButaca(int num) {
-		return pasajeros[num];
-		
+		return butacas[num];
+
 	}
-	public Butaca[] getPasajeros() {
-		return pasajeros;
+	public Butaca[] getButacas() {
+		return butacas;
 	}
-	public void setPasajeros(Butaca[] pasajeros) {
-		this.pasajeros = pasajeros;
+	public void setButacas(Butaca[] pasajeros) {
+		this.butacas = pasajeros;
 	}
+	public void setButacas(int numButacas) {
+		butacas = new Butaca[numButacas];
+		for(int i = 0; i < numButacas; i++) {
+			butacas[i] = new Butaca();
+		}
+	}
+	
 	public void setConductores(ArrayList<Conductor> conductores) {
 		this.conductores = conductores;
 	}
 	public void addConductor(Conductor con) {
-		
+
 		conductores.add(con);
 	}
-	public void setPasajeros(int numButacas) {
-		
-		pasajeros = new Butaca[numButacas];
-		
-	}
-	public void setPasajero(int numButaca, Usuario p) {
-		
-		int x = numButaca;
-		Usuario p2 = p;
-		pasajeros[x].setPasajero(p2);
-	}
 	public Usuario getPasajero(int numButaca) {
-		
-		return pasajeros[numButaca].getPasajero();
+
+		return butacas[numButaca].getPasajero();
 	}
 	public java.sql.Date getFechaUltimoCtrl() {
 		return fechaUltimoCtrl;
@@ -77,6 +86,4 @@ public class Micro implements Serializable{
 	public void setPatente(String patente) {
 		this.patente = patente;
 	}
-	
-
 }

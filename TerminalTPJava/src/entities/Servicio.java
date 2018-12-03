@@ -10,10 +10,10 @@ public class Servicio {
 		private int idServicio;
 		private java.sql.Date fechaServicio;
 		private String horaServicio;
-		public ArrayList<Destino> destinos;
-		public ArrayList<Micro> micros;
+		private ArrayList<Destino> destinos;
+		private ArrayList<Micro> micros;
 		//********************************************************************
-		public String recorrido;
+		private String recorrido;
 
 		/* Formato: destino1, destino2, destino3, ..., destinoN
 		 * Atributo agregado para mostrar al usuario administrador todos los destinos de un servicio
@@ -31,6 +31,11 @@ public class Servicio {
 		}
 		
 		
+		public Servicio(int id) {
+			this.setIdServicio(id);
+		}
+
+
 		public ArrayList<Destino> getDestinos() {
 			return destinos;
 		}
@@ -63,8 +68,8 @@ public class Servicio {
 		public void addDestino(DestinoDirecto des) {
 			destinos.add(des);
 		}
-		public void addDestinos() {
-			
+		public void addDestinos(ArrayList<Destino> dd) {
+			destinos = dd;
 		}
 		public void addMicro(Micro m) {
 			micros.add(m);
@@ -72,8 +77,8 @@ public class Servicio {
 		public void addMicro(MicroCama m) {
 			micros.add(m);
 		}
-		public void addMicros() {
-			
+		public void addMicros(ArrayList<Micro> mm) {
+			micros = mm;
 		}
 		
 		

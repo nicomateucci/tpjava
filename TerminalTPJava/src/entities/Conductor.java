@@ -8,8 +8,8 @@ public class Conductor extends Persona{
 		super(dni);
 		// TODO Auto-generated constructor stub
 	}
-	public java.sql.Date fechaInicio;
-	public String contacto;
+	private java.sql.Date fechaInicio;
+	private String contacto;
 	
 	public java.sql.Date getFechaInicio() {
 		return fechaInicio;
