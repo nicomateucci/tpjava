@@ -179,7 +179,6 @@
 						</a></li>
 					</ul>
 				</div>
-				SELECCIONARMICRO
 				<div class="col-md-4">
 					<ul class="list-inline quicklinks">
 						<li class="list-inline-item"><a href="#">Privacy Policy</a></li>

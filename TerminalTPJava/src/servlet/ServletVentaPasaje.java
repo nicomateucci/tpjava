@@ -48,7 +48,7 @@ public class ServletVentaPasaje extends HttpServlet {
 			Micro micro = null;
 			for(Micro m: ser.getMicros()) {
 				if(m.getPatente().equals(patente) ) {
-					micro = m;
+					micro = m; //Hago este asignacion para conocer el micro encontrado afuera del foreach.
 					Butaca[] but = micro.getButacas();
 					request.getSession().setAttribute("pasajeros", but);
 					request.getSession().setAttribute("estadoventa", "SELECCIONARBUTACA");
@@ -61,10 +61,10 @@ public class ServletVentaPasaje extends HttpServlet {
 			}
 			
 		}
-		if(request.getSession().getAttribute("estadoventa").equals("SELECCIONARBUTACA")) {
+		if(request.getSession().getAttribute("estadoventa").equals("IMPRIMIRBOLETO")) {
 			
 			
-			JOptionPane.showMessageDialog(null, "Ingreso a la seccion de seleccion de butaca");
+			JOptionPane.showMessageDialog(null, "Ingreso a la seccion de la IMPRESION del BOLETO");
 
 
 		}

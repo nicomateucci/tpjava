@@ -3,6 +3,7 @@
 <%@page import="java.util.ArrayList"%>
 <%@page import="entities.Micro"%>
 <%@page import="entities.Servicio"%>
+<%@page import="entities.Usuario"%>
 <%@page import="entities.Butaca"%>
 <!DOCTYPE html>
 <html lang="en">
@@ -73,11 +74,9 @@
 		<div class="container">
 			<div class="row">
 				<div class="col-lg-12 text-center">
-					<%!int i = 0;%>
 					<h2>Lista de micros asignados al servicio elegido:</h2>
 					<table class="table table-striped table-bordered">
 						<tr>
-							<th>Numero</th>
 							<th>Patente</th>
 							<th>Marca</th>
 							<th>Fecha Ultimo Control</th>
@@ -89,7 +88,6 @@
 								for (Micro m : ser.getMicros()) {
 						%>
 						<tr>
-							<td><%=i++%></td>
 							<td><%=m.getPatente()%></td>
 							<td><%=m.getMarca()%></td>
 							<td><%=m.getFechaUltimoCtrl()%></td>
@@ -111,7 +109,7 @@
 								class="form-control" />
 						</div>
 						<div class="form-group col-lg-9">
-							<button value="Ingresar" class="btn btn-primary">Continuar</button>
+							<button type="submit" value="Ingresar" class="btn btn-primary">Continuar</button>
 						</div>
 					</form>
 				</div>
@@ -121,6 +119,7 @@
 	<%
 		}
 		if (request.getSession().getAttribute("estadoventa").equals("SELECCIONARBUTACA")) {
+			request.getSession().setAttribute("estadoventa","IMPRIMIRBOLETO");
 	%>
 	<section id="form">
 		<div class="container">
@@ -134,28 +133,37 @@
 						</tr>
 						<%
 							Butaca[] pasajeros = (Butaca[]) request.getSession().getAttribute("pasajeros");
-								for (int i = 0; i <= Math.ceil(pasajeros.length / 10); i++) {
-									for (int j = 0; j < 10; j++) {
+								/*for (int i = 0; i < Math.ceil(pasajeros.length / 10); i++) {
+									for (int j = 0; j < 10; j++) {*/
+								for (int j = 0; j < pasajeros.length; j++){
 						%>
 						<tr>
-							<td><%=pasajeros[(i * 10) + j].getNumero()%></td>
-							<td><%=pasajeros[(i * 10) + j].getPasajero().getDni()%></td>
+							<td><%=pasajeros[j].getNumero()%></td>
+							<%
+								if (pasajeros[j].getPasajero() instanceof Usuario) {
+							%>
+							<td><%=pasajeros[j].getPasajero().getDni()%></td>
+							<%
+								} else {
+							%>
+							<td>vacío</td>
 						</tr>
 						<%
 							}
 								}
 						%>
 					</table>
-					<form method=post action="../ServletVenderPasaje">
+					<form method=post action="../ServletVentaPasaje">
 						<br>
-						<h2>Ingrese la patente del micro:</h2>
+						<h2>Ingrese el numero de butaca en la que desea viajar:</h2>
 
 						<div class="form-group col-lg-9">
-							<label for="dni">Dni n°: </label> <input type="text" name="dni"
-								placeholder="Ej: 39052489" class="form-control" />
+							<label for="numButaca">Butaca n°: </label> <input type="number"
+								name="numButaca" placeholder="Ej: 1, 5, 12."
+								class="form-control" />
 						</div>
 						<div class="form-group col-lg-9">
-							<button value="Ingresar" class="btn btn-primary">Continuar</button>
+							<button type="submit" value="Ingresar" class="btn btn-primary">Continuar</button>
 						</div>
 					</form>
 				</div>
@@ -246,7 +254,6 @@
 						</a></li>
 					</ul>
 				</div>
-				SELECCIONARMICRO
 				<div class="col-md-4">
 					<ul class="list-inline quicklinks">
 						<li class="list-inline-item"><a href="#">Privacy Policy</a></li>

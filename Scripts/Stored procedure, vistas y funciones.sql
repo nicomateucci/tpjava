@@ -61,3 +61,76 @@ END$$
 
 DELIMITER ;
 
+
+-- Triggers
+USE `terminalTPJava`;
+
+DELIMITER $$
+
+DROP TRIGGER IF EXISTS terminalTPJava.Persona_BEFORE_DELETE$$
+USE `terminalTPJava`$$
+CREATE DEFINER=`root`@`localhost` TRIGGER `terminalTPJava`.`Persona_BEFORE_DELETE` BEFORE DELETE ON `Persona` FOR EACH ROW
+BEGIN
+delete from PersonaServicioMicro where PersonaServicioMicro.dniPersona=old.dni;
+END$$
+DELIMITER ;
+
+
+USE `terminalTPJava`;
+
+DELIMITER $$
+
+DROP TRIGGER IF EXISTS terminalTPJava.Micro_BEFORE_DELETE$$
+USE `terminalTPJava`$$
+CREATE DEFINER=`root`@`localhost` TRIGGER `terminalTPJava`.`Micro_BEFORE_DELETE` BEFORE DELETE ON `Micro` FOR EACH ROW
+BEGIN
+	delete from ServicioMicro where ServicioMicro.patente= old.Patente;
+	delete from Butaca where Butaca.patenteMicro=old.patente;
+	delete from PersonaServicioMicro where PersonaServicioMicro.patenteMicro=old.patente;
+    delete from MicroConductor where MicroConductor.patente=old.Patente;
+
+
+END$$
+DELIMITER ;
+
+
+USE `terminalTPJava`;
+
+DELIMITER $$
+
+DROP TRIGGER IF EXISTS terminalTPJava.Butaca_BEFORE_DELETE$$
+USE `terminalTPJava`$$
+CREATE DEFINER = CURRENT_USER TRIGGER `terminalTPJava`.`Butaca_BEFORE_DELETE` BEFORE DELETE ON `Butaca` FOR EACH ROW
+BEGIN
+	delete from PersonaServicioMicro where PersonaServicioMicro.numButaca=old.numButaca;
+
+END$$
+DELIMITER ;
+
+USE `terminalTPJava`;
+
+DELIMITER $$
+
+DROP TRIGGER IF EXISTS terminalTPJava.Destino_BEFORE_DELETE$$
+USE `terminalTPJava`$$
+CREATE DEFINER=`root`@`localhost` TRIGGER `terminalTPJava`.`Destino_BEFORE_DELETE` BEFORE DELETE ON `Destino` FOR EACH ROW
+BEGIN
+	delete from ServicioDestino where ServicioDestino.idDestino=old.idDestino;
+END$$
+DELIMITER ;
+
+
+USE `terminalTPJava`;
+
+DELIMITER $$
+
+DROP TRIGGER IF EXISTS terminalTPJava.Servicio_BEFORE_DELETE$$
+USE `terminalTPJava`$$
+CREATE DEFINER=`root`@`localhost` TRIGGER `terminalTPJava`.`Servicio_BEFORE_DELETE` BEFORE DELETE ON `Servicio` FOR EACH ROW
+BEGIN
+	delete from ServicioDestino where ServicioDestino.idServicio=old.idServicio;
+    delete from ServicioMicro where ServicioMicro.idServicio=old.idServicio;
+	delete from PersonaServicioMicro where PersonaServicioMicro.idServicio=old.idServicio;
+	delete from MicroConductor where MicroConductor.idServicio=old.idServicio;
+END$$
+DELIMITER ;
