@@ -1,7 +1,7 @@
 package servlet;
 
 import java.io.IOException;
-import java.sql.SQLException;
+import java.io.PrintWriter;
 
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
@@ -10,13 +10,10 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.swing.JOptionPane;
 
-import business.LogicMicro;
 import business.LogicServicio;
 import entities.Butaca;
 import entities.Micro;
-import entities.MicroCama;
 import entities.Servicio;
-import util.AppDataException;
 
 @WebServlet("/ServletVentaPasaje")
 public class ServletVentaPasaje extends HttpServlet {
@@ -56,15 +53,24 @@ public class ServletVentaPasaje extends HttpServlet {
 				}
 			}
 			if( ! (micro instanceof Micro) ){
-				JOptionPane.showMessageDialog(null, "Como no se encontro el micro ingresado, lo redirigiremos de nuevo a la pagina. (Deberia ver el caso de que si encuentre el Micro, si este codigo se ejecuta igual.)");
+				PrintWriter out = response.getWriter();  
+				response.setContentType("text/html");  
+				out.println("<script type=\"text/javascript\">");  
+				out.println("alert('Como no se encontro el micro ingresado, lo redirigiremos de nuevo a la pagina.')");  
+				out.println("</script>");
 				response.sendRedirect("pages/ventaPasaje.jsp");
 			}
 			
 		}
 		if(request.getSession().getAttribute("estadoventa").equals("IMPRIMIRBOLETO")) {
 			
-			
-			JOptionPane.showMessageDialog(null, "Ingreso a la seccion de la IMPRESION del BOLETO");
+			int numButaca = Integer.parseInt(request.getParameter("numButaca"));
+			//JOptionPane.showMessageDialog(null, "Ingreso la butaca numero" + numButaca);
+			PrintWriter out = response.getWriter();  
+			response.setContentType("text/html");  
+			out.println("<script type=\"text/javascript\">");  
+			out.println("alert('Esta en la pagina impresion del boleto ')");  
+			out.println("</script>");
 
 
 		}

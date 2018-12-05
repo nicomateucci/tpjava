@@ -15,7 +15,7 @@ INSERT INTO `terminalTPJava`.`Destino` (`idDestino`, `localidad`, `porcentajeAum
 -- Datos tabla Persona
 
 INSERT INTO `Persona` (`dni`,`nombre`,`apellido`,`tipoDni`,`fechaNac`,`fechaInicio`,`contacto`,`nombreUsuario`,`contrasena`,`email`,`esAdmin`) VALUES ('11111111','Matias','Lamens','DNI','1980-01-02',NULL,NULL,'mlamens','mlamens','m@gmail.com',1);
-INSERT INTO `Persona` (`dni`,`nombre`,`apellido`,`tipoDni`,`fechaNac`,`fechaInicio`,`contacto`,`nombreUsuario`,`contrasena`,`email`,`esAdmin`) VALUES ('22222222','Agsutin','Lloy','DNI','1971-05-15','1999-01-03','341000000',NULL,NULL,'NULL',0);
+INSERT INTO `Persona` (`dni`,`nombre`,`apellido`,`tipoDni`,`fechaNac`,`fechaInicio`,`contacto`,`nombreUsuario`,`contrasena`,`email`,`esAdmin`) VALUES ('22222222','Agustin','Lloy','DNI','1971-05-15','1999-01-03','341000000',NULL,NULL,'NULL',0);
 INSERT INTO `Persona` (`dni`,`nombre`,`apellido`,`tipoDni`,`fechaNac`,`fechaInicio`,`contacto`,`nombreUsuario`,`contrasena`,`email`,`esAdmin`) VALUES ('33333333','Sara','Laius','DNI','1993-10-11',NULL,NULL,'slaius','slaius','s@gmail.com',0);
 INSERT INTO `Persona` (`dni`,`nombre`,`apellido`,`tipoDni`,`fechaNac`,`fechaInicio`,`contacto`,`nombreUsuario`,`contrasena`,`email`,`esAdmin`) VALUES ('44444444','Azucar','Ledesma','DNI','1953-10-26',NULL,NULL,'aledesma','aledesma','aledesma@gmail.com',0);
 INSERT INTO `Persona` (`dni`,`nombre`,`apellido`,`tipoDni`,`fechaNac`,`fechaInicio`,`contacto`,`nombreUsuario`,`contrasena`,`email`,`esAdmin`) VALUES ('55555555','Matias','Choy','DNI','1993-11-24',NULL,NULL,'mchoy','mchoy','mchoy@gmail.com',0);

@@ -39,7 +39,16 @@
 <link href="../css/agency.min.css" rel="stylesheet">
 <link href="../css/agency.css" rel="stylesheet">
 <link href="../css/mystyle.css" rel="stylesheet">
+<style>
+.ocupada {
+	background: url(../img/ocupada.jpg) center center no-repeat;
+	color: #ccc;
+}
 
+.free {
+	background: url(../img/butaca-libre.jpg) center center no-repeat;
+}
+</style>
 
 
 </head>
@@ -119,47 +128,50 @@
 	<%
 		}
 		if (request.getSession().getAttribute("estadoventa").equals("SELECCIONARBUTACA")) {
-			request.getSession().setAttribute("estadoventa","IMPRIMIRBOLETO");
+			request.getSession().setAttribute("estadoventa", "IMPRIMIRBOLETO");
 	%>
 	<section id="form">
 		<div class="container">
 			<div class="row">
-				<div class="col-lg-12 text-center">
-					<h2>Butacas libres:</h2>
-					<table class="table table-striped table-bordered">
+				<div class="col-lg-9 text-center">
+					<h2>Lista de butacas disponibles:</h2>
+
+					<table class="table table-striped table-bordered table-centered">
 						<tr>
 							<th>Numero</th>
-							<th>Pasajero</th>
+							<th>Seleccion</th>
 						</tr>
 						<%
-							Butaca[] pasajeros = (Butaca[]) request.getSession().getAttribute("pasajeros");
-								/*for (int i = 0; i < Math.ceil(pasajeros.length / 10); i++) {
-									for (int j = 0; j < 10; j++) {*/
-								for (int j = 0; j < pasajeros.length; j++){
-						%>
+								Butaca[] pasajeros = (Butaca[]) request.getSession().getAttribute("pasajeros");
+									/*for (int i = 0; i < Math.ceil(pasajeros.length / 10); i++) {
+										for (int j = 0; j < 10; j++) {*/
+									for (int j = 0; j < pasajeros.length; j++) {
+							%>
 						<tr>
-							<td><%=pasajeros[j].getNumero()%></td>
+							<td><div class="">
+									<%=pasajeros[j].getNumero()%></div></td>
 							<%
-								if (pasajeros[j].getPasajero() instanceof Usuario) {
-							%>
-							<td><%=pasajeros[j].getPasajero().getDni()%></td>
+									if (pasajeros[j].getPasajero() instanceof Usuario) {
+								%>
+							<td><div class="ocupada">--</div></td>
 							<%
-								} else {
-							%>
-							<td>vacío</td>
+									} else {
+								%>
+							<td><input type="radio" name="radioButaca"
+								value="<%=j + 1%>" form="formButacas" onchange="isChecked()"></td>
 						</tr>
 						<%
-							}
 								}
-						%>
+									}
+							%>
 					</table>
-					<form method=post action="../ServletVentaPasaje">
+					<br>
+					<h2>Butaca seleccionada</h2>
+					<form method=post action="../ServletVentaPasaje" name="formButacas">
 						<br>
-						<h2>Ingrese el numero de butaca en la que desea viajar:</h2>
-
-						<div class="form-group col-lg-9">
-							<label for="numButaca">Butaca n°: </label> <input type="number"
-								name="numButaca" placeholder="Ej: 1, 5, 12."
+						<div class="row form-group col-lg-9 align-centered">
+							<label class="col-lg-3" for="numButaca">N°:</label><input class="col-lg-9" type="number"
+								id="numButaca" name="numButaca" placeholder="Ej: 1, 5, 12."
 								class="form-control" />
 						</div>
 						<div class="form-group col-lg-9">
@@ -279,6 +291,22 @@
 
 	<!-- Custom scripts for this template -->
 	<script src="../js/agency.min.js"></script>
+
+	<!-- Script para seleccion de butaca -->
+	<script type="text/javascript">
+	function isChecked(){
+		
+		var r = document.getElementsByTagName("input");
+        var num = document.getElementById("numButaca");
+        alert("Se econtraron " + r.length + " elementos en el arreglo de butacas");
+		for (i=0; i < r.length; i++) {
+            if (r[i].checked==true) {
+            num.value = r[i].value;
+            alert("La variable num.value, (document.getElementById()), vale: " + num.value);
+        	}	
+    	}
+	}
+	</script>
 
 </body>
 

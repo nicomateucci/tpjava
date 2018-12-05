@@ -9,10 +9,13 @@ public class FactoryConexion {
 	//Me tiro el error que el driver com.mysql.jdbc.Driver esta obsoleto, de todas froams, funciono la conexion.
 	//private String driver="com.mysql.jdbc.Driver";
 	private String driver="com.mysql.cj.jdbc.Driver";
+	//private String host="node24713-env-4846480.jelastic.saveincloud.net";
 	private String host="localhost";
 	private String port="3306";
 	private String user="usertpjava";
 	private String password="usertpjava";
+	//private String user="root";
+	//private String password="fmPwzOo1pE";
 	private String db="terminalTPJava";
 	private Connection conn;
 	private int cantConn=0;

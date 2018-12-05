@@ -204,11 +204,6 @@ CREATE TABLE IF NOT EXISTS `terminalTPJava`.`PersonaServicioMicro` (
     REFERENCES `terminalTPJava`.`Micro` (`patente`)
     ON DELETE NO ACTION
     ON UPDATE NO ACTION,
-  CONSTRAINT `fk4_PersonaServicioToButaca`
-    FOREIGN KEY (`numButaca`)
-    REFERENCES `terminalTPJava`.`Butaca` (`numButaca`)
-    ON DELETE NO ACTION
-    ON UPDATE NO ACTION)
 ENGINE = InnoDB;
 
 

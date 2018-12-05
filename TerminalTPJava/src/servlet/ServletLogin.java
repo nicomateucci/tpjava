@@ -35,28 +35,29 @@ public class ServletLogin extends HttpServlet {
 		Usuario user = new Usuario();
 		LogicPersona logPer = new LogicPersona();
 		user.setNombreUsuario(request.getParameter("textUsuario"));
-		user.setContrasena(request.getParameter("textContraseña"));
+		user.setContrasena(request.getParameter("textContrasena"));
 		try {
 			Usuario userOk = logPer.getLogedUser(user);
 			if(userOk != null) {
 				if(userOk.esAdmin()) {
-					JOptionPane.showMessageDialog(null, "Usted ingreso como administrador");
+					//JOptionPane.showMessageDialog(null, "Usted ingreso como administrador"); Tuve problemas con mostrar paneles desde el servidor.
+					System.out.println("Ingreso correcto como administrador");
 					response.sendRedirect("./pages/adminPage.jsp");
 				}else {
-					JOptionPane.showMessageDialog(null, "Ingreso correcto");	
+					//JOptionPane.showMessageDialog(null, "Ingreso correcto");	
+					System.out.println("Ingreso correcto");
 					response.sendRedirect("./index.html");
 				}
 
 
 			}else {
-				JOptionPane.showMessageDialog(null, "No se encontro es usuario ingresado");
+				//JOptionPane.showMessageDialog(null, "No se encontro es usuario ingresado");
 				System.out.println("No se encontro al usuario");
 				response.sendRedirect("./pages/LoginUsuario.html");
 			}
 
 
 		} catch (Exception e) {
-			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
 

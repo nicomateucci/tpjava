@@ -45,7 +45,13 @@
 							<div class="input-group-prepend">
 								<span class="input-group-text"><i class="fas fa-key"></i></span>
 							</div>
-							<input type="password" class="form-control" name="textContraseña"
+							
+							//Tuve que sacar el type="contraseña" porque el servidor en jelastic no tiene 
+							//habilitada la opcion de usar SSH, SOLO PARA CUENTAS PREMIUM.
+							<!--  
+							<input type="password" class="form-control" name="textContrasena"
+								placeholder="contraseña">-->
+								<input type="text" class="form-control" name="textContrasena"
 								placeholder="contraseña">
 						</div>
 						<div class="row align-items-center remember">
