@@ -180,7 +180,7 @@
 						> <input type="button"
 							onclick="if(document.getElementById('spoiler1') .style.display=='none') {document.getElementById('spoiler1') .style.display=''; this.value = 'Ocultar'; }else{document.getElementById('spoiler1') .style.display='none';this.value = 'Mostrar'; }"
 							value="Gracias por ..." />
-						<div id="spoiler1" style="display: none">usar Plataforma 23
+						<div id="spoiler1" style="display: none">Usar Plataforma 23
 							para conocer un nuevo destino en Argentina.</div>
 					</form>
 				</div>
@@ -221,6 +221,25 @@
 							}}
 						%>
 					</table>
+					<form method=post action="../ServletDestino">
+						<fieldset>
+							<br>
+							<h2>Ingrese el Id del destino a eliminar:</h2>
+							<div class="form-group col-lg-9">
+								<label for="idDestino">Id destino: </label> <input
+									type="number" name="idDestino" class="form-control" />
+							</div>
+							<div class="form-group col-lg-9">
+								<button type="reset" value="Resetear" class="btn btn-warning">Resetear</button>
+								<button type="submit" value="Ingresar" class="btn btn-info">Finalizar</button>
+							</div>
+						</fieldset>
+						<input type="button"
+							onclick="if(document.getElementById('spoiler1') .style.display=='none') {document.getElementById('spoiler1') .style.display=''; this.value = 'Ocultar'; }else{document.getElementById('spoiler1') .style.display='none';this.value = 'Mostrar'; }"
+							value="Gracias por ..." />
+						<div id="spoiler1" style="display: none">Usar Plataforma 23
+							para conocer un nuevo destino en Argentina.</div>
+					</form>
 				</div>
 
 			</section>

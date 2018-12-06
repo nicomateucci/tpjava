@@ -98,13 +98,12 @@
 				<li data-target="#carousel-1" data-slide-to="0" class="active"></li>
 				<li data-target="#carousel-1" data-slide-to="1"></li>
 				<li data-target="#carousel-1" data-slide-to="2"></li>
-				<li data-target="#carousel-1" data-slide-to="3"></li>
 			</ol>
 
 			<!-- Contenedor de los slida -->
 			<div class="carousel-inner">
 				<div class="carousel-item active">
-					<img src="img/Desierto-Sol-1400x480.jpg" alt="First slide"
+					<img src="img/Desierto-Sol-1200x400.jpg" alt="First slide"
 						class="img-responsive d-block w-100">
 					<div class="carousel-caption">
 						<div class="intro-text">
@@ -112,23 +111,6 @@
 								Hola
 								<%=user.getNombre()%></div>
 							<div class="intro-heading ">Que paisaje
-								te gustaría conocer en tus proximas vacaciones ?</div>
-							<div></div>
-							<a
-								class="btn btn-primary btn-xl text-uppercase js-scroll-trigger"
-								href="#services">Viajar</a>
-						</div>
-					</div>
-				</div>
-				<div class="carousel-item">
-					<img src="img/Nieve-sobre-madera-900.jpg" alt="Second slide"
-						class="img-responsive d-block w-100">
-					<div class="carousel-caption">
-						<div class="intro-text">
-							<div class="intro-lead-in">
-								Hola
-								<%=user.getNombre()%></div>
-							<div class="intro-heading text-uppercase ">Que paisaje
 								te gustaría conocer en tus proximas vacaciones ?</div>
 							<div></div>
 							<a
@@ -155,7 +137,7 @@
 					</div>
 				</div>
 				<div class="carousel-item">
-					<img src="img/Textura-horizontal-Horizonte-1024x600forzada.jpg"
+					<img src="img/Textura-horizontal-Horizonte-1024x400forzada.jpg"
 						alt="Third slide" class="img-responsive d-block w-100">
 					<div class="carousel-caption">
 						<div class="intro-text">

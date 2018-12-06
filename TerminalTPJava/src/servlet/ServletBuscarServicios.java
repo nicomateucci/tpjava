@@ -6,6 +6,7 @@ import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.Calendar;
 
+import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
@@ -67,7 +68,7 @@ public class ServletBuscarServicios extends HttpServlet {
 						PrintWriter out = response.getWriter();  
 						response.setContentType("text/html");  
 						out.println("<script type=\"text/javascript\">");  
-						out.println("alert('Aun no tenemos servicios para su viaje. En breve ampliaremos nuestros recorridos. Nos vemos luego!.')");  
+						out.println("alert('Aun no tenemos servicios para su viaje. En breve ampliaremos nuestros recorridos. Nos vemos luego!.');");  
 						out.println("</script>");
 						response.sendRedirect("./index.html");
 					}
@@ -77,7 +78,7 @@ public class ServletBuscarServicios extends HttpServlet {
 					PrintWriter out = response.getWriter();  
 					response.setContentType("text/html");  
 					out.println("<script type=\"text/javascript\">");  
-					out.println("alert('Aun no tenemos servicio para el destino ingresado. En breve ampliaremos nuestros recorridos. Nos vemos luego!.')");  
+					out.println("alert('Aun no tenemos servicio para el destino ingresado. En breve ampliaremos nuestros recorridos. Nos vemos luego!.');");  
 					out.println("</script>");
 					response.sendRedirect("./index.html");
 				}
@@ -86,9 +87,11 @@ public class ServletBuscarServicios extends HttpServlet {
 				PrintWriter out = response.getWriter();  
 				response.setContentType("text/html");  
 				out.println("<script type=\"text/javascript\">");  
-				out.println("alert('Aun no tenemos servicio para el origen ingresado. En breve ampliaremos nuestros recorridos. Nos vemos luego!.')");  
+				out.println("alert('Aun no tenemos servicio para el origen ingresado. En breve ampliaremos nuestros recorridos. Nos vemos luego!.');");  
 				out.println("</script>");
-				response.sendRedirect("./index.html");
+				RequestDispatcher rd=request.getRequestDispatcher("index.html");
+				rd.include(request, response);
+				//response.sendRedirect("./index.html");
 			}
 		} catch (AppDataException e) {
 			e.printStackTrace();

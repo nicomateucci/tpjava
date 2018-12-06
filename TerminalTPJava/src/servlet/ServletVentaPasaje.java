@@ -104,6 +104,7 @@ public class ServletVentaPasaje extends HttpServlet {
 			aumentoDestino = precioSinAumento * (desLlegada.getPorcentajeAumento() / 100);
 			precioFinal = precioSinAumento + aumentoDestino + aumentoMicro;
 			request.getSession().setAttribute("precio", precioFinal);
+			
 			//Fin calculo del precio **********************************************
 			
 			if(user == null) {

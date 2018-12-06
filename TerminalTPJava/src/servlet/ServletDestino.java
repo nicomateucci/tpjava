@@ -120,7 +120,7 @@ public class ServletDestino extends HttpServlet {
 
 		}else if(tipo.equals("baja")) {
 			LogicDestino logicd = new LogicDestino();
-			int id = Integer.parseInt((String) request.getAttribute("idDestino"));
+			int id = Integer.parseInt(request.getParameter("idDestino"));
 			Destino d = new Destino(id);
 			try {
 				logicd.delete(d);
