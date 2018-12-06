@@ -203,9 +203,8 @@ CREATE TABLE IF NOT EXISTS `terminalTPJava`.`PersonaServicioMicro` (
     FOREIGN KEY (`patenteMicro`)
     REFERENCES `terminalTPJava`.`Micro` (`patente`)
     ON DELETE NO ACTION
-    ON UPDATE NO ACTION,
+    ON UPDATE NO ACTION)
 ENGINE = InnoDB;
-
 
 SET SQL_MODE=@OLD_SQL_MODE;
 SET FOREIGN_KEY_CHECKS=@OLD_FOREIGN_KEY_CHECKS;

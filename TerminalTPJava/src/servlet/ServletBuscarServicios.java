@@ -1,6 +1,7 @@
 package servlet;
 
 import java.io.IOException;
+import java.io.PrintWriter;
 import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.Calendar;
@@ -50,7 +51,6 @@ public class ServletBuscarServicios extends HttpServlet {
 			if((d = logd.getByNombre(des)) != null) {
 				des = request.getParameter("textDestino");
 				if((d2 = logd.getByNombre(des)) != null) {
-					des = request.getParameter("textDestino");
 					LogicServicio logSer = new LogicServicio();
 					
 					//Linea para agregar en el metodo que tambien acepta una fecha como parametro;
@@ -58,23 +58,36 @@ public class ServletBuscarServicios extends HttpServlet {
 					
 					ss = logSer.getAllByDestinos(d, d2);
 					if(!ss.isEmpty()) {
-						
+						request.getSession().setAttribute("desOrigen",d);
+						request.getSession().setAttribute("desLlegada",d2);
 						request.getSession().setAttribute("serviciosEcontrados", ss);
 						response.sendRedirect("pages/listarServiciosEcontrados.jsp");
 						
 					}else {
-						JOptionPane.showMessageDialog(null, "Aun no tenemos servicios para su viaje. En breve ampliaremos nuestros recorridos. Nos vemos luego!.");
+						PrintWriter out = response.getWriter();  
+						response.setContentType("text/html");  
+						out.println("<script type=\"text/javascript\">");  
+						out.println("alert('Aun no tenemos servicios para su viaje. En breve ampliaremos nuestros recorridos. Nos vemos luego!.')");  
+						out.println("</script>");
 						response.sendRedirect("./index.html");
 					}
 						
 
 				}else {
-					JOptionPane.showMessageDialog(null, "Aun no tenemos servicio para el destino ingresado. En breve ampliaremos nuestros recorridos. Nos vemos luego!.");
+					PrintWriter out = response.getWriter();  
+					response.setContentType("text/html");  
+					out.println("<script type=\"text/javascript\">");  
+					out.println("alert('Aun no tenemos servicio para el destino ingresado. En breve ampliaremos nuestros recorridos. Nos vemos luego!.')");  
+					out.println("</script>");
 					response.sendRedirect("./index.html");
 				}
 
 			}else {
-				JOptionPane.showMessageDialog(null, "Aun no tenemos servicio para el origen ingresado. En breve ampliaremos nuestros recorridos. Nos vemos luego!.");
+				PrintWriter out = response.getWriter();  
+				response.setContentType("text/html");  
+				out.println("<script type=\"text/javascript\">");  
+				out.println("alert('Aun no tenemos servicio para el origen ingresado. En breve ampliaremos nuestros recorridos. Nos vemos luego!.')");  
+				out.println("</script>");
 				response.sendRedirect("./index.html");
 			}
 		} catch (AppDataException e) {

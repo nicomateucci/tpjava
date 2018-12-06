@@ -5,6 +5,7 @@ import java.sql.Date;
 import java.sql.SQLException;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
+import java.util.Objects;
 
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
@@ -60,7 +61,6 @@ public class ServletAgregarUsuario extends HttpServlet {
 		}  
 		usu.setFechaNacimiento(sqlDate);
 		//----------------------------------------
-		
 		usu.setNombreUsuario(request.getParameter("nombreU"));
 		usu.setContrasena(request.getParameter("password"));
 		usu.setEmail(request.getParameter("mail"));

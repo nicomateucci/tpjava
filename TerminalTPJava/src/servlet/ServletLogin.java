@@ -1,6 +1,8 @@
 package servlet;
 
 import java.io.IOException;
+import java.io.PrintWriter;
+
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
@@ -41,17 +43,27 @@ public class ServletLogin extends HttpServlet {
 			if(userOk != null) {
 				if(userOk.esAdmin()) {
 					//JOptionPane.showMessageDialog(null, "Usted ingreso como administrador"); Tuve problemas con mostrar paneles desde el servidor.
+					PrintWriter out = response.getWriter();  
+					response.setContentType("text/html");  
+					out.println("<script type=\"text/javascript\">");  
+					out.println("alert('Esta en la pagina impresion del boleto')");  
+					out.println("</script>");
 					System.out.println("Ingreso correcto como administrador");
 					response.sendRedirect("./pages/adminPage.jsp");
 				}else {
-					//JOptionPane.showMessageDialog(null, "Ingreso correcto");	
+					//JOptionPane.showMessageDialog(null, "Ingreso correcto");
 					System.out.println("Ingreso correcto");
-					response.sendRedirect("./index.html");
+					response.sendRedirect("./welcome.jsp");
 				}
-
+			request.getSession().setAttribute("usuarioLogeado", userOk);
 
 			}else {
 				//JOptionPane.showMessageDialog(null, "No se encontro es usuario ingresado");
+				PrintWriter out = response.getWriter();  
+				response.setContentType("text/html");  
+				out.println("<script type=\"text/javascript\">");  
+				out.println("alert('No se encontro el usuario ingresado')");  
+				out.println("</script>");
 				System.out.println("No se encontro al usuario");
 				response.sendRedirect("./pages/LoginUsuario.html");
 			}
@@ -62,12 +74,7 @@ public class ServletLogin extends HttpServlet {
 		}
 
 	}
-
-	/**
-	 * @see HttpServlet#doPost(HttpServletRequest request, HttpServletResponse response)
-	 */
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		// TODO Auto-generated method stub
 		doGet(request, response);
 	}
 

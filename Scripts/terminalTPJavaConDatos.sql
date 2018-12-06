@@ -46,11 +46,11 @@ INSERT INTO `terminalTPJava`.`ServicioDestino` (`idServicio`, `idDestino`, `prec
 
 -- Datos tabla Micro
 
-INSERT INTO `terminalTPJava`.`Micro` (`patente`, `porcentajeAumento`, `marca`, `fechaUltimoControl`) VALUES ('123ABC', NULL, 'Fiat', '2017-01-01');
-INSERT INTO `terminalTPJava`.`Micro` (`patente`, `porcentajeAumento`, `marca`, `fechaUltimoControl`) VALUES ('478DEF', '1.15', 'Fiat', '2017-05-06');
-INSERT INTO `terminalTPJava`.`Micro` (`patente`, `porcentajeAumento`, `marca`, `fechaUltimoControl`) VALUES ('89ABC00', '1.10', 'Ford', '2017-09-26');
+INSERT INTO `terminalTPJava`.`Micro` (`patente`, `marca`, `fechaUltimoControl`) VALUES ('123ABC', 'Fiat', '2017-01-01');
+INSERT INTO `terminalTPJava`.`Micro` (`patente`, `porcentajeAumento`, `marca`, `fechaUltimoControl`) VALUES ('478DEF', '15', 'Fiat', '2017-05-06');
+INSERT INTO `terminalTPJava`.`Micro` (`patente`, `porcentajeAumento`, `marca`, `fechaUltimoControl`) VALUES ('89ABC00', '10', 'Ford', '2017-09-26');
 INSERT INTO `terminalTPJava`.`Micro` (`patente`, `marca`, `fechaUltimoControl`) VALUES ('SSNNN11', 'Ford', '2016-04-05');
-INSERT INTO `terminalTPJava`.`Micro` (`patente`, `porcentajeAumento`, `marca`, `fechaUltimoControl`) VALUES ('00AAA00', '1.20', 'Ford', '2017-8-6');
+INSERT INTO `terminalTPJava`.`Micro` (`patente`, `porcentajeAumento`, `marca`, `fechaUltimoControl`) VALUES ('00AAA00', '20', 'Ford', '2017-8-6');
 
 -- Datos tabla ServicioMicro
 

@@ -5,10 +5,6 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
 
-import business.LogicDestino;
-import business.LogicMicro;
-import business.LogicPersona;
-import business.LogicServicio;
 import entities.Butaca;
 import entities.Conductor;
 import entities.Destino;
@@ -22,6 +18,24 @@ import util.AppDataException;
 public class DataServicio {
 
 
+	public void addPasajero(int idSer, String dni, String patente, int numButaca) throws AppDataException {
+
+		PreparedStatement stmt=null;
+		try {
+			stmt=FactoryConexion.getInstancia().getConn()
+					.prepareStatement(
+							"insert into PersonaServicioMicro (idServicio, dniPersona, patenteMicro, numButaca) values (?,?,?,?)"
+							);
+			stmt.setInt(1, idSer);
+			stmt.setString(2, dni);
+			stmt.setString(3, patente);
+			stmt.setInt(4, numButaca);
+			stmt.executeUpdate();
+		} catch (SQLException e) {
+			throw new AppDataException(e, "Error ocurrido en el metodo addPasajero(int idSer, String dni, String patente, int numButaca) en la clase DataServicio al conectar a la base de datos");
+		}
+
+	}
 	public Servicio getServicioParaVenta(int id) throws Exception {
 		Servicio ser = this.getById(id);
 		//No seria necesario, ya que al momento de vender, el usuario ya definio cual es el recorrido.
@@ -108,7 +122,7 @@ public class DataServicio {
 			}
 		}
 		return pasajeros;
-		
+
 	}
 	private ArrayList<Conductor> getConductoresMicro(Servicio s, Micro m) throws AppDataException, SQLException {
 
@@ -177,6 +191,8 @@ public class DataServicio {
 				}	
 				d.setIdDestino(rs.getInt("idDestino"));
 				d.setLocalidad(rs.getString("localidad"));
+				d.setOrdenDestino(rs.getInt("ordenDestinos"));
+				d.setPrecioDestino(rs.getDouble("precio"));
 				dd.add(d);
 			}
 
@@ -455,12 +471,12 @@ public class DataServicio {
 		}
 		return rta;
 	}
-public void update(Servicio elServicio) throws Exception{
+	public void update(Servicio elServicio) throws Exception{
 		PreparedStatement stmt=null;
 		try {
 			stmt=FactoryConexion.getInstancia().getConn().prepareStatement(
 					"update Servicio set "
-					+ "fechaServicio=?, horaServicio=? where idServicio=?");
+							+ "fechaServicio=?, horaServicio=? where idServicio=?");
 			stmt.setDate(1, elServicio.getFechaServicio());
 			stmt.setString(2, elServicio.getHoraServicio());
 			stmt.setInt(3,elServicio.getIdServicio());
@@ -476,7 +492,7 @@ public void update(Servicio elServicio) throws Exception{
 			}
 		}
 	}
-	
+
 
 	public void delete(Servicio elServicio) throws Exception{
 		PreparedStatement stmt = null;
@@ -484,7 +500,7 @@ public void update(Servicio elServicio) throws Exception{
 			stmt=FactoryConexion.getInstancia().getConn().prepareStatement(
 					"delete from Servicio WHERE idServicio=?"); 
 			stmt.setInt(1,elServicio.getIdServicio());
-				stmt.executeUpdate();
+			stmt.executeUpdate();
 		} catch (Exception e) {
 			throw e;
 		} finally{

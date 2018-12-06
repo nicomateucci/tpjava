@@ -12,6 +12,10 @@ public class LogicServicio{
 
 	public DataServicio dataSer;
 
+	public void addPasajero(int idSer, String dni, String patente, int numButaca) throws AppDataException{
+		dataSer = new DataServicio();
+		dataSer.addPasajero(idSer, dni, patente, numButaca);
+	}
 	public Servicio getServicioParaVenta(int id) throws Exception {
 		dataSer = new DataServicio();
 		return dataSer.getServicioParaVenta(id);

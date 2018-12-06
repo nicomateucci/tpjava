@@ -5,6 +5,7 @@
 <%@page import="entities.Servicio"%>
 <%@page import="entities.Usuario"%>
 <%@page import="entities.Butaca"%>
+<%@page import="java.util.Objects"%>
 <!DOCTYPE html>
 <html lang="en">
 
@@ -39,6 +40,7 @@
 <link href="../css/agency.min.css" rel="stylesheet">
 <link href="../css/agency.css" rel="stylesheet">
 <link href="../css/mystyle.css" rel="stylesheet">
+
 <style>
 .ocupada {
 	background: url(../img/ocupada.jpg) center center no-repeat;
@@ -128,7 +130,6 @@
 	<%
 		}
 		if (request.getSession().getAttribute("estadoventa").equals("SELECCIONARBUTACA")) {
-			request.getSession().setAttribute("estadoventa", "IMPRIMIRBOLETO");
 	%>
 	<section id="form">
 		<div class="container">
@@ -142,37 +143,38 @@
 							<th>Seleccion</th>
 						</tr>
 						<%
-								Butaca[] pasajeros = (Butaca[]) request.getSession().getAttribute("pasajeros");
-									/*for (int i = 0; i < Math.ceil(pasajeros.length / 10); i++) {
-										for (int j = 0; j < 10; j++) {*/
-									for (int j = 0; j < pasajeros.length; j++) {
-							%>
+							Micro micro = (Micro) request.getSession().getAttribute("micro");
+								/*for (int i = 0; i < Math.ceil(pasajeros.length / 10); i++) {
+									for (int j = 0; j < 10; j++) {*/
+								Butaca[] pasajeros = micro.getButacas();
+								for (int j = 0; j < pasajeros.length; j++) {
+						%>
 						<tr>
 							<td><div class="">
 									<%=pasajeros[j].getNumero()%></div></td>
 							<%
-									if (pasajeros[j].getPasajero() instanceof Usuario) {
-								%>
+								if (pasajeros[j].getPasajero() instanceof Usuario) {
+							%>
 							<td><div class="ocupada">--</div></td>
 							<%
-									} else {
-								%>
+								} else {
+							%>
 							<td><input type="radio" name="radioButaca"
 								value="<%=j + 1%>" form="formButacas" onchange="isChecked()"></td>
 						</tr>
 						<%
+							}
 								}
-									}
-							%>
+						%>
 					</table>
 					<br>
 					<h2>Butaca seleccionada</h2>
 					<form method=post action="../ServletVentaPasaje" name="formButacas">
 						<br>
 						<div class="row form-group col-lg-9 align-centered">
-							<label class="col-lg-3" for="numButaca">N°:</label><input class="col-lg-9" type="number"
-								id="numButaca" name="numButaca" placeholder="Ej: 1, 5, 12."
-								class="form-control" />
+							<label class="col-lg-3" for="numButaca">N°:</label><input
+								class="col-lg-9" type="number" id="numButaca" name="numButaca"
+								placeholder="Ej: 1, 5, 12." class="form-control" />
 						</div>
 						<div class="form-group col-lg-9">
 							<button type="submit" value="Ingresar" class="btn btn-primary">Continuar</button>
@@ -182,9 +184,6 @@
 			</div>
 		</div>
 	</section>
-
-
-
 	<%
 		}
 	%>
@@ -294,18 +293,16 @@
 
 	<!-- Script para seleccion de butaca -->
 	<script type="text/javascript">
-	function isChecked(){
-		
-		var r = document.getElementsByTagName("input");
-        var num = document.getElementById("numButaca");
-        alert("Se econtraron " + r.length + " elementos en el arreglo de butacas");
-		for (i=0; i < r.length; i++) {
-            if (r[i].checked==true) {
-            num.value = r[i].value;
-            alert("La variable num.value, (document.getElementById()), vale: " + num.value);
-        	}	
-    	}
-	}
+		function isChecked() {
+
+			var r = document.getElementsByTagName("input");
+			var num = document.getElementById("numButaca");
+			for (i = 0; i < r.length; i++) {
+				if (r[i].checked == true) {
+					num.value = r[i].value;
+				}
+			}
+		}
 	</script>
 
 </body>
