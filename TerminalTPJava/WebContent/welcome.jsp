@@ -47,7 +47,8 @@
 <body id="page-top">
 
 	<!-- Navigation -->
-	<nav class="navbar navbar-expand-lg navbar-dark fixed-top" id="mainNav" style="background-color:  #3e3d36  ">
+	<nav class="navbar navbar-expand-lg navbar-dark fixed-top" id="mainNav"
+		style="background-color: #3e3d36">
 		<div class="container">
 			<a class="navbar-brand js-scroll-trigger" href="#page-top">Pasajero23</a>
 			<button class="navbar-toggler navbar-toggler-right" type="button"
@@ -68,104 +69,8 @@
 			</div>
 		</div>
 	</nav>
-
-	<!-- Header --><!-- 
-	<header class="masthead">
-		<div class="container">
-			<div class="intro-text">
-				<div class="intro-lead-in">
-					Bienvenidos
-					</div>
-				<div class="intro-heading text-uppercase ">Que paisaje quieres
-					conocer en tus proximas vacaciones ?</div>
-				<div></div>
-				<a class="btn btn-primary btn-xl text-uppercase js-scroll-trigger"
-					href="#services">Viajar</a>
-			</div>
-
-		</div>
-	</header> -->
 	
-	
-	<!-- Carrusel -->
-	<section id="corrusel" style="background-color:#E6E6FA">
-	<div class="container">
-		<br>
-		<div id="carousel-1" class="carousel slide" data-ride="carousel">
-
-			<!-- Indicadores -->
-			<ol class="carousel-indicators">
-				<li data-target="#carousel-1" data-slide-to="0" class="active"></li>
-				<li data-target="#carousel-1" data-slide-to="1"></li>
-				<li data-target="#carousel-1" data-slide-to="2"></li>
-			</ol>
-
-			<!-- Contenedor de los slida -->
-			<div class="carousel-inner">
-				<div class="carousel-item active">
-					<img src="img/Desierto-Sol-1200x400.jpg" alt="First slide"
-						class="img-responsive d-block w-100">
-					<div class="carousel-caption">
-						<div class="intro-text">
-							<div class="intro-lead-in">
-								Hola
-								<%=user.getNombre()%></div>
-							<div class="intro-heading ">Que paisaje
-								te gustaría conocer en tus proximas vacaciones ?</div>
-							<div></div>
-							<a
-								class="btn btn-primary btn-xl text-uppercase js-scroll-trigger"
-								href="#services">Viajar</a>
-						</div>
-					</div>
-				</div>
-				<div class="carousel-item">
-					<img src="img/Ruta-en-montañas-800x400.jpg" alt="Third slide"
-						class="img-responsive d-block w-100">
-					<div class="carousel-caption">
-						<div class="intro-text">
-							<div class="intro-lead-in">
-								Hola
-								<%=user.getNombre()%></div>
-							<div class="intro-heading text-uppercase ">Que paisaje
-								te gustaría conocer en tus proximas vacaciones ?</div>
-							<div></div>
-							<a
-								class="btn btn-primary btn-xl text-uppercase js-scroll-trigger"
-								href="#services">Viajar</a>
-						</div>
-					</div>
-				</div>
-				<div class="carousel-item">
-					<img src="img/Textura-horizontal-Horizonte-1024x400forzada.jpg"
-						alt="Third slide" class="img-responsive d-block w-100">
-					<div class="carousel-caption">
-						<div class="intro-text">
-							<div class="intro-lead-in">
-								Hola
-								<%=user.getNombre()%></div>
-							<div class="intro-heading text-uppercase ">Que paisaje
-								te gustaría conocer en tus proximas vacaciones ?</div>
-							<div></div>
-							<a
-								class="btn btn-primary btn-xl text-uppercase js-scroll-trigger"
-								href="#services">Viajar</a>
-						</div>
-					</div>
-				</div>
-			</div>
-
-			<!-- Controles -->
-			<a href="#carousel-1" class="carousel-control-prev" role="button"
-				data-slide="prev"> <span class="carousel-control-prev-icon"
-				aria-hidden="true"></span> <span class="sr-only">Anterior</span>
-			</a> <a href="#carousel-1" class="carousel-control-next" role="button"
-				data-slide="next"> <span class="carousel-control-next-icon"
-				aria-hidden="true"></span> <span class="sr-only">Siguiente</span>
-			</a>
-		</div>
-	</div>
-	</section>
+	<jsp:include page="pages/carouselBootstrap/carruselPaisajes.jsp"></jsp:include>
 
 	<!-- Services -->
 	<section id="services">
