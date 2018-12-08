@@ -52,7 +52,7 @@ public class ServletMicro extends HttpServlet {
 			} else if(tipo.equals("alta")){
 
 				request.getSession().setAttribute("tipo", "alta");
-				response.sendRedirect("pages/destinos_adminPage.jsp");
+				response.sendRedirect("pages/micros_adminPage.jsp");
 
 			}else if (tipo.equals("modifica")){
 
