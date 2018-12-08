@@ -52,7 +52,6 @@
 				<div class="container main-chart">
 					<table class="table table-striped table-bordered">
 						<tr>
-							<th>Dni</th>
 							<th>Nombre</th>
 							<th>Apellido</th>
 							<th>Fecha Nacimiento</th>
@@ -60,11 +59,11 @@
 							<th>Contacto</th>
 						</tr>
 						<%
-							ArrayList<Conductor> listaCon = (ArrayList<Conductor>) request.getSession().getAttribute("listaConductores");
+							ArrayList<Conductor> listaCon = (ArrayList<Conductor>) request.getSession()
+										.getAttribute("listaConductores");
 								for (Conductor c : listaCon) {
 						%>
 						<tr>
-							<td><%=c.getDni()%></td>
 							<td><%=c.getNombre()%></td>
 							<td><%=c.getApellido()%></td>
 							<td><%=c.getFechaNacimiento()%></td>
@@ -84,6 +83,8 @@
 		<%
 			} else if (request.getSession().getAttribute("tipo") == "alta") {
 		%>
+
+
 		<section id="main-content">
 			<section class="wrapper">
 				<div class="container main-chart">
@@ -91,15 +92,15 @@
 						<fieldset>
 							<br>
 							<h2>Ingrese los datos del nuevo Conductor:</h2>
-							<div class="form-group col-lg-9">
+							<div class="form-group">
 								<label for="nombre">Nombre: </label> <input type="text"
 									name="nombre" class="form-control" />
 							</div>
-							<div class="form-group col-lg-9">
+							<div class="form-group">
 								<label for="apellido">Apellido: </label> <input type="text"
 									name="apellido" class="form-control" />
 							</div>
-							<div class="form-group col-lg-9">
+							<div class="form-group">
 								<label for="tipoDni">Tipo DNI: </label> <select name="tipoDni"
 									id="tipoDni" class="form-control">
 									<option value="DNI">DNI</option>
@@ -108,24 +109,24 @@
 									<option value="LC">LC</option>
 								</select>
 							</div>
-							<div class="form-group col-lg-9">
+							<div class="form-group">
 								<label for="dni">N° DNI: </label> <input type="text" name="dni"
 									class="form-control" />
 							</div>
-							<div class="form-group col-lg-9">
+							<div class="form-group">
 								<label for="fecha">Fecha de nacimiento: </label> <input
 									type="date" name="fecha" placeholder="dd/mm/aaaa"
 									class="form-control" />
 							</div>
-							<div class="form-group col-lg-9">
+							<div class="form-group">
 								<label for="fecha2">Fecha de inicio: </label>
 								<input type="date" name="fecha2" class="form-control"  />
 							</div>
-							<div class="form-group col-lg-9">
+							<div class="form-group">
 								<label for="contacto">Contacto: </label>
 								<input type="text" name="contacto" class="form-control" />
 							</div>
-							<div class="form-group col-lg-9">
+							<div class="form-group">
 								<button type="reset" value="Resetear" class="btn btn-warning">Resetear
 									</button>
 								<button type="submit" value="Ingresar" class="btn btn-info">Finalizar</button>
@@ -139,141 +140,20 @@
 					</form>
 				</div>
 			</section>
-		
-		<%} else if (request.getSession().getAttribute("tipo") == "modifica"){ %>
-			<section id="main-content">
-			<section class="wrapper">
-				<div class="container main-chart">
-					<table class="table table-striped table-bordered">
-						<tr>
-							<th>Dni</th>
-							<th>Nombre</th>
-							<th>Apellido</th>
-							<th>Fecha Nacimiento</th>
-							<th>Fecha Inicio</th>
-							<th>Contacto</th>
-						</tr>
-						<%
-							ArrayList<Conductor> listaCon = (ArrayList<Conductor>) request.getSession().getAttribute("listaConductores");
-								for (Conductor c : listaCon) {
-						%>
-						<tr>
-							<td><%=c.getDni()%></td>
-							<td><%=c.getNombre()%></td>
-							<td><%=c.getApellido()%></td>
-							<td><%=c.getFechaNacimiento()%></td>
-							<td><%=c.getFechaInicio()%></td>
-							<td><%=c.getContacto()%></td>
-						</tr>
-						<%
-							}
-						%>
-					</table>
-					<form method=post action="../ServletConductor">
-						<fieldset>
-							<br>
-							<h2>Ingrese los campos a modificar del conductor:</h2>
-							<div class="form-group col-lg-9">
-								<label for="nombre">Nombre: </label> <input type="text"
-									name="nombre" class="form-control" />
-							</div>
-							<div class="form-group col-lg-9">
-								<label for="apellido">Apellido: </label> <input type="text"
-									name="apellido" class="form-control" />
-							</div>
-							<div class="form-group col-lg-9">
-								<label for="fecha">Fecha de nacimiento: </label> <input
-									type="date" name="fecha" placeholder="dd/mm/aaaa"
-									class="form-control" />
-							</div>
-							<div class="form-group col-lg-9">
-								<label for="dni">N° DNI: </label> <input type="text" name="dni"
-									class="form-control" />
-							</div>
-							<div class="form-group col-lg-9">
-								<label for="fecha2">Fecha de inicio: </label>
-								<input type="date" name="fecha2" class="form-control"  />
-							</div>
-							<div class="form-group col-lg-9">
-								<label for="contacto">Contacto: </label>
-								<input type="text" name="contacto" class="form-control" />
-							</div>
-
-							<div class="form-group col-lg-9">
-								<button type="reset" value="Resetear" class="btn btn-warning">Resetear</button>
-								<button type="submit" value="Ingresar" class="btn btn-info">Finalizar</button>
-							</div>
-						</fieldset>
-						> <input type="button"
-							onclick="if(document.getElementById('spoiler1') .style.display=='none') {document.getElementById('spoiler1') .style.display=''; this.value = 'Ocultar'; }else{document.getElementById('spoiler1') .style.display='none';this.value = 'Mostrar'; }"
-							value="Gracias por ..." />
-						<div id="spoiler1" style="display: none">Usar Plataforma 23
-							para conocer un nuevo destino en Argentina.</div>
-					</form>
-				</div>
-
-			</section>
-		</section>
-		
-		<%} else if (request.getSession().getAttribute("tipo") == "baja"){ %>
-			<section id="main-content">
-			<section class="wrapper">
-				<div class="container main-chart">
-					<table class="table table-striped table-bordered">
-						<tr>
-							<th>Dni</th>
-							<th>Nombre</th>
-							<th>Apellido</th>
-							<th>Fecha Nacimiento</th>
-							<th>Fecha Inicio</th>
-							<th>Contacto</th>
-						</tr>
-						<%
-						ArrayList<Conductor> listaCon = (ArrayList<Conductor>) request.getSession().getAttribute("listaConductores");
-						for (Conductor c : listaCon) {
-						%>
-						<tr>
-							<td><%=c.getDni()%></td>
-							<td><%=c.getNombre()%></td>
-							<td><%=c.getApellido()%></td>
-							<td><%=c.getFechaNacimiento()%></td>
-							<td><%=c.getFechaInicio()%></td>
-							<td><%=c.getContacto()%></td>
-						</tr>
-						<%
-							}
-						%>
-					</table>
-					<form method=post action="../ServletConductor">
-						<fieldset>
-							<br>
-							<h2>Ingrese el Dni del conductor a eliminar:</h2>
-							<div class="form-group col-lg-9">
-								<label for="dni">N° DNI: </label> <input type="text" name="dni"
-									class="form-control" />
-							</div>
-							<div class="form-group col-lg-9">
-								<button type="reset" value="Resetear" class="btn btn-warning">Resetear</button>
-								<button type="submit" value="Ingresar" class="btn btn-info">Finalizar</button>
-							</div>
-						</fieldset>
-						<input type="button"
-							onclick="if(document.getElementById('spoiler1') .style.display=='none') {document.getElementById('spoiler1') .style.display=''; this.value = 'Ocultar'; }else{document.getElementById('spoiler1') .style.display='none';this.value = 'Mostrar'; }"
-							value="Gracias por ..." />
-						<div id="spoiler1" style="display: none">Usar Plataforma 23
-							para conocer un nuevo destino en Argentina.</div>
-					</form>
-				</div>
-
-			</section>
 		</section>
 
-			<%} %>
+
+		<%
+			} else if (request.getSession().getAttribute("tipo") == "baja") {
+		%>
+
+		<%
+			}
+		%>
 
 		<jsp:include page="plantillas/plantillaFooter_adminPage.jsp"></jsp:include>
 
 	</section>
-	
 	<!-- js placed at the end of the document so the pages load faster -->
 	<script src="assets/js/jquery.js"></script>
 	<script src="assets/js/jquery-1.8.3.min.js"></script>
@@ -283,6 +163,7 @@
 	<script src="assets/js/jquery.scrollTo.min.js"></script>
 	<script src="assets/js/jquery.nicescroll.js" type="text/javascript"></script>
 	<script src="assets/js/jquery.sparkline.js"></script>
+
 
 	<!--common script for all pages-->
 	<script src="assets/js/common-scripts.js"></script>
@@ -296,27 +177,32 @@
 	<script src="assets/js/zabuto_calendar.js"></script>
 
 	<script type="text/javascript">
-		$(document).ready(function() {
-		var unique_id = $.gritter.add({
-			// (string | mandatory) the heading of the notification
-			title : 'Bienvenido a Plataforma23!',
-			// (string | mandatory) the text inside the notification
-			text : 'Si desea contactar con el soporte tecnico ingrese a <a href="http://somossistemas.com" target="_blank" style="color:#ffd777">somossistemas.com</a>.<br>Puede cerrar este cuadro de dialogo en cualquier momento.',
-			// (string | optional) the image to display on the left
-			image : 'assets/img/ui-sam.jpg',
-			// (bool | optional) if you want it to fade out on its own or just sit there
-			sticky : true,
-			// (int | optional) the time you want it to be alive for before fading out
-			time : '',
-			// (string | optional) the class name you want to apply to that specific message
-			class_name : 'my-sticky-class'
-		});
+		$(document)
+				.ready(
+						function() {
+							var unique_id = $.gritter
+									.add({
+										// (string | mandatory) the heading of the notification
+										title : 'Bienvenido a Plataforma23!',
+										// (string | mandatory) the text inside the notification
+										text : 'Si desea contactar con el soporte tecnico ingrese a <a href="http://somossistemas.com" target="_blank" style="color:#ffd777">somossistemas.com</a>.<br>Puede cerrar este cuadro de dialogo en cualquier momento.',
+										// (string | optional) the image to display on the left
+										image : 'assets/img/ui-sam.jpg',
+										// (bool | optional) if you want it to fade out on its own or just sit there
+										sticky : true,
+										// (int | optional) the time you want it to be alive for before fading out
+										time : '',
+										// (string | optional) the class name you want to apply to that specific message
+										class_name : 'my-sticky-class'
+									});
 
-		return false;
-		});
+							return false;
+						});
 	</script>
 
 	<script type="application/javascript">
+		
+		
         $(document).ready(function () {
             $("#date-popover").popover({html: true, trigger: "manual"});
             $("#date-popover").hide();
@@ -341,14 +227,17 @@
                 ]
             });
         });
- 
+        
+        
         function myNavFunction(id) {
             $("#date-popover").hide();
             var nav = $("#" + id).data("navigation");
             var to = $("#" + id).data("to");
             console.log('nav ' + nav + ' to: ' + to.month + '/' + to.year);
         }
+    
+	
 	</script>
-	</section>
+
 </body>
 </html>

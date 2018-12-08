@@ -5,6 +5,7 @@ import java.sql.SQLException;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 
+import javax.mail.internet.ParseException;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
@@ -13,6 +14,7 @@ import javax.servlet.http.HttpServletResponse;
 
 import business.LogicPersona;
 import entities.Conductor;
+import entities.Destino;
 import util.AppDataException;
 
 /**
@@ -27,6 +29,7 @@ public class ServletConductor_ extends HttpServlet {
 	 */
 	public ServletConductor_() {
 		super();
+		// TODO Auto-generated constructor stub
 	}
 
 	/**
@@ -47,7 +50,7 @@ public class ServletConductor_ extends HttpServlet {
 			} else if(tipo.equals("alta")){
 
 				request.getSession().setAttribute("tipo", "alta");
-				response.sendRedirect("pages/conductores_adminPage.jsp");
+				response.sendRedirect("pages/destinos_adminPage.jsp");
 
 			}else if (tipo.equals("modifica")){
 
@@ -75,14 +78,9 @@ public class ServletConductor_ extends HttpServlet {
 	 */
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 
-		
-		
-		String tipo = (String) request.getSession().getAttribute("tipo");
-		//String tipoDestino = request.getParameter("tipoDestino");
-		
-	if(tipo.equals("alta")) {
 		LogicPersona logPer = new LogicPersona();
 		Conductor con = new Conductor();
+
 		con.setNombre(request.getParameter("nombre"));
 		con.setApellido(request.getParameter("apellido"));
 		con.setDni(request.getParameter("dni"));
@@ -126,79 +124,12 @@ public class ServletConductor_ extends HttpServlet {
 			try {
 				logPer.add(con);
 			} catch (AppDataException e) {
+				// TODO Auto-generated catch block
 				e.printStackTrace();
 			}
 		} catch (SQLException e) {
 			e.printStackTrace();
 		}
-	}else if(tipo.equals("modifica")) {
-		LogicPersona logicPer = new LogicPersona();
-		String dni = (String) request.getParameter("dni");
-		String nombre = (String)(request.getParameter("nombre"));
-		String apellido = (String)(request.getParameter("apellido"));
-		String tipodni = (String)(request.getParameter("tipoDni"));
-		String contacto = (String)(request.getParameter("contacto"));
-
-		//----------Parseo de fecha
-		SimpleDateFormat format = new SimpleDateFormat("yyyy-MM-dd");
-		java.util.Date date = null;
-		java.sql.Date sqlDate = null;
-		try {
-			date = format.parse(request.getParameter("fecha"));
-		} catch (java.text.ParseException e) {
-			e.printStackTrace();
-		}
-		sqlDate = new java.sql.Date(date.getTime());  
-
-		java.sql.Date fecha = sqlDate;
-
-		date = null;
-		sqlDate = null;
-		try {
-			date = format.parse(request.getParameter("fecha2"));
-		} catch (java.text.ParseException e) {
-			e.printStackTrace();
-		}
-		sqlDate = new java.sql.Date(date.getTime());  
-
-		java.sql.Date fecha2 = sqlDate;
-
-		Conductor conductorUpdate = null;
-		try {
-			conductorUpdate = (Conductor)logicPer.getByDni(dni);
-		} catch (AppDataException e) {
-			e.printStackTrace();
-		} catch (SQLException e) {
-			e.printStackTrace();
-		} catch (Exception e) {
-			e.printStackTrace();
-		}
-		
-		conductorUpdate.setNombre(nombre);
-		conductorUpdate.setApellido(apellido);
-		conductorUpdate.setDni(dni);
-		conductorUpdate.setTipoDni(tipodni);
-		conductorUpdate.setContacto(contacto);
-		conductorUpdate.setFechaNacimiento(fecha);
-		conductorUpdate.setFechaInicio(fecha2);
-
-		try {
-			logicPer.update(conductorUpdate);
-		} catch (Exception e) {
-			e.printStackTrace();
-		}
-
-	}else if(tipo.equals("baja")) {
-		LogicPersona logicPer = new LogicPersona();
-		String dni = (String) request.getParameter("dni");
-		Conductor c = new Conductor(dni);
-		try {
-			logicPer.delete(c);
-		} catch (Exception e) {
-			e.printStackTrace();
-		}
-	}
-		
 		response.sendRedirect("ServletConductor?tipo=consulta");
 	}
 

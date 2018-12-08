@@ -1,3 +1,0 @@
-Desde rama - Linea 1 (Corregido)
-Desde rama - Linea 2 (Corregido)
-Desde master - Linea 222222222222222222222 (Sin corregir)
