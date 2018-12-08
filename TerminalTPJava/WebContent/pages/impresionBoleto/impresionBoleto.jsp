@@ -91,43 +91,42 @@ span {
 	%>
 	<form class="form" method=post action="../../ServletVentaPasaje">
 		<h2>Boleto de viaje</h2>
-		<p>Boleto numero: 156151</p>
+		<p>Boleto numero: 156151</p><br>
 		<p>
 			Dni pasajero:
 			<%=dni%></p>
 		<p>
 			Se anuncia a
-			<%=desOrigenSinPrecio.getLocalidad()%> - Con origen en
+			<%=desOrigenSinPrecio.getLocalidad()%>
+			- Con origen en
 			<%=desLlegadaSinPrecio.getLocalidad()%></p>
 		<p>
 			Fecha de partida:
 			<%=(servicio.getFechaServicio() + " - Hora: " + servicio.getHoraServicio())%></p>
 		<p>
 			Numero de butaca
-			<%=butaca%></p><br>
-		<p>Empresa: Chevalier - 
+			<%=butaca%></p>
+		<br>
+		<p>Empresa: Chevalier</p>
+		<p>
 			Patente del micro:
-			<%
-			mic.getPatente();
-		%>
+			<%=mic.getPatente()%>
 		</p>
 		<p>
 			Dni del conductor:
-			<%
-			mic.getConductores().get(0).getDni();%> - Nombre del condcutor:
-				<%
-				mic.getConductores().get(0).getNombre();
-			%>
-		</p><br>
+			<%=mic.getConductores().get(0).getDni()%>
+			- Nombre del condcutor: <%=mic.getConductores().get(0).getNombre()%>
+		</p>
+		<br>
 		<p>
 			Precio:
-			<%=precio%></p><br>
+			<%=precio%></p>
+		<br>
 		<%
 			if (user == null) {
 		%>
-		<i>Ingrese su mail para recibir el boleto:</i>
-		<div class="form-group col-lg-4">
-			<label for="mail"></label> <input type="email" name="mail"
+		<div class="form-group col-lg-9">
+			<label for="mail" ><i>Ingrese su mail para recibir el boleto:</i></label><input type="email" name="mail"
 				class="form-control" />
 		</div>
 		<%
@@ -141,7 +140,8 @@ span {
 			}
 		%>
 		<div class="form-group col-lg-9">
-			<button type="submit" value="" class="btn btn-primary">Ir a la pagina principal</button>
+			<button type="submit" value="" class="btn btn-primary">Ir a
+				la pagina principal</button>
 		</div>
 	</form>
 </body>

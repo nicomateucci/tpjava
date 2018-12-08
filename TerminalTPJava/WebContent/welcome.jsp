@@ -1,6 +1,9 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
 <%@page import="entities.Usuario"%>
+<%@page import="java.util.ArrayList"%>
+<%@page import="entities.Destino"%>
+<%@page import="entities.DestinoDirecto"%>
 
 <!DOCTYPE html>
 <html lang="en">
@@ -63,13 +66,18 @@
 						href="#services">Servicios</a></li>
 					<li class="nav-item"><a class="nav-link js-scroll-trigger"
 						href="#contact">Contacto</a></li>
-					<li><a class="fa fa-user nav-link js-scroll-trigger user"
-						href="./pages/LoginUsuario.html"></a></li>
+					<li class="nav-item"><select style="background-color: black"
+						onchange="location.href=this.options[this.selectedIndex].value"
+						name="elige" size="1">
+							<option value="">Mi cuenta</option>
+							<option value="">Ayuda</option>
+							<option value="index.jsp">Salir</option>
+					</select></li>
 				</ul>
 			</div>
 		</div>
 	</nav>
-	
+
 	<jsp:include page="pages/carouselBootstrap/carruselPaisajes.jsp"></jsp:include>
 
 	<!-- Services -->
@@ -79,6 +87,27 @@
 				<div class="col-lg-12 text-center">
 					<h2 class="section-heading text-uppercase">Servicios</h2>
 
+					<%
+						ArrayList<Destino> dd = (ArrayList<Destino>) request.getSession().getAttribute("listaDestinos");
+						if (!(dd == null || dd.isEmpty())) {
+					%>
+					<datalist id="destinos">
+						<%
+							for (Destino d : dd) {
+						%>
+						<option value="<%=d.getLocalidad()%>"
+							label="<%=d.getLocalidad()%>"></option>
+						<%
+							}
+						%>
+					</datalist>
+					<%
+						}
+					%>
+					<script type="text/javascript">
+						document.getElementById("cargarDestinos").click();
+					</script>
+					<a id="cargarDestinos" href="ServletIndex"></a>
 					<form method=get action="ServletBuscarServicios">
 						<input type="text" name="textOrigen" placeholder="Ingrese Origen"
 							class="search-bar"><br> <input type="text"

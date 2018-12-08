@@ -1,3 +1,8 @@
+<%@ page language="java" contentType="text/html; charset=UTF-8"
+	pageEncoding="UTF-8"%>
+<%@page import="java.util.ArrayList"%>
+<%@page import="entities.Destino"%>
+<%@page import="entities.DestinoDirecto"%>
 <!DOCTYPE html>
 <html lang="en">
 
@@ -51,12 +56,13 @@
 			</button>
 			<div class="collapse navbar-collapse" id="navbarResponsive">
 				<ul class="navbar-nav text-uppercase ml-auto">
+
 					<li class="nav-item"><a class="nav-link js-scroll-trigger"
 						href="#services">Servicios</a></li>
 					<li class="nav-item"><a class="nav-link js-scroll-trigger"
 						href="#contact">Contacto</a></li>
 					<li><a class="fa fa-user nav-link js-scroll-trigger user"
-						href="./pages/LoginUsuario.html"></a></li>
+						href="./pages/loginUsuario.jsp"></a></li>
 				</ul>
 			</div>
 		</div>
@@ -84,17 +90,41 @@
 				<div class="col-lg-12 text-center">
 					<h2 class="section-heading text-uppercase">Servicios</h2>
 
+					<!--  
+					<script type="text/javascript">
+						document.getElementById('cargarDestinos').click();
+					</script>
+					<a id="cargarDestinos" href="ServletIndex"></a>
+					-->
+					<%
+						ArrayList<Destino> dd = (ArrayList<Destino>) request.getSession().getAttribute("listaDestinos");
+						if (! (dd == null || dd.isEmpty())) {
+					%>
+					<datalist id="destinos">
+						<%
+							for (Destino d : dd) {
+						%>
+						<option value="<%=d.getLocalidad()%>"
+							label="<%=d.getLocalidad()%>"></option>
+						<%
+							}
+						%>
+					</datalist>
+					<%
+						}
+					%>
 					<form method=get action="ServletBuscarServicios">
 						<input type="text" name="textOrigen" placeholder="Ingrese Origen"
-							class="search-bar"><br> <input type="text"
-							name="textDestino" placeholder="Ingrese Destino"
-							class="search-bar"> <br>
+							class="search-bar" list="destinos"><br> <input
+							type="text" name="textDestino" placeholder="Ingrese Destino"
+							class="search-bar" list="destinos"> <br>
 						<button id="sendMessageButton"
 							class="btn btn-primary btn-xl text-uppercase" type="submit">Buscar</button>
-
-
 					</form>
-
+					<form method=get action="ServletIndex">
+						<button id="cargarDestinos" class="btn" type="submit"><i>Cargar
+							destinos disponibles</i></button>
+					</form>
 				</div>
 			</div>
 		</div>

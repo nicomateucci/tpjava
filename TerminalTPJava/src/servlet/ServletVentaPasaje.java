@@ -2,6 +2,7 @@ package servlet;
 
 import java.io.IOException;
 import java.io.PrintWriter;
+import java.util.ArrayList;
 import java.util.Objects;
 
 import javax.servlet.ServletException;
@@ -35,6 +36,8 @@ public class ServletVentaPasaje extends HttpServlet {
 		}
 		request.getSession().setAttribute("servicio", ser);
 		request.getSession().setAttribute("estadoventa", "SELECCIONARMICRO");
+		ArrayList<Micro> mm = ser.getMicros()	;
+		request.getSession().setAttribute("listaMicros", mm);
 		response.sendRedirect("pages/ventaPasaje.jsp");
 	}
 
@@ -50,17 +53,13 @@ public class ServletVentaPasaje extends HttpServlet {
 			for(Micro m: ser.getMicros()) {
 				if(m.getPatente().equals(patente) ) {
 					micro = m; //Hago este asignacion para conocer el micro encontrado afuera del foreach.
-					request.getSession().setAttribute("micro", micro);
+					request.getSession().setAttribute("micro", m);
 					request.getSession().setAttribute("estadoventa", "SELECCIONARBUTACA");
 					response.sendRedirect("pages/ventaPasaje.jsp");
 				}
 			}
 			if( !(micro instanceof Micro) ){
-				PrintWriter out = response.getWriter();  
-				response.setContentType("text/html");  
-				out.println("<script type=\"text/javascript\">");  
-				out.println("alert('Como no se encontro el micro ingresado, lo redirigiremos de nuevo a la pagina.')");  
-				out.println("</script>");
+				//No encontro el micro ingresado, redirige al mismo lugar.
 				response.sendRedirect("pages/ventaPasaje.jsp");
 			}
 			break;

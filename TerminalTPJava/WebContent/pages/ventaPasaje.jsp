@@ -110,12 +110,30 @@
 							}
 						%>
 					</table>
+					
+					
+					<%
+						ArrayList<Micro> mm = (ArrayList<Micro>) request.getSession().getAttribute("listaMicros");
+						if (! (mm == null || mm.isEmpty())) {
+					%>
+					<datalist id="micros">
+						<%
+							for (Micro m : mm) {
+						%>
+						<option value="<%=m.getPatente()%>"
+							label="<%=m.getPatente()%>"></option>
+						<%
+							}
+						%>
+					</datalist>
+					<%
+						}
+					%>
 					<form method=post action="../ServletVentaPasaje">
 						<br>
 						<h2>Ingrese la patente del micro:</h2>
-
 						<div class="form-group col-lg-9">
-							<label for="patente">Patente: </label> <input type="text"
+							<label for="patente">Patente: </label> <input type="text" list="micros"
 								name="patente" placeholder="Ej: AA123BB o 961ASD"
 								class="form-control" />
 						</div>

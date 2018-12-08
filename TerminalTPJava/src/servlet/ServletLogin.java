@@ -2,6 +2,7 @@ package servlet;
 
 import java.io.IOException;
 import java.io.PrintWriter;
+import java.util.ArrayList;
 
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
@@ -42,30 +43,23 @@ public class ServletLogin extends HttpServlet {
 			Usuario userOk = logPer.getLogedUser(user);
 			if(userOk != null) {
 				if(userOk.esAdmin()) {
-					//JOptionPane.showMessageDialog(null, "Usted ingreso como administrador"); Tuve problemas con mostrar paneles desde el servidor.
-					PrintWriter out = response.getWriter();  
-					response.setContentType("text/html");  
-					out.println("<script type=\"text/javascript\">");  
-					out.println("alert('Esta en la pagina impresion del boleto')");  
-					out.println("</script>");
 					System.out.println("Ingreso correcto como administrador");
+					request.getSession().setAttribute("mensaje", null);
 					response.sendRedirect("./pages/adminPage.jsp");
 				}else {
-					//JOptionPane.showMessageDialog(null, "Ingreso correcto");
 					System.out.println("Ingreso correcto");
+					ArrayList<Usuario> usuarios = logPer.getAllUsuarios();
+					request.getSession().setAttribute("listaUsuarios", usuarios);
+					request.getSession().setAttribute("mensaje", null);
 					response.sendRedirect("./welcome.jsp");
 				}
 			request.getSession().setAttribute("usuarioLogeado", userOk);
 
 			}else {
-				//JOptionPane.showMessageDialog(null, "No se encontro es usuario ingresado");
-				PrintWriter out = response.getWriter();  
-				response.setContentType("text/html");  
-				out.println("<script type=\"text/javascript\">");  
-				out.println("alert('No se encontro el usuario ingresado')");  
-				out.println("</script>");
+				request.getSession().setAttribute("mensaje", "Usuario incorrecto o inexistente");
+				//request.setAttribute("mensaje", "Usuario incorrecto o inexistente");
 				System.out.println("No se encontro al usuario");
-				response.sendRedirect("./pages/LoginUsuario.html");
+				response.sendRedirect("./pages/loginUsuario.jsp");
 			}
 
 

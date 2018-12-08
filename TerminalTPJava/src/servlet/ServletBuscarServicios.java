@@ -59,33 +59,24 @@ public class ServletBuscarServicios extends HttpServlet {
 						response.sendRedirect("pages/listarServiciosEcontrados.jsp");
 						
 					}else {
-						PrintWriter out = response.getWriter();  
-						response.setContentType("text/html");  
-						out.println("<script type=\"text/javascript\">");  
-						out.println("alert('Aun no tenemos servicios para su viaje. En breve ampliaremos nuestros recorridos. Nos vemos luego!.');");  
-						out.println("</script>");
-						response.sendRedirect("./index.html");
+						response.sendRedirect("./index.jsp");
 					}
 						
 
 				}else {
-					PrintWriter out = response.getWriter();  
-					response.setContentType("text/html");  
-					out.println("<script type=\"text/javascript\">");  
-					out.println("alert('Aun no tenemos servicio para el destino ingresado. En breve ampliaremos nuestros recorridos. Nos vemos luego!.');");  
-					out.println("</script>");
-					response.sendRedirect("./index.html");
+					response.sendRedirect("./index.jsp");
 				}
 
 			}else {
-				PrintWriter out = response.getWriter();  
+				/*Este Javascript anda bian, pero no es conveniente segun Meca.
+				 * PrintWriter out = response.getWriter();  
 				response.setContentType("text/html");  
 				out.println("<script type=\"text/javascript\">");  
 				out.println("alert('Aun no tenemos servicio para el origen ingresado. En breve ampliaremos nuestros recorridos. Nos vemos luego!.');");  
 				out.println("</script>");
-				RequestDispatcher rd=request.getRequestDispatcher("index.html");
-				rd.include(request, response);
-				//response.sendRedirect("./index.html");
+				RequestDispatcher rd=request.getRequestDispatcher("index.jsp");
+				rd.include(request, response);*/
+				response.sendRedirect("./index.jsp");
 			}
 		} catch (AppDataException e) {
 			e.printStackTrace();
@@ -96,11 +87,7 @@ public class ServletBuscarServicios extends HttpServlet {
 
 	}
 
-	/**
-	 * @see HttpServlet#doPost(HttpServletRequest request, HttpServletResponse response)
-	 */
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		// TODO Auto-generated method stub
 		doGet(request, response);
 	}
 
