@@ -6,6 +6,7 @@ import java.util.ArrayList;
 import data.*;
 import entities.*;
 import util.AppDataException;
+import util.NoDestinoException;
 
 public class LogicDestino {
 	
@@ -15,7 +16,7 @@ public class LogicDestino {
 		dataDes = new DataDestino();
 		return dataDes.getById(d);
 	}
-	public Destino getByNombre(String nombre) throws AppDataException, SQLException {
+	public Destino getByNombre(String nombre) throws AppDataException, SQLException,NoDestinoException {
 		dataDes = new DataDestino();
 		return dataDes.getByNombre(nombre);
 	}

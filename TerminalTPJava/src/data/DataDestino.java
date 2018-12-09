@@ -11,6 +11,7 @@ import javax.swing.JOptionPane;
 
 import entities.*;
 import util.AppDataException;
+import util.NoDestinoException;
 
 public class DataDestino {
 
@@ -110,7 +111,7 @@ public DestinoDirecto getById(DestinoDirecto d) throws AppDataException, SQLExce
 	return des;
 }*/
 
-	public Destino getByNombre(String nombre) throws AppDataException, SQLException {
+	public Destino getByNombre(String nombre) throws AppDataException, SQLException, NoDestinoException {
 
 		Destino d=null;
 		PreparedStatement stmt=null;
@@ -125,6 +126,9 @@ public DestinoDirecto getById(DestinoDirecto d) throws AppDataException, SQLExce
 
 				d.setIdDestino(rs.getInt("idDestino"));
 				d.setLocalidad(rs.getString("localidad"));
+			}
+			if(!rs.first()) {
+				throw new NoDestinoException("No se ha encontrado origen/destino");
 			}
 
 		} catch (SQLException e) {

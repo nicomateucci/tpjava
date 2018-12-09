@@ -60,6 +60,7 @@ public class ServletLogin extends HttpServlet {
 				//request.setAttribute("mensaje", "Usuario incorrecto o inexistente");
 				System.out.println("No se encontro al usuario");
 				response.sendRedirect("./pages/loginUsuario.jsp");
+				
 			}
 
 

@@ -46,9 +46,9 @@
 <body id="page-top">
 
 	<!-- Navigation -->
-	<nav class="navbar navbar-expand-lg navbar-dark fixed-top" id="mainNav">
+	<nav class="navbar navbar-expand-lg navbar-dark fixed-top navbar-shrink" id="mainNav">
 		<div class="container">
-			<a class="navbar-brand js-scroll-trigger" href="#page-top">Pasajero23</a>
+			<a class="navbar-brand" href="#page-top">Pasajero23</a>
 			<button class="navbar-toggler navbar-toggler-right" type="button"
 				data-toggle="collapse" data-target="#navbarResponsive"
 				aria-controls="navbarResponsive" aria-expanded="false"
@@ -57,16 +57,19 @@
 			</button>
 			<div class="collapse navbar-collapse" id="navbarResponsive">
 				<ul class="navbar-nav text-uppercase ml-auto">
+
 					<li class="nav-item"><a class="nav-link js-scroll-trigger"
-						href="#contact">Contacto</a></li>
+						href="../#services">Servicios</a></li>
+					<li class="nav-item"><a class="nav-link js-scroll-trigger"
+						href="../#contact">Contacto</a></li>
 					<li><a class="fa fa-user nav-link js-scroll-trigger user"
-						href="./pages/LoginUsuario.html"></a></li>
+						href="./loginUsuario.jsp"></a></li>
 				</ul>
 			</div>
 		</div>
 	</nav>
 
-
+	<section>
 	<h2>Lista de servicios encontrados:</h2>
 	<table class="table table-striped table-bordered">
 		<tr>
@@ -95,12 +98,9 @@
 		<div class="form-group col-lg-9">
 			<button type="submit" value="Siguiente" class="btn btn-info">Siguiente</button>
 		</div>
-		<input type="button"
-			onclick="if(document.getElementById('spoiler1') .style.display=='none') {document.getElementById('spoiler1') .style.display=''; this.value = 'Ocultar'; }else{document.getElementById('spoiler1') .style.display='none';this.value = 'Mostrar'; }"
-			value="Gracias por ..." />
-		<div id="spoiler1" style="display: none">usar Plataforma 23 para
-			conocer un nuevo destino en Argentina.</div>
+		
 	</form>
+	</section>
 	<!-- Contact -->
 	<section id="contact">
 		<div class="container">
@@ -202,8 +202,8 @@
 	<script src="../js/jqBootstrapValidation.js"></script>
 	<script src="../js/contact_me.js"></script>
 
-	<!-- Custom scripts for this template -->
-	<script src="../js/agency.min.js"></script>
+	<!-- Custom scripts for this template 
+	<script src="../js/agency.min.js"></script>-->
 
 </body>
 
