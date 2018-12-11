@@ -1,0 +1,27 @@
+package util;
+
+public class NoServiceException extends Exception{
+	private Throwable innerException;
+	private String message;
+	
+	
+	public String getMessage() {
+		return message;
+	}
+
+
+	public void setMessage(String message) {
+		this.message = message;
+	}
+
+
+	public NoServiceException(Throwable e, String message){
+		this.innerException=e;
+		this.setMessage(message);
+	}
+	
+	public NoServiceException(String message){
+		this.setMessage(message);
+	}
+
+}
