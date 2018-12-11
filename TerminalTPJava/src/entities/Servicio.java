@@ -100,4 +100,15 @@ public class Servicio {
 		public void setIdServicio(int idServicio) {
 			this.idServicio = idServicio;
 		}
+		
+		@Override
+		public boolean equals(Object s){
+			return ((s instanceof Servicio) &&
+					 (((Servicio)s).getIdServicio() == (this.getIdServicio())));
+						
+
+		}
+		
+	
+
 }

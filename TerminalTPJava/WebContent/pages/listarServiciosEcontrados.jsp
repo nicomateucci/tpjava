@@ -96,6 +96,18 @@
 				type="number" name="idServicio" class="form-control">
 		</div>
 		<div class="form-group col-lg-9">
+			<%
+							String m = null;
+							m = (String) request.getSession().getAttribute("mensaje");
+							if (m != null) {
+						%>
+						<div style="color: red">
+							<i><%=m%></i>
+						</div>
+
+						<%
+							}
+						%>
 			<button type="submit" value="Siguiente" class="btn btn-info">Siguiente</button>
 		</div>
 		

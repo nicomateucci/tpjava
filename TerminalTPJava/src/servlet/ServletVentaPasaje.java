@@ -2,6 +2,7 @@ package servlet;
 
 import java.io.IOException;
 import java.io.PrintWriter;
+import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.Objects;
 
@@ -16,6 +17,7 @@ import entities.Micro;
 import entities.Servicio;
 import entities.Usuario;
 import util.AppDataException;
+import util.NoServiceException;
 
 @WebServlet("/ServletVentaPasaje")
 public class ServletVentaPasaje extends HttpServlet {
@@ -26,10 +28,41 @@ public class ServletVentaPasaje extends HttpServlet {
 	}
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 
-		Servicio ser = null;
+		Servicio serv = null;
 		LogicServicio logs = new LogicServicio();
+		ArrayList<Servicio> ss = (ArrayList<Servicio>) request.getSession().getAttribute("serviciosEcontrados");
 		int id = Integer.parseInt(request.getParameter("idServicio"));
+		
 		try {
+			serv = (Servicio) logs.getById(id);
+			
+			request.getSession().setAttribute("mensaje", null);
+			if(ss.contains(serv)) {
+				request.getSession().setAttribute("servicio", serv);
+				request.getSession().setAttribute("estadoventa", "SELECCIONARMICRO");
+				ArrayList<Micro> mm = serv.getMicros()	;
+				request.getSession().setAttribute("listaMicros", mm);
+				System.out.println("servicios: " + serv.getIdServicio());
+				response.sendRedirect("pages/ventaPasaje.jsp");
+			}
+			else {
+				request.getSession().setAttribute("mensaje", "servicio no encontrado para la lista");
+				System.out.println("servicio no encontrado para la lista");
+				request.getSession().setAttribute("serviciosEcontrados", ss);
+				response.sendRedirect("pages/listarServiciosEcontrados.jsp");
+			
+			}
+		} catch (AppDataException e) {
+			e.printStackTrace();
+		} catch (NoServiceException e) {
+			request.getSession().setAttribute("mensaje", e.getMessage());
+			request.getSession().setAttribute("serviciosEcontrados", ss);
+			response.sendRedirect("pages/listarServiciosEcontrados.jsp");
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}
+		
+		/*try {
 			ser = logs.getServicioParaVenta(id);
 		} catch (Exception e) {
 			e.printStackTrace();
@@ -38,7 +71,7 @@ public class ServletVentaPasaje extends HttpServlet {
 		request.getSession().setAttribute("estadoventa", "SELECCIONARMICRO");
 		ArrayList<Micro> mm = ser.getMicros()	;
 		request.getSession().setAttribute("listaMicros", mm);
-		response.sendRedirect("pages/ventaPasaje.jsp");
+		response.sendRedirect("pages/ventaPasaje.jsp");*/
 	}
 
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {

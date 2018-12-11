@@ -393,7 +393,7 @@ public class DataServicio {
 		}
 		return ss;
 	}
-	public Servicio getById(int idServicio) throws SQLException, AppDataException{
+	public Servicio getById(int idServicio) throws SQLException, AppDataException, NoServiceException{
 
 		Servicio s=null;
 		PreparedStatement stmt=null;
@@ -409,10 +409,18 @@ public class DataServicio {
 				s.setIdServicio(rs.getInt("idServicio"));
 				s.setFechaServicio(rs.getDate("fechaServicio"));
 				s.setHoraServicio(rs.getString("horaServicio"));
+				s.addDestinos(this.getDestinos(s.getIdServicio()));
+				s.addMicros(this.getMicros(s));
+			}
+			if(!rs.first()) {
+				throw new NoServiceException("No se ha encontrado el servicio indicado");
 			}
 
 		} catch (SQLException e) {
 			throw new AppDataException(e, "Error al conectar a la base da datos");
+		} catch (Exception e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
 		} finally{	
 			try {
 				if(rs!=null)rs.close();
