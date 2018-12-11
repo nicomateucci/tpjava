@@ -3,6 +3,7 @@
 <%@page import="java.util.ArrayList"%>
 <%@page import="entities.Destino"%>
 <%@page import="entities.DestinoDirecto"%>
+
 <!DOCTYPE html>
 <html lang="en">
 
@@ -89,6 +90,7 @@
 			<div class="row">
 				<div class="col-lg-12 text-center">
 					<h2 class="section-heading text-uppercase">Servicios</h2>
+					<div class="container" id="container"></div>
 
 					<!--  
 					<script type="text/javascript">
@@ -98,7 +100,7 @@
 					-->
 					<%
 						ArrayList<Destino> dd = (ArrayList<Destino>) request.getSession().getAttribute("listaDestinos");
-						if (! (dd == null || dd.isEmpty())) {
+						if (!(dd == null || dd.isEmpty())) {
 					%>
 					<datalist id="destinos">
 						<%
@@ -122,8 +124,9 @@
 							class="btn btn-primary btn-xl text-uppercase" type="submit">Buscar</button>
 					</form>
 					<form method=get action="ServletIndex">
-						<button id="cargarDestinos" class="btn" type="submit"><i>Cargar
-							destinos disponibles</i></button>
+						<button id="cargarDestinos" class="btn" type="submit">
+							<i>Cargar destinos disponibles</i>
+						</button>
 					</form>
 				</div>
 			</div>
@@ -235,6 +238,10 @@
 
 	<!-- Custom scripts for this template -->
 	<script src="js/agency.min.js"></script>
+	
+
+	
+	
 
 </body>
 

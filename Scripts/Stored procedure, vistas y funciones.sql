@@ -18,7 +18,43 @@ BEGIN
 	where sd.idDestino = id2 and sd.ordenDestinos > temp.ordenDestinos;
     
 END$$
+
 DELIMITER ;
+
+DELIMITER $$
+CREATE DEFINER=`root`@`localhost` PROCEDURE `getDestinosByMesAno`(IN mes INT, IN ano INT)
+BEGIN
+    select localidad, count(destino) totalPasajes
+	from PersonaServicioMicro ps
+	inner join Destino d on ps.destino = d.idDestino
+    inner join Servicio ser on ps.idServicio = ser.idServicio
+    where month(ser.fechaServicio) = mes and year(ser.fechaServicio) = ano
+	group by ps.destino 
+	order by totalPasajes desc;
+    
+END$$
+DELIMITER ;
+
+
+USE `terminalTPJava`;
+DROP procedure IF EXISTS `getRecaudacionPorMes`;
+
+DELIMITER $$
+USE `terminalTPJava`$$
+CREATE DEFINER=`root`@`localhost` PROCEDURE `getRecaudacionPorMes`()
+BEGIN
+	SELECT  month(s.fechaServicio) as Mes,
+	sum(ps.precio) 'ingresos'
+	FROM PersonaServicioMicro ps
+	inner join Servicio s on s.idServicio = ps.idServicio
+	where (year(s.fechaServicio) = 2019 and month(s.fechaServicio) < 7) 
+    or (year(s.fechaServicio) = 2018 and month(s.fechaServicio) = 12)
+	group by month(s.fechaServicio);
+END$$
+
+DELIMITER ;
+
+
 
 -- Vista
 

@@ -71,7 +71,7 @@
 						name="elige" size="1">
 							<option value="">Mi cuenta</option>
 							<option value="">Ayuda</option>
-							<option value="index.jsp">Salir</option>
+							<option value="SevletCerrarSesion">Salir</option>
 					</select></li>
 				</ul>
 			</div>
@@ -86,6 +86,10 @@
 			<div class="row">
 				<div class="col-lg-12 text-center">
 					<h2 class="section-heading text-uppercase">Servicios</h2>
+
+					<br>
+					<canvas id="myChart" style="width: 90%; height: 80%"></canvas>
+					<br>
 
 					<%
 						ArrayList<Destino> dd = (ArrayList<Destino>) request.getSession().getAttribute("listaDestinos");
@@ -104,10 +108,6 @@
 					<%
 						}
 					%>
-					<script type="text/javascript">
-						document.getElementById("cargarDestinos").click();
-					</script>
-					<a id="cargarDestinos" href="ServletIndex"></a>
 					<form method=get action="ServletBuscarServicios">
 						<input type="text" name="textOrigen" placeholder="Ingrese Origen"
 							class="search-bar"><br> <input type="text"
@@ -229,6 +229,46 @@
 
 	<!-- Custom scripts for this template -->
 	<script src="js/agency.min.js"></script>
+
+	<script src="js/Chart.min.js"></script>
+	<%
+		String[][] datos = (String[][]) request.getSession().getAttribute("informeDestinos");
+	%>
+
+	<script>
+		var ctx = document.getElementById("myChart").getContext('2d');
+		var myChart = new Chart(ctx, {
+		    type: 'bar',
+		    data: {
+		        labels: ['<%=datos[0][0]%>', '<%=datos[1][0]%>', '<%=datos[2][0]%>'],
+		        datasets: [{
+		            label: 'Destinos mas solicitados en el mes:',
+		            //data: [12, 19, 3],
+		            data: [<%=Integer.parseInt(datos[0][1])%>, <%=Integer.parseInt(datos[1][1])%>, <%=Integer.parseInt(datos[2][1])%>],
+		            backgroundColor: [
+		                'rgba(255, 99, 132, 0.2)',
+		                'rgba(54, 162, 235, 0.2)',
+		                'rgba(255, 206, 86, 0.2)',
+		            ],
+		            borderColor: [
+		                'rgba(255,99,132,1)',
+		                'rgba(54, 162, 235, 1)',
+		                'rgba(255, 206, 86, 1)',
+		            ],
+		            borderWidth: 5
+		        }]
+		    },
+		    options: {
+		        scales: {
+		        	yAxes: [{
+		                stacked: true,
+		            }]
+		        }
+		    }
+		});
+	</script>
+
+
 
 </body>
 

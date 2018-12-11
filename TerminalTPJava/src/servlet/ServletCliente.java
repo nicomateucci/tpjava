@@ -120,7 +120,7 @@ public class ServletCliente extends HttpServlet {
 		} catch (SQLException e) {
 			e.printStackTrace();
 		}
-		response.sendRedirect("index.html");
+		response.sendRedirect("index.jsp");
 	}
 
 }

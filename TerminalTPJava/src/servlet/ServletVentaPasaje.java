@@ -2,6 +2,7 @@ package servlet;
 
 import java.io.IOException;
 import java.io.PrintWriter;
+import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.Objects;
 
@@ -10,6 +11,8 @@ import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+
+import business.LogicPersona;
 import business.LogicServicio;
 import entities.Destino;
 import entities.Micro;
@@ -43,6 +46,7 @@ public class ServletVentaPasaje extends HttpServlet {
 
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 
+		LogicPersona logp = null;
 		Servicio ser = null;
 		String estado = (String) request.getSession().getAttribute("estadoventa");
 		switch (estado) {
@@ -80,10 +84,10 @@ public class ServletVentaPasaje extends HttpServlet {
 			Micro mic = (Micro) request.getSession().getAttribute("micro");
 			Servicio servicio = (Servicio) request.getSession().getAttribute("servicio");
 			int butaca = (int) request.getSession().getAttribute("numButaca");
-			
+
 			//Calculo del precio del boleto
 			//****************************************************************
-			
+
 			Double precioOrigen = null, precioLlegada = null, precioSinAumento, aumentoMicro, aumentoDestino, precioFinal;
 			Destino desLlegada = null;
 			Destino desOrigenSinPrecio = (Destino) request.getSession().getAttribute("desOrigen");
@@ -98,22 +102,31 @@ public class ServletVentaPasaje extends HttpServlet {
 				}
 			}
 			precioSinAumento = precioLlegada - precioOrigen;
-												// 35 / 100= 0.35
+			// 35 / 100= 0.35
 			aumentoMicro = precioSinAumento * (mic.getAumento() / 100);
 			aumentoDestino = precioSinAumento * (desLlegada.getPorcentajeAumento() / 100);
 			precioFinal = precioSinAumento + aumentoDestino + aumentoMicro;
 			request.getSession().setAttribute("precio", precioFinal);
-			
+
 			//Fin calculo del precio **********************************************
-			
+
 			if(user == null) {
 				dni = (String) request.getParameter("dniPasajero");
+				Usuario u = new Usuario(dni);
+				logp = new LogicPersona();
+				try {
+					logp.add(u);
+				} catch (SQLException e) {
+					e.printStackTrace();
+				} catch (AppDataException e) {
+					e.printStackTrace();
+				}
 			}else {
 				dni = user.getDni();
 			}
 			request.getSession().setAttribute("dni", dni);
 			try {
-				logics.addPasajero(servicio.getIdServicio(), dni, mic.getPatente(), butaca);
+				logics.addPasajero(servicio.getIdServicio(), dni, mic.getPatente(), butaca, desOrigenSinPrecio.getIdDestino(), desLlegadaSinPrecio.getIdDestino(), precioFinal);
 			} catch (AppDataException e) {
 				e.printStackTrace();
 			}
@@ -125,8 +138,9 @@ public class ServletVentaPasaje extends HttpServlet {
 
 			user = (Usuario) request.getSession().getAttribute("usuarioLogeado");
 			if(user == null) {
-				response.sendRedirect("index.html");
+				response.sendRedirect("index.jsp");
 			}else {
+				//Para que actualice la estadistica de destinos despues de la venta de uno, deberia usar AJAX en welcome.jsp
 				response.sendRedirect("welcome.jsp");
 			}
 			break;

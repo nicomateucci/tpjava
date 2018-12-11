@@ -14,7 +14,7 @@
 	<div class="nav notify-row" id="top_menu"></div>
 	<div class="top-menu">
 		<ul class="nav pull-right top-menu">
-			<li><a class="logout" href="login.html">Logout</a></li>
+			<li><a class="logout" href="../SevletCerrarSesion">Logout</a></li>
 		</ul>
 	</div>
 </header>
