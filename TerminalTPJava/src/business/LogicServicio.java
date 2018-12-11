@@ -7,7 +7,6 @@ import data.DataServicio;
 import entities.Destino;
 import entities.Servicio;
 import util.AppDataException;
-import util.NoServiceException;
 
 public class LogicServicio{
 
@@ -45,7 +44,7 @@ public class LogicServicio{
 		dataSer = new DataServicio();
 		return dataSer.getTieneRefuerzo(ser);
 	}
-	public ArrayList<Servicio> getAllByDestinos(Destino origen, Destino destino) throws AppDataException, SQLException,NoServiceException{
+	public ArrayList<Servicio> getAllByDestinos(Destino origen, Destino destino) throws AppDataException, SQLException{
 		
 		dataSer = new DataServicio();
 		return dataSer.getAllByDestinos(origen, destino);
