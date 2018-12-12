@@ -78,7 +78,6 @@ public class ServletConductor_ extends HttpServlet {
 		
 		
 		String tipo = (String) request.getSession().getAttribute("tipo");
-		//String tipoDestino = request.getParameter("tipoDestino");
 		
 	if(tipo.equals("alta")) {
 		LogicPersona logPer = new LogicPersona();
@@ -138,32 +137,8 @@ public class ServletConductor_ extends HttpServlet {
 		String apellido = (String)(request.getParameter("apellido"));
 		String tipodni = (String)(request.getParameter("tipoDni"));
 		String contacto = (String)(request.getParameter("contacto"));
-
-		//----------Parseo de fecha
-		SimpleDateFormat format = new SimpleDateFormat("yyyy-MM-dd");
-		java.util.Date date = null;
-		java.sql.Date sqlDate = null;
-		try {
-			date = format.parse(request.getParameter("fecha"));
-		} catch (java.text.ParseException e) {
-			e.printStackTrace();
-		}
-		sqlDate = new java.sql.Date(date.getTime());  
-
-		java.sql.Date fecha = sqlDate;
-
-		date = null;
-		sqlDate = null;
-		try {
-			date = format.parse(request.getParameter("fecha2"));
-		} catch (java.text.ParseException e) {
-			e.printStackTrace();
-		}
-		sqlDate = new java.sql.Date(date.getTime());  
-
-		java.sql.Date fecha2 = sqlDate;
-
-		Conductor conductorUpdate = null;
+		
+		Conductor conductorUpdate = null;	
 		try {
 			conductorUpdate = (Conductor)logicPer.getByDni(dni);
 		} catch (AppDataException e) {
@@ -172,15 +147,46 @@ public class ServletConductor_ extends HttpServlet {
 			e.printStackTrace();
 		} catch (Exception e) {
 			e.printStackTrace();
-		}
-		
-		conductorUpdate.setNombre(nombre);
-		conductorUpdate.setApellido(apellido);
-		conductorUpdate.setDni(dni);
+		}		
 		conductorUpdate.setTipoDni(tipodni);
-		conductorUpdate.setContacto(contacto);
-		conductorUpdate.setFechaNacimiento(fecha);
-		conductorUpdate.setFechaInicio(fecha2);
+		
+		SimpleDateFormat format = new SimpleDateFormat("yyyy-MM-dd");
+		java.util.Date date = null;
+		java.sql.Date sqlDate = null;
+		String f= request.getParameter("fecha");
+		if(f != "") {
+			//----------Parseo de fecha
+			try {
+				date = format.parse(request.getParameter("fecha"));
+			} catch (java.text.ParseException e) {
+				e.printStackTrace();
+			}
+			sqlDate = new java.sql.Date(date.getTime());  
+			java.sql.Date fecha = sqlDate;
+			conductorUpdate.setFechaNacimiento(fecha);
+		}	
+		String f2= request.getParameter("fecha2");
+		if(f2 != "") {
+			date = null;
+			sqlDate = null;
+			try {
+				date = format.parse(request.getParameter("fecha2"));
+			} catch (java.text.ParseException e) {
+				e.printStackTrace();
+			}
+			sqlDate = new java.sql.Date(date.getTime());  
+			java.sql.Date fecha2 = sqlDate;
+			conductorUpdate.setFechaInicio(fecha2);
+		}
+		if(nombre != "") {
+			conductorUpdate.setNombre(nombre);
+		}
+		if(apellido != "") {
+			conductorUpdate.setApellido(apellido);
+		}		
+		if(contacto != "") {
+			conductorUpdate.setContacto(contacto);
+		}		
 
 		try {
 			logicPer.update(conductorUpdate);

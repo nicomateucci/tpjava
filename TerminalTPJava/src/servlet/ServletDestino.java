@@ -3,14 +3,14 @@ package servlet;
 import java.io.IOException;
 import java.sql.SQLException;
 import java.util.ArrayList;
-import java.util.Objects;
+//import java.util.Objects;
 
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
-import javax.swing.JOptionPane;
+//import javax.swing.JOptionPane;
 
 import business.LogicDestino;
 import entities.Destino;
@@ -107,8 +107,10 @@ public class ServletDestino extends HttpServlet {
 			} catch (SQLException e) {
 				e.printStackTrace();
 			}
-			destinoUpdate.setLocalidad(loc);
-			//Objects.equals(null,por)
+			if(loc  != ""){
+				destinoUpdate.setLocalidad(loc);
+			}
+			
 			if(por != 0.0) {
 				((DestinoDirecto) destinoUpdate).setPorcentajeAumento(por);
 			}

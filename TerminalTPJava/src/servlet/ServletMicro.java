@@ -11,11 +11,7 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
-import business.LogicDestino;
 import business.LogicMicro;
-import entities.Butaca;
-import entities.Destino;
-import entities.DestinoDirecto;
 import entities.Micro;
 import entities.MicroCama;
 import util.AppDataException;
@@ -79,44 +75,125 @@ public class ServletMicro extends HttpServlet {
 	 * @see HttpServlet#doPost(HttpServletRequest request, HttpServletResponse response)
 	 */
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-
-		LogicMicro logicm = new LogicMicro();
+		
+		String tipo = (String) request.getSession().getAttribute("tipo");
+		
+	if(tipo.equals("alta")) {
+		LogicMicro logicm = new LogicMicro();	
 		String tipoMicro = request.getParameter("tipoMicro");
-		Micro m = null;
 
 		if(tipoMicro.equals("MicroCama")) {
-			m = new MicroCama();
+			MicroCama m = new MicroCama();
 			double por = Double.parseDouble(request.getParameter("aumento"));
-			por = por / 100 + 1;
 			((MicroCama) m).setAumento(por);
-		}else {
-			m = new Micro();
-		}
-		System.out.println("El micro cargado es de la clase " + m.getClass());
-		m.setPatente(request.getParameter("patente"));
-		m.setMarca(request.getParameter("marca"));
-		int num = Integer.parseInt(request.getParameter("cantButacas"));
-		m.setButacas(num);
-		//----------Parseo de fecha
-		SimpleDateFormat format = new SimpleDateFormat("yyyy-MM-dd");
-		java.util.Date date = null;
-		java.sql.Date sqlDate = null;
-		try {
-			date = format.parse(request.getParameter("fechaControl"));
-		} catch (java.text.ParseException e) {
-			e.printStackTrace();
-		}
-		sqlDate = new java.sql.Date(date.getTime());  
-		m.setFechaUltimoCtrl(sqlDate);
+			m.setPatente(request.getParameter("patente"));
+			m.setMarca(request.getParameter("marca"));
+			//----------Parseo de fecha
+			SimpleDateFormat format = new SimpleDateFormat("yyyy-MM-dd");
+			java.util.Date date = null;
+			java.sql.Date sqlDate = null;
+			try {
+				date = format.parse(request.getParameter("fechaControl"));
+			} catch (java.text.ParseException e) {
+				e.printStackTrace();
+			}
+			sqlDate = new java.sql.Date(date.getTime());  
+			m.setFechaUltimoCtrl(sqlDate);
 
+			try {
+				logicm.insert(m);
+			} catch (AppDataException e) {
+				e.printStackTrace();
+			} catch (SQLException e) {
+				e.printStackTrace();
+			}
+		}else {
+			Micro m = new Micro();
+			m.setPatente(request.getParameter("patente"));
+			m.setMarca(request.getParameter("marca"));
+			//----------Parseo de fecha
+			SimpleDateFormat format = new SimpleDateFormat("yyyy-MM-dd");
+			java.util.Date date = null;
+			java.sql.Date sqlDate = null;
+			try {
+				date = format.parse(request.getParameter("fechaControl"));
+			} catch (java.text.ParseException e) {
+				e.printStackTrace();
+			}
+			sqlDate = new java.sql.Date(date.getTime());  
+			m.setFechaUltimoCtrl(sqlDate);
+
+			try {
+				logicm.insert(m);
+			} catch (AppDataException e) {
+				e.printStackTrace();
+			} catch (SQLException e) {
+				e.printStackTrace();
+			}
+		}
+		
+	}else if(tipo.equals("modifica")) {
+		LogicMicro logicm = new LogicMicro();
+		Micro m = new Micro();
+		Micro microUpdate = null;
+		m.setPatente(request.getParameter("patente"));
 		try {
-			logicm.insert(m);
+			microUpdate = logicm.getByPatente(m);
 		} catch (AppDataException e) {
 			e.printStackTrace();
 		} catch (SQLException e) {
 			e.printStackTrace();
 		}
+		double por = Double.parseDouble(request.getParameter("aumento"));
+		if(por != 0.0) {
+			((MicroCama) microUpdate).setAumento(por);
+		}
+		String marca = request.getParameter("marca");
+		if(marca  != ""){
+			microUpdate.setMarca(marca);
+		}
+		String fecha = request.getParameter("fechaControl");
+		if(fecha != ""){
+			//----------Parseo de fecha
+			SimpleDateFormat format = new SimpleDateFormat("yyyy-MM-dd");
+			java.util.Date date = null;
+			java.sql.Date sqlDate = null;
+			try {
+				date = format.parse(request.getParameter("fechaControl"));
+			} catch (java.text.ParseException e) {
+				e.printStackTrace();
+			}
+			sqlDate = new java.sql.Date(date.getTime());  
+			microUpdate.setFechaUltimoCtrl(sqlDate);
+		}
+		
+		try {
+			logicm.update(microUpdate);
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+		
+
+	}else if(tipo.equals("baja")) {
+		LogicMicro logicm = new LogicMicro();
+		Micro m = new Micro();
+		m.setPatente(request.getParameter("patente"));
+		Micro micDel =null;
+		try {
+			micDel = logicm.getByPatente(m);
+		} catch (AppDataException e) {
+			e.printStackTrace();
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}
+		try {
+			logicm.delete(micDel);
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+	}
+		
 		response.sendRedirect("ServletMicro?tipo=consulta");
 	}
-}
 
+}
