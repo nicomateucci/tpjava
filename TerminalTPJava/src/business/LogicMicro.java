@@ -21,10 +21,11 @@ public class LogicMicro{
 		datam = new DataMicro();
 		return datam.getByPatente(m);
 	}
-	public MicroCama getByPatente(MicroCama m) throws AppDataException, SQLException {
+	/*public MicroCama getByPatente(MicroCama m) throws AppDataException, SQLException {
 		datam = new DataMicro();
 		return datam.getByPatente(m);
-	}
+	}*/
+	
 	public ArrayList<Micro> getAll() throws SQLException, AppDataException{
 
 		datam = new DataMicro();

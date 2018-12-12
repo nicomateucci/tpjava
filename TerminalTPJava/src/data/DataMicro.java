@@ -4,6 +4,7 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
+import java.util.Objects;
 
 import javax.swing.JOptionPane;
 
@@ -78,7 +79,45 @@ public class DataMicro {
 		}
 	}
 	
-	public Micro getByPatente(Micro mic) throws AppDataException, SQLException{
+public Micro getByPatente(Micro mic) throws AppDataException, SQLException{
+		
+		Micro m = null;
+		PreparedStatement stmt=null;
+		ResultSet rs=null;
+		try {
+			stmt=FactoryConexion.getInstancia().getConn().prepareStatement("select patente, marca, fechaUltimoControl, porcentajeAumento from Micro where patente=?");
+			stmt.setString(1, mic.getPatente());
+			rs=stmt.executeQuery();
+			if(rs!=null && rs.next()){
+				double por = rs.getDouble("porcentajeAumento");
+				if(Objects.equals(null,por)){
+					m = new Micro();
+					m.setPatente(rs.getString("patente"));
+					m.setMarca(rs.getString("marca"));
+					m.setFechaUltimoCtrl(rs.getDate("fechaUltimoControl"));
+				}else {
+					m = new MicroCama();
+					m.setPatente(rs.getString("patente"));
+					m.setMarca(rs.getString("marca"));
+					m.setFechaUltimoCtrl(rs.getDate("fechaUltimoControl"));
+					((MicroCama) m).setAumento(rs.getDouble("porcentajeAumento"));
+				}
+			}
+		} catch (SQLException e) {
+			throw new AppDataException(e, "Error al conectar con la BD producido en el metodo getByPatente(Micro m)");
+		} finally{	
+		try {
+				if(rs!=null)rs.close();
+				if(stmt!=null)stmt.close();
+				FactoryConexion.getInstancia().releaseConn();
+			} catch (SQLException e) {
+				throw e;
+			}
+		}
+		return m;
+	}	
+	
+	/*public Micro getByPatente(Micro mic) throws AppDataException, SQLException{
 		
 		Micro m = null;
 		PreparedStatement stmt=null;
@@ -107,8 +146,9 @@ public class DataMicro {
 			}
 		}
 		return m;
-	}
-public MicroCama getByPatente(MicroCama mic) throws AppDataException, SQLException{
+	}*/
+	
+/*public MicroCama getByPatente(MicroCama mic) throws AppDataException, SQLException{
 		
 		MicroCama m = null;
 		PreparedStatement stmt=null;
@@ -139,7 +179,7 @@ public MicroCama getByPatente(MicroCama mic) throws AppDataException, SQLExcepti
 		}
 		return m;
 	}
-	
+*/	
 	
 	
 	public void add(Micro elMicro){

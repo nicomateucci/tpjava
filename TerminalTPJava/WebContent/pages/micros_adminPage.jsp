@@ -56,7 +56,6 @@
 							<th>Fecha Ultimo Control</th>
 							<th>Porcentaje aumento</th>
 							<th>Tipo</th>
-							<th>Cantidad de asientos</th>
 						</tr>
 						<%
 							ArrayList<Micro> listaMic = (ArrayList<Micro>) request.getSession().getAttribute("listaMicros");
@@ -68,7 +67,6 @@
 							<td><%= m.getFechaUltimoCtrl()%></td>
 							<td><%= m.getAumento()%></td>
 							<td><%= m.getClass().toString().substring(15)%></td>
-							<td><%= m.getCantidadButacas() %></td>
 						</tr>
 						<%
 							}
@@ -82,8 +80,6 @@
 		<%
 			} else if (request.getSession().getAttribute("tipo") == "alta") {
 		%>
-
-
 		<section id="main-content">
 			<section class="wrapper">
 				<div class="container main-chart">
@@ -121,9 +117,71 @@
 									for="aumento">% </label>
 							</div>
 							<div class="form-group col-lg-9">
-								<label for="cantButacas">Ingrese cantidad de butacas: </label> <input
-									type="date" name="cantButacas"
+								<button type="reset" value="Resetear" class="btn btn-warning">Resetear</button>
+								<button type="submit" value="Ingresar" class="btn btn-info">Finalizar</button>
+							</div>
+						</fieldset>
+						> <input type="button"
+							onclick="if(document.getElementById('spoiler1') .style.display=='none') {document.getElementById('spoiler1') .style.display=''; this.value = 'Ocultar'; }else{document.getElementById('spoiler1') .style.display='none';this.value = 'Mostrar'; }"
+							value="Gracias por ..." />
+						<div id="spoiler1" style="display: none">usar Plataforma 23
+							para conocer un nuevo destino en Argentina.</div>
+					</form>
+				</div>
+			</section>
+
+
+		<%} else if (request.getSession().getAttribute("tipo") == "modifica"){ %>
+			<section id="main-content">
+			<section class="wrapper">
+				<div class="container main-chart">
+					<table class="table table-striped table-bordered">
+						<tr>
+							<th>Patente</th>
+							<th>Marca</th>
+							<th>Fecha Ultimo Control</th>
+							<th>Porcentaje aumento</th>
+							<th>Tipo</th>
+							</tr>
+						<%
+							ArrayList<Micro> listaMic = (ArrayList<Micro>) request.getSession().getAttribute("listaMicros");
+								for (Micro m : listaMic) {
+						%>
+						<tr>
+							<td><%= m.getPatente()%></td>
+							<td><%= m.getMarca()%></td>
+							<td><%= m.getFechaUltimoCtrl()%></td>
+							<td><%= m.getAumento()%></td>
+							<td><%= m.getClass().toString().substring(15)%></td>
+						</tr>
+						<%
+							}
+						%>
+					</table>
+					<form method=post action="../ServletMicro">
+						<fieldset>
+							<br>
+							<h2>Ingrese los datos a modificar del Micro:</h2>
+							<div class="form-group col-lg-9">
+								<label for="patente">Ingrese patente: </label> <input
+									type="text" name="patente" class="form-control" />
+							</div>
+							<div class="form-group col-lg-9">
+								<label for="marca">Ingrese marca: </label> <input type="text"
+									name="marca" class="form-control" />
+							</div>
+							<div class="form-group col-lg-9">
+								<label for="fechaControl">Fecha de ultima VTV: </label> <input
+									type="date" name="fechaControl" placeholder="aaaa-mm-dd"
 									class="form-control" />
+							</div>						
+							<div class="form-group col-lg-9">
+								<div class="">
+									<i>Si ingreso un micro cama, ingrese el porcentaje de
+										aumento en % (Ej: 25):</i><br>
+								</div>
+								<input value="0.0" type="number" name="aumento" class="form-control" /> <label
+									for="aumento">% </label>
 							</div>
 							<div class="form-group col-lg-9">
 								<button type="reset" value="Resetear" class="btn btn-warning">Resetear</button>
@@ -137,13 +195,59 @@
 							para conocer un nuevo destino en Argentina.</div>
 					</form>
 				</div>
+
 			</section>
 		</section>
+		
+		<%} else if (request.getSession().getAttribute("tipo") == "baja"){ %>
+			<section id="main-content">
+			<section class="wrapper">
+				<div class="container main-chart">
+					<table class="table table-striped table-bordered">
+						<tr>
+							<th>Patente</th>
+							<th>Marca</th>
+							<th>Fecha Ultimo Control</th>
+							<th>Porcentaje aumento</th>
+							<th>Tipo</th>					
+						<%
+							ArrayList<Micro> listaMic = (ArrayList<Micro>) request.getSession().getAttribute("listaMicros");
+								for (Micro m : listaMic) {
+						%>
+						<tr>
+							<td><%= m.getPatente()%></td>
+							<td><%= m.getMarca()%></td>
+							<td><%= m.getFechaUltimoCtrl()%></td>
+							<td><%= m.getAumento()%></td>
+							<td><%= m.getClass().toString().substring(15)%></td>
+						</tr>
+						<%
+							}
+						%>
+					</table>
+					<form method=post action="../ServletMicro">
+						<fieldset>
+							<br>
+							<h2>Ingrese la patente del Micro a eliminar:</h2>
+							<div class="form-group col-lg-9">
+								<label for="patente">Ingrese patente: </label> <input
+									type="text" name="patente" class="form-control" />
+							</div>
+							<div class="form-group col-lg-9">
+								<button type="reset" value="Resetear" class="btn btn-warning">Resetear</button>
+								<button type="submit" value="Ingresar" class="btn btn-info">Finalizar</button>
+							</div>
+						</fieldset>
+						<input type="button"
+							onclick="if(document.getElementById('spoiler1') .style.display=='none') {document.getElementById('spoiler1') .style.display=''; this.value = 'Ocultar'; }else{document.getElementById('spoiler1') .style.display='none';this.value = 'Mostrar'; }"
+							value="Gracias por ..." />
+						<div id="spoiler1" style="display: none">Usar Plataforma 23
+							para conocer un nuevo destino en Argentina.</div>
+					</form>
+				</div>
 
-
-		<%
-			} else if (request.getSession().getAttribute("tipo") == "baja") {
-		%>
+			</section>
+		</section>
 
 		<%
 			}
@@ -234,6 +338,6 @@
         }
     
 	</script>
-
+	</section>
 </body>
 </html>
