@@ -118,18 +118,6 @@
 							class="search-bar" list="destinos"><br> <input
 							type="text" name="textDestino" placeholder="Ingrese Destino"
 							class="search-bar" list="destinos"> <br>
-						<%
-							String m = null;
-							m = (String) request.getSession().getAttribute("mensaje");
-							if (m != null) {
-						%>
-						<div style="color: red">
-							<i><%=m%></i>
-						</div>
-
-						<%
-							}
-						%>
 						<button id="sendMessageButton"
 							class="btn btn-primary btn-xl text-uppercase" type="submit">Buscar</button>
 					</form>
