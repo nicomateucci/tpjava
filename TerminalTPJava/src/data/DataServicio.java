@@ -15,6 +15,7 @@ import entities.MicroCama;
 import entities.Servicio;
 import entities.Usuario;
 import util.AppDataException;
+import util.NoServiceException;
 
 public class DataServicio {
 
