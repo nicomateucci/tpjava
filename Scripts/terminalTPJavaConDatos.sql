@@ -174,15 +174,6 @@ INSERT INTO `terminalTPJava`.`Butaca` (`numButaca`, `patenteMicro`) VALUES ('18'
 INSERT INTO `terminalTPJava`.`Butaca` (`numButaca`, `patenteMicro`) VALUES ('19', '00AAA00');
 INSERT INTO `terminalTPJava`.`Butaca` (`numButaca`, `patenteMicro`) VALUES ('20', '00AAA00');
 
--- Datos tabla PersonaMicroSerivico
-
-INSERT INTO `terminalTPJava`.`PersonaServicioMicro` (`dniPersona`, `idServicio`, `patenteMicro`, `numButaca`) VALUES ('33333333', '1', '00AAA00', '8');
-INSERT INTO `terminalTPJava`.`PersonaServicioMicro` (`dniPersona`, `idServicio`, `patenteMicro`, `numButaca`) VALUES ('44444444', '1', '123ABC', '19');
-INSERT INTO `terminalTPJava`.`PersonaServicioMicro` (`dniPersona`, `idServicio`, `patenteMicro`, `numButaca`) VALUES ('55555555', '2', '478DEF', '13');
-INSERT INTO `terminalTPJava`.`PersonaServicioMicro` (`dniPersona`, `idServicio`, `patenteMicro`, `numButaca`) VALUES ('33333333', '2', '478DEF', '19');
-INSERT INTO `terminalTPJava`.`PersonaServicioMicro` (`dniPersona`, `idServicio`, `patenteMicro`, `numButaca`) VALUES ('44444444', '3', '89ABC00', '20');
-
-
 
 
 

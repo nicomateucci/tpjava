@@ -2,6 +2,7 @@ package business;
 
 import java.sql.SQLException;
 import java.util.ArrayList;
+import java.util.HashMap;
 
 import data.DataServicio;
 import entities.Destino;
@@ -12,9 +13,18 @@ public class LogicServicio{
 
 	public DataServicio dataSer;
 
-	public void addPasajero(int idSer, String dni, String patente, int numButaca) throws AppDataException{
+	
+	public double[] getRecaudacionPorMes() throws AppDataException, SQLException {
 		dataSer = new DataServicio();
-		dataSer.addPasajero(idSer, dni, patente, numButaca);
+		return dataSer.getRecaudacionPorMes();
+	}
+	public String[][] getDestinosByMesAno(int mes, int ano) throws AppDataException, SQLException{
+		dataSer = new DataServicio();
+		return dataSer.getDestinosByMesAno(mes, ano);
+	}
+	public void addPasajero(int idSer, String dni, String patente, int numButaca, int origen, int destino, double precio) throws AppDataException{
+		dataSer = new DataServicio();
+		dataSer.addPasajero(idSer, dni, patente, numButaca, origen, destino, precio);
 	}
 	public Servicio getServicioParaVenta(int id) throws Exception {
 		dataSer = new DataServicio();

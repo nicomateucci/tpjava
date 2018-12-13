@@ -30,8 +30,8 @@
 					</div>
 					<div class="form-group col-lg-9">
 						<label for="horaServicio">Hora del servicio: </label> <input
-							type="text" name="horaServicio" class="form-control" 
-							placeholder="Ej: 13:30"/>
+							type="text" name="horaServicio" class="form-control"
+							placeholder="Ej: 13:30" />
 					</div>
 					<div class="form-group col-lg-9">
 						<label for="tipoServicio">Tipo de Servicio: </label> <select
@@ -120,29 +120,16 @@
 				<%
 					ArrayList<Micro> listaMic = (ArrayList<Micro>) request.getSession().getAttribute("listaMicros");
 							for (Micro m : listaMic) {
-								if (m.getClass() == MicroCama.class) {
 				%>
 				<tr>
 					<td><%=m.getPatente()%></td>
 					<td><%=m.getMarca()%></td>
 					<td><%=m.getFechaUltimoCtrl()%></td>
-					<td><%=((MicroCama) m).getAumento()%></td>
-					<td><%=m.getClass().toString().substring(15)%></td>
-
-				</tr>
-				<%
-					} else {
-				%>
-				<tr>
-					<td><%=m.getPatente()%></td>
-					<td><%=m.getMarca()%></td>
-					<td><%=m.getFechaUltimoCtrl()%></td>
-					<td><%=0.0%></td>
+					<td><%=m.getAumento()%></td>
 					<td><%=m.getClass().toString().substring(15)%></td>
 				</tr>
 				<%
 					}
-							}
 				%>
 			</table>
 		</div>
@@ -151,7 +138,7 @@
 
 
 <%
-	}
+		}
 		if (request.getSession().getAttribute("estadoServicio").equals("CARGACONDUCTOR")) {
 			System.out.println("La carga del servicio esta en estado CARGACONDUCTOR");
 %>
@@ -173,7 +160,6 @@
 					<td><%=m.getPatente()%></td>
 					<td><%=m.getMarca()%></td>
 					<td><%=m.getClass().toString().substring(15)%></td>
-
 				</tr>
 				<%
 					}
@@ -199,12 +185,12 @@
 					<div class="form-group col-lg-9">
 						<label for="dniRef">Ingrese dni del conductor del micro
 							refuerzo: </label> <input type="text" name="dniRef"
-							placeholder="Ej: 12345678" class="form-control" />
+							placeholder="Ej: 12345678" class="form-control" value="" />
 					</div>
 					<div class="form-group col-lg-9">
 						<label for="dniRef2">Ingrese dni del co-conductor del
 							micro refuerzo: </label> <input type="text" name="dniRef2"
-							placeholder="En caso de no tener dejar en blanco"
+							placeholder="En caso de no tener dejar en blanco" value=""
 							class="form-control" />
 					</div>
 					<div class="col-lg-9">
@@ -227,6 +213,7 @@
 				<tr>
 					<th>Nombre</th>
 					<th>Apellido</th>
+					<th>Dni</th>
 					<th>Fecha Nacimiento</th>
 					<th>Fecha Inicio</th>
 					<th>Contacto</th>
@@ -239,6 +226,7 @@
 				<tr>
 					<td><%=c.getNombre()%></td>
 					<td><%=c.getApellido()%></td>
+					<td><%=c.getDni()%></td>
 					<td><%=c.getFechaNacimiento()%></td>
 					<td><%=c.getFechaInicio()%></td>
 					<td><%=c.getContacto()%></td>

@@ -4,6 +4,7 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
+import java.util.HashMap;
 
 import entities.Butaca;
 import entities.Conductor;
@@ -18,21 +19,93 @@ import util.AppDataException;
 public class DataServicio {
 
 
-	public void addPasajero(int idSer, String dni, String patente, int numButaca) throws AppDataException {
+	public double[] getRecaudacionPorMes() throws AppDataException, SQLException {
+
+		double[] datos = new double[7];
+		PreparedStatement stmt=null;
+		ResultSet rs=null;
+		try {
+			stmt=FactoryConexion.getInstancia().getConn().prepareStatement("call getRecaudacionPorMes()");
+			// Devuelve "Total ingresos"
+			rs=stmt.executeQuery();
+			while(rs!=null && rs.next()) {
+				int mes = rs.getInt("Mes");
+				System.out.println("Mes " + mes + " ingreso" + rs.getDouble("ingresos"));
+				if(mes == 12) {
+					datos[0] = rs.getDouble("ingresos"); 
+				}else {
+					datos[mes] = rs.getDouble("ingresos");
+				}
+			}
+		} catch (SQLException e) {
+			throw new AppDataException(e, "Error al conectar a la base da datos");
+		} finally{	
+			try {
+				if(rs!=null)rs.close();
+				if(stmt!=null)stmt.close();
+				FactoryConexion.getInstancia().releaseConn();
+			} catch (SQLException e) {
+				throw e;
+			}
+		}
+		return datos;
+	}
+	public String[][] getDestinosByMesAno(int mes, int ano) throws AppDataException, SQLException{
+
+		String[][] datos = new String[5][2];
+		PreparedStatement stmt=null;
+		ResultSet rs=null;
+		try {
+			stmt=FactoryConexion.getInstancia().getConn().prepareStatement("call getDestinosByMesAno(?,?)");
+			// Devuelve columnas "localidad" y "totalPasajes"
+			System.out.println("El año es " + ano);
+			stmt.setInt(1, 12);
+			stmt.setInt(2, ano);
+			rs=stmt.executeQuery();
+			int rowcount = 0;
+			if (rs.last()) {
+				rowcount = rs.getRow();
+				rs.first(); // not rs.first() because the rs.next() below will move on, missing the first element
+			}
+			for(int i = 0; i < rowcount && i < 5; i++) {
+				datos[i][0] = rs.getString("localidad");
+				datos[i][1] = String.valueOf(rs.getInt("totalPasajes"));
+				rs.next();
+			}
+		} catch (SQLException e) {
+			throw new AppDataException(e, "Error al conectar a la base da datos");
+		} finally{	
+			try {
+				if(rs!=null)rs.close();
+				if(stmt!=null)stmt.close();
+				FactoryConexion.getInstancia().releaseConn();
+			} catch (SQLException e) {
+				throw e;
+			}
+		}
+		return datos;
+
+	}
+
+
+	public void addPasajero(int idSer, String dni, String patente, int numButaca, int origen, int destino, double precio) throws AppDataException {
 
 		PreparedStatement stmt=null;
 		try {
 			stmt=FactoryConexion.getInstancia().getConn()
 					.prepareStatement(
-							"insert into PersonaServicioMicro (idServicio, dniPersona, patenteMicro, numButaca) values (?,?,?,?)"
+							"insert into PersonaServicioMicro (idServicio, dniPersona, patenteMicro, numButaca, origen, destino, precio) values (?,?,?,?,?,?,?)"
 							);
 			stmt.setInt(1, idSer);
 			stmt.setString(2, dni);
 			stmt.setString(3, patente);
 			stmt.setInt(4, numButaca);
+			stmt.setInt(5,origen);
+			stmt.setInt(6, destino);
+			stmt.setDouble(7, precio);
 			stmt.executeUpdate();
 		} catch (SQLException e) {
-			throw new AppDataException(e, "Error ocurrido en el metodo addPasajero(int idSer, String dni, String patente, int numButaca) en la clase DataServicio al conectar a la base de datos");
+			throw new AppDataException(e, "Error ocurrido en el metodo addPasajero(int idSer, String dni, String patente, int numButaca, int origen, int destino, double precio) en la clase DataServicio al conectar a la base de datos");
 		}
 
 	}
@@ -317,7 +390,7 @@ public class DataServicio {
 
 		ArrayList<Servicio> uu= new ArrayList<Servicio>();
 		PreparedStatement stmt=null;
-		ResultSet rs=null;
+		ResultSet rs=null;	
 		try {
 
 			stmt=FactoryConexion.getInstancia().getConn().prepareStatement("select * from getDetallesServicios");
@@ -420,7 +493,6 @@ public class DataServicio {
 		return s;
 	}
 	public void insert(Servicio s) throws AppDataException{
-		ResultSet rs = null;
 		PreparedStatement stmt=null;
 		try {
 			/* Lo borre, porque cuendo tengo que agregar las Foreign Keys a las tabals ServicioDestino, ServicioMicro

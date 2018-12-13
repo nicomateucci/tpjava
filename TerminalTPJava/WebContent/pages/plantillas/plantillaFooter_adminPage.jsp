@@ -2,7 +2,7 @@
       <footer class="site-footer">
           <div class="text-center">
               Gracias por usar Pasajero23!
-              <a href="index.html#" class="go-top">
+              <a href="#" class="go-top">
                   <i class="fa fa-angle-up"></i>
               </a>
           </div>

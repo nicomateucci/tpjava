@@ -14,6 +14,7 @@ import business.LogicDestino;
 import business.LogicServicio;
 import entities.Destino;
 import entities.Servicio;
+import entities.Usuario;
 import util.AppDataException;
 
 /**
@@ -40,6 +41,7 @@ public class ServletBuscarServicios extends HttpServlet {
 		Destino d2 = null;
 		ArrayList<Servicio> ss = null;
 		LogicDestino logd = new LogicDestino();
+		Usuario  user = (Usuario) request.getSession().getAttribute("usuarioLogeado");
 
 		String des = request.getParameter("textOrigen");
 		try {
@@ -59,14 +61,19 @@ public class ServletBuscarServicios extends HttpServlet {
 						response.sendRedirect("pages/listarServiciosEcontrados.jsp");
 						
 					}else {
-						response.sendRedirect("./index.jsp");
+						if(user != null) {
+							response.sendRedirect("welcome.jsp");
+						} else {
+							response.sendRedirect("index.jsp");
+						}
 					}
-						
-
 				}else {
-					response.sendRedirect("./index.jsp");
+					if(user != null) {
+						response.sendRedirect("welcome.jsp");
+					} else {
+						response.sendRedirect("index.jsp");
+					}
 				}
-
 			}else {
 				/*Este Javascript anda bian, pero no es conveniente segun Meca.
 				 * PrintWriter out = response.getWriter();  

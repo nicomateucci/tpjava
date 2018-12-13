@@ -14,8 +14,8 @@ public class FactoryConexion {
 	/*
 	String host="node24713-env-4846480.jelastic.saveincloud.net";
 	private String user="root";
-	private String password="fmPwzOo1pE";*/
-	
+	private String password="fmPwzOo1pE";
+	*/
 	private String host="localhost";
 	private String user="usertpjava";
 	private String password="usertpjava";
