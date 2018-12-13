@@ -2,9 +2,10 @@ package entities;
 
 import java.io.Serializable;
 import java.util.ArrayList;
-import entities.Usuario;;
+import entities.Usuario;
+import java.util.Arrays;
 
-public class Micro implements Serializable{
+public class Micro implements Serializable,Comparable <Micro>{
 
 	private static final long serialVersionUID = 1L;
 
@@ -14,6 +15,7 @@ public class Micro implements Serializable{
 	private String marca;
 	private java.sql.Date fechaUltimoCtrl;
 	private int cantidadButacas;
+	private int cantidadServicios;
 
 	public double getAumento() {
 		return 0.0;
@@ -86,4 +88,23 @@ public class Micro implements Serializable{
 	public void setPatente(String patente) {
 		this.patente = patente;
 	}
+	public int getCantidadServicios() {
+		return cantidadServicios;
+	}
+	public void setCantidadServicios(int cantidadServicios) {
+		this.cantidadServicios = cantidadServicios;
+	}
+	
+	@Override
+    public int compareTo(Micro m) {
+        if (cantidadServicios < m.getCantidadButacas()) {
+            return -1;
+        }
+        if (cantidadServicios > m.getCantidadServicios()) {
+            return 1;
+        }
+        return 0;
+    }
+	
+	
 }

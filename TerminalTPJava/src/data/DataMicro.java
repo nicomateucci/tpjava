@@ -54,6 +54,7 @@ public class DataMicro {
 					m.setMarca(rs.getString("marca"));
 					m.setPatente(rs.getString("patente"));
 					m.setFechaUltimoCtrl(rs.getDate("fechaUltimoControl"));
+					getCantidadServicios(m);
 					mm.add(m);
 					
 				} else {
@@ -61,8 +62,11 @@ public class DataMicro {
 					m.setMarca(rs.getString("marca"));
 					m.setPatente(rs.getString("patente"));
 					m.setFechaUltimoCtrl(rs.getDate("fechaUltimoControl"));
+					getCantidadServicios(m);
 					mm.add(m);
-				}	
+				}
+				
+				
 			}
 			return mm;
 
@@ -283,5 +287,38 @@ public Micro getByPatente(Micro mic) throws AppDataException, SQLException{
 			}
 		}
 	}
+	
+	public void getCantidadServicios(Micro m) throws AppDataException, SQLException {
+		PreparedStatement st = null;
+		ResultSet rs  = null;
+		try {
+			st = FactoryConexion.getInstancia().getConn().prepareStatement("select count(patente) cantidad from ServicioMicro WHERE patente = ?;");
+			st.setString(1, m.getPatente());
+			rs=st.executeQuery();
+			if(rs!=null && rs.next()){
+				m.setCantidadServicios(rs.getInt("cantidad"));
+				
+			}
+			else {
+				m.setCantidadServicios(0);
+			}
+			
+			
+			
+		}catch (SQLException e) {
+			throw new AppDataException(e, "Error al consultar la cantidad de servicios por micro");
+		}finally{	
+		try {
+				if(rs!=null)rs.close();
+				if(st!=null)st.close();
+				FactoryConexion.getInstancia().releaseConn();
+			} catch (SQLException e) {
+				throw e;
+			}
+		}
+		
+	}
+	
+
 
 }

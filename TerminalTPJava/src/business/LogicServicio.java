@@ -30,7 +30,7 @@ public class LogicServicio{
 		dataSer = new DataServicio();
 		return dataSer.getServicioParaVenta(id);
 	}
-	public Servicio getById(int id) throws SQLException, AppDataException{
+	public Servicio getById(int id) throws SQLException, AppDataException,NoServiceException{
 		dataSer = new DataServicio();
 		return dataSer.getById(id);
 	}

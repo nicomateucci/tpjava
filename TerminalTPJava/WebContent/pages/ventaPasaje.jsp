@@ -46,7 +46,6 @@
 	background: url(../img/ocupada.jpg) center center no-repeat;
 	color: #ccc;
 }
-
 .free {
 	background: url(../img/butaca-libre.jpg) center center no-repeat;
 }
@@ -312,7 +311,6 @@
 	<!-- Script para seleccion de butaca -->
 	<script type="text/javascript">
 		function isChecked() {
-
 			var r = document.getElementsByTagName("input");
 			var num = document.getElementById("numButaca");
 			for (i = 0; i < r.length; i++) {
