@@ -11,14 +11,14 @@ public class FactoryConexion {
 	private String driver="com.mysql.cj.jdbc.Driver";
 	
 	// -------------- Conexion a servidor en JELASTIC
-	
+	/*
 	String host="node24713-env-4846480.jelastic.saveincloud.net";
 	private String user="root";
 	private String password="fmPwzOo1pE";
-	/*
+	*/
 	private String host="localhost";
 	private String user="usertpjava";
-	private String password="usertpjava";*/
+	private String password="usertpjava";
 	
 	private String db="terminalTPJava";
 	private String port="3306";
