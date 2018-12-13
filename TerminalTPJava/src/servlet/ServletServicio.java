@@ -357,7 +357,7 @@ public class ServletServicio extends HttpServlet {
 			} catch (SQLException e) {
 				e.printStackTrace();
 			}
-			JOptionPane.showMessageDialog(null, "Servicio agregado correctamente. Click para ver los servicios existente al dia de hoy.");
+			//JOptionPane.showMessageDialog(null, "Servicio agregado correctamente. Click para ver los servicios existente al dia de hoy.");
 			response.sendRedirect("ServletServicio?tipo=consulta");
 			break;
 		}

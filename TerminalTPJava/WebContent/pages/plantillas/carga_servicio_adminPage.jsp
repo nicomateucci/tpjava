@@ -75,6 +75,30 @@
 <section id="main-content">
 	<section class="wrapper">
 		<div class="container main-chart">
+		<h2>Lista de micros:</h2>
+			<table class="table table-striped table-bordered">
+				<tr>
+					<th>Patente</th>
+					<th>Marca</th>
+					<th>Fecha Ultimo Control</th>
+					<th>Porcentaje aumento</th>
+					<th>Tipo</th>
+				</tr>
+				<%
+					ArrayList<Micro> listaMic = (ArrayList<Micro>) request.getSession().getAttribute("listaMicros");
+							for (Micro m : listaMic) {
+				%>
+				<tr>
+					<td><%=m.getPatente()%></td>
+					<td><%=m.getMarca()%></td>
+					<td><%=m.getFechaUltimoCtrl()%></td>
+					<td><%=m.getAumento()%></td>
+					<td><%=m.getClass().toString().substring(15)%></td>
+				</tr>
+				<%
+					}
+				%>
+			</table>
 			<form method=post action="../ServletServicio">
 				<fieldset>
 					<br>
@@ -108,30 +132,7 @@
 				<div id="spoiler1" style="display: none">Usar Plataforma 23
 					para conocer un nuevo destino en Argentina.</div>
 			</form>
-			<h2>Lista de micros:</h2>
-			<table class="table table-striped table-bordered">
-				<tr>
-					<th>Patente</th>
-					<th>Marca</th>
-					<th>Fecha Ultimo Control</th>
-					<th>Porcentaje aumento</th>
-					<th>Tipo</th>
-				</tr>
-				<%
-					ArrayList<Micro> listaMic = (ArrayList<Micro>) request.getSession().getAttribute("listaMicros");
-							for (Micro m : listaMic) {
-				%>
-				<tr>
-					<td><%=m.getPatente()%></td>
-					<td><%=m.getMarca()%></td>
-					<td><%=m.getFechaUltimoCtrl()%></td>
-					<td><%=m.getAumento()%></td>
-					<td><%=m.getClass().toString().substring(15)%></td>
-				</tr>
-				<%
-					}
-				%>
-			</table>
+			
 		</div>
 	</section>
 </section>
