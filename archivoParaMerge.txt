@@ -1,3 +1,0 @@
-Desde rama - Linea 1 (Corregido)
-Linea modificada desde virtualbox ubunut 16 user.github baldokk
-Desde master - Linea 222222222222222222222 (Sin corregir)
