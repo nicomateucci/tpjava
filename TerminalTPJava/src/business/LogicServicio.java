@@ -55,7 +55,7 @@ public class LogicServicio{
 		dataSer = new DataServicio();
 		return dataSer.getTieneRefuerzo(ser);
 	}
-	public ArrayList<Servicio> getAllByDestinos(Destino origen, Destino destino) throws AppDataException, SQLException{
+	public ArrayList<Servicio> getAllByDestinos(Destino origen, Destino destino) throws AppDataException, SQLException, NoServiceException{
 		
 		dataSer = new DataServicio();
 		return dataSer.getAllByDestinos(origen, destino);

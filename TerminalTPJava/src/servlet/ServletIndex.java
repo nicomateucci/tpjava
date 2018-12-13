@@ -40,11 +40,13 @@ public class ServletIndex extends HttpServlet {
 		try {
 			dd = logicd.getAll();
 			request.getSession().setAttribute("listaDestinos", dd);
+			response.sendRedirect("index.jsp");
 		} catch (SQLException e) {
 			e.printStackTrace();
 		} catch (AppDataException e) {
 			e.printStackTrace();
 		}
+
 	}
 
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {

@@ -426,7 +426,7 @@ public class DataServicio {
 		}
 		return uu;
 	}
-	public ArrayList<Servicio> getAllByDestinos(Destino origen, Destino destino) throws AppDataException, SQLException {
+	public ArrayList<Servicio> getAllByDestinos(Destino origen, Destino destino) throws AppDataException, SQLException, NoServiceException {
 
 		ArrayList<Servicio> ss=null;
 		Servicio s = null;
@@ -439,6 +439,7 @@ public class DataServicio {
 			rs=stmt.executeQuery();
 			ss = new ArrayList<Servicio>();
 			int i = 0;
+			
 			while(rs!=null && rs.next()){
 				i++;
 				s = new Servicio();
@@ -447,6 +448,9 @@ public class DataServicio {
 				s.setFechaServicio(rs.getDate("fechaServicio"));
 				s.setHoraServicio(rs.getString("horaServicio"));
 				ss.add(s);
+			}
+			if(!rs.first()) {
+				throw new NoServiceException("No se ha encontrado servicios para el origen y destino ingresado");
 			}
 
 		} catch (SQLException e) {
@@ -461,7 +465,7 @@ public class DataServicio {
 			}
 		}
 		return ss;
-	}
+}
 	public Servicio getById(int idServicio) throws SQLException, AppDataException, NoServiceException{
 
 		Servicio s=null;

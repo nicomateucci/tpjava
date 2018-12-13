@@ -48,34 +48,33 @@ public class ServletBuscarServicios extends HttpServlet {
 		try {
 			origen = logd.getByNombre(orig);
 			destino = logd.getByNombre(dest);
-			System.out.println(origen.getLocalidad());
-			System.out.println(destino.getLocalidad());
+			//System.out.println(origen.getLocalidad());
+			//System.out.println(destino.getLocalidad());
 			LogicServicio logSer = new LogicServicio();
 			ss = logSer.getAllByDestinos(origen, destino);
-			
+
 			request.getSession().setAttribute("mensaje", null);
 			request.getSession().setAttribute("desOrigen",origen);
 			request.getSession().setAttribute("desLlegada",destino);
 			request.getSession().setAttribute("serviciosEcontrados", ss);
 			response.sendRedirect("pages/listarServiciosEcontrados.jsp");
-		
-			
-		} catch (AppDataException e) {
-			e.printStackTrace();
-		} catch (SQLException e) {
 
-			e.printStackTrace();
-		} catch (NoServiceException e) {
-			
-			request.getSession().setAttribute("mensaje", e.getMessage());
-			//System.out.println("No se encontro servicio");
-			response.sendRedirect("index.jsp#services");
-			
-			//e.printStackTrace();
 		} catch (NoDestinoException e) {
 			request.getSession().setAttribute("mensaje", e.getMessage());
 			//System.out.println("No se encontro origen")/destino;
 			response.sendRedirect("index.jsp#services");
+		} catch (NoServiceException e) {
+
+			request.getSession().setAttribute("mensaje", e.getMessage());
+			//System.out.println("No se encontro servicio");
+			response.sendRedirect("index.jsp#services");
+
+			//e.printStackTrace();
+		}catch (AppDataException e) {
+			e.printStackTrace();
+		} catch (SQLException e) {
+
+			e.printStackTrace();
 		}
 
 	}

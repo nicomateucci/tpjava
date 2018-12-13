@@ -71,11 +71,11 @@
 								placeholder="contraseña">
 						</div>
 						<%
-							String m = (String) request.getSession().getAttribute("mensaje");
-							if (m != null) {
+							String men = (String) request.getSession().getAttribute("mensajeLogin");
+							if (men != null) {
 						%>
 						<div style="color: red">
-							<i><%=m%></i>
+							<i><%=men%></i>
 						</div>
 
 						<%

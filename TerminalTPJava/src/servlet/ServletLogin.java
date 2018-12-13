@@ -48,7 +48,7 @@ public class ServletLogin extends HttpServlet {
 			if(user != null) {
 				if(user.esAdmin()) {
 					System.out.println("Ingreso correcto como administrador");
-					request.getSession().setAttribute("mensaje", null);
+					request.getSession().setAttribute("mensajeLogin", null);
 					LogicServicio logs = new LogicServicio();
 					try {
 						request.getSession().setAttribute("listaRecaudacionMes", logs.getRecaudacionPorMes());
@@ -62,7 +62,7 @@ public class ServletLogin extends HttpServlet {
 					System.out.println("Ingreso correcto");
 					ArrayList<Usuario> usuarios = logPer.getAllUsuarios();
 					request.getSession().setAttribute("listaUsuarios", usuarios);
-					request.getSession().setAttribute("mensaje", null);
+					request.getSession().setAttribute("mensajeLogin", null);
 
 					//Mostrar informe de destinos mas solicitados
 					LogicServicio logics = new LogicServicio();
@@ -85,7 +85,8 @@ public class ServletLogin extends HttpServlet {
 				request.getSession().setAttribute("usuarioLogeado", user);
 
 			}else {
-				request.getSession().setAttribute("mensaje", "Usuario incorrecto o inexistente");
+				request.getSession().setAttribute("mensajeLogin", "Usuario incorrecto o inexistente");
+				request.getSession().setAttribute("mensaje", null);
 				//request.setAttribute("mensaje", "Usuario incorrecto o inexistente");
 				System.out.println("No se encontro al usuario");
 				response.sendRedirect("./pages/loginUsuario.jsp");
